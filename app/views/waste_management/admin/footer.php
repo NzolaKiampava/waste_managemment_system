@@ -16,31 +16,31 @@
         <ul class="iew-download">
             <li>
                 <a href="http://www.google.com/chrome/">
-                    <img src="assets/admin/images/browser/chrome.png" alt="Chrome">
+                    <img src="<?ASSETS.THEME?>admin/images/browser/chrome.png" alt="Chrome">
                     <div>Chrome</div>
                 </a>
             </li>
             <li>
                 <a href="https://www.mozilla.org/en-US/firefox/new/">
-                    <img src="assets/admin/images/browser/firefox.png" alt="Firefox">
+                    <img src="<?ASSETS.THEME?>admin/images/browser/firefox.png" alt="Firefox">
                     <div>Firefox</div>
                 </a>
             </li>
             <li>
                 <a href="http://www.opera.com">
-                    <img src="assets/admin/images/browser/opera.png" alt="Opera">
+                    <img src="<?ASSETS.THEME?>admin/images/browser/opera.png" alt="Opera">
                     <div>Opera</div>
                 </a>
             </li>
             <li>
                 <a href="https://www.apple.com/safari/">
-                    <img src="assets/admin/images/browser/safari.png" alt="Safari">
+                    <img src="<?ASSETS.THEME?>admin/images/browser/safari.png" alt="Safari">
                     <div>Safari</div>
                 </a>
             </li>
             <li>
                 <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
-                    <img src="assets/admin/images/browser/ie.png" alt="">
+                    <img src="<?ASSETS.THEME?>admin/images/browser/ie.png" alt="">
                     <div>IE (9 & above)</div>
                 </a>
             </li>
@@ -51,26 +51,26 @@
 <![endif]-->
 <!-- Warning Section Ends -->
 <!-- Required Jquery -->
-<script type="text/javascript" src="assets/admin/js/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="assets/admin/js/jquery-ui/jquery-ui.min.js"></script>
-<script type="text/javascript" src="assets/admin/js/popper.js/popper.min.js"></script>
-<script type="text/javascript" src="assets/admin/js/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?ASSETS.THEME?>admin/js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="<?ASSETS.THEME?>admin/js/jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript" src="<?ASSETS.THEME?>admin/js/popper.js/popper.min.js"></script>
+<script type="text/javascript" src="<?ASSETS.THEME?>admin/js/bootstrap/js/bootstrap.min.js"></script>
 <!-- jquery slimscroll js -->
-<script type="text/javascript" src="assets/admin/js/jquery-slimscroll/jquery.slimscroll.js"></script>
+<script type="text/javascript" src="<?ASSETS.THEME?>admin/js/jquery-slimscroll/jquery.slimscroll.js"></script>
 <!-- modernizr js -->
-<script type="text/javascript" src="assets/admin/js/modernizr/modernizr.js"></script>
+<script type="text/javascript" src="<?ASSETS.THEME?>admin/js/modernizr/modernizr.js"></script>
 <!-- am chart -->
-<script src="assets/admin/pages/widget/amchart/amcharts.min.js"></script>
-<script src="assets/admin/pages/widget/amchart/serial.min.js"></script>
+<script src="<?ASSETS.THEME?>admin/pages/widget/amchart/amcharts.min.js"></script>
+<script src="<?ASSETS.THEME?>admin/pages/widget/amchart/serial.min.js"></script>
 <!-- Todo js -->
-<script type="text/javascript " src="assets/admin/pages/todo/todo.js "></script>
+<script type="text/javascript " src="<?ASSETS.THEME?>admin/pages/todo/todo.js "></script>
 <!-- Custom js -->
-<script type="text/javascript" src="assets/admin/pages/dashboard/custom-dashboard.js"></script>
-<script type="text/javascript" src="assets/admin/js/script.js"></script>
-<script type="text/javascript " src="assets/admin/js/SmoothScroll.js"></script>
-<script src="assets/admin/js/pcoded.min.js"></script>
-<script src="assets/admin/js/demo-12.js"></script>
-<script src="assets/admin/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script type="text/javascript" src="<?ASSETS.THEME?>admin/pages/dashboard/custom-dashboard.js"></script>
+<script type="text/javascript" src="<?ASSETS.THEME?>admin/js/script.js"></script>
+<script type="text/javascript " src="<?ASSETS.THEME?>admin/js/SmoothScroll.js"></script>
+<script src="<?ASSETS.THEME?>admin/js/pcoded.min.js"></script>
+<script src="<?ASSETS.THEME?>admin/js/demo-12.js"></script>
+<script src="<?ASSETS.THEME?>admin/js/jquery.mCustomScrollbar.concat.min.js"></script>
 <script>
 var $window = $(window);
 var nav = $('.fixed-button');
