@@ -7,7 +7,7 @@
                         <div class="pcoded-inner-navbar main-menu">
                             <div class="">
                                 <div class="main-menu-header">
-                                    <img class="img-40 img-radius" src="assets/admin/images/avatar-4.jpg" alt="User-Profile-Image">
+                                    <img class="img-40 img-radius" src="<?ASSETS.THEME?>admin/images/avatar-4.jpg" alt="User-Profile-Image">
                                     <div class="user-details">
                                         <span>John Doe</span>
                                         <span id="more-details">UX Designer<i class="ti-angle-down"></i></span>
@@ -525,8 +525,8 @@
                                                                     </span>
                                                                     <span><h6>Schedule Meeting with Compnes <span class="label bg-c-green m-l-10 f-10">2 week</span></h6></span>
                                                                     <div class="task-card-img m-l-40">
-                                                                        <a href="#!"><img src="assets/admin/images/avatar-2.jpg" data-toggle="tooltip" title="Lary Doe" alt="" class="img-40"></a>
-                                                                        <a href="#!"><img src="assets/admin/images/avatar-3.jpg" data-toggle="tooltip" title="Alia" alt="" class="img-40 m-l-10"></a>
+                                                                        <a href="#!"><img src="<?ASSETS.THEME?>admin/images/avatar-2.jpg" data-toggle="tooltip" title="Lary Doe" alt="" class="img-40"></a>
+                                                                        <a href="#!"><img src="<?ASSETS.THEME?>admin/images/avatar-3.jpg" data-toggle="tooltip" title="Alia" alt="" class="img-40 m-l-10"></a>
                                                                     </div>
                                                                 </label>
                                                             </div>
@@ -551,10 +551,10 @@
                                                                     </span>
                                                                     <span><h6>Create template, admin with responsive<span class="label bg-c-pink m-l-10">2 week</span></h6></span>
                                                                     <div class="task-card-img m-l-40">
-                                                                        <a href="#!"><img src="assets/admin/images/avatar-2.jpg" data-toggle="tooltip" title="Alia" alt="" class="img-40"></a>
-                                                                        <a href="#!"><img src="assets/admin/images/avatar-3.jpg" data-toggle="tooltip" title="Suzen" alt="" class="img-40 m-l-10"></a>
-                                                                        <a href="#!"><img src="assets/admin/images/avatar-4.jpg" data-toggle="tooltip" title="Lary Doe" alt="" class="img-40 m-l-10"></a>
-                                                                        <a href="#!"><img src="assets/admin/images/avatar-2.jpg" data-toggle="tooltip" title="Josephin Doe" alt="" class="img-40 m-l-10"></a>
+                                                                        <a href="#!"><img src="<?ASSETS.THEME?>admin/images/avatar-2.jpg" data-toggle="tooltip" title="Alia" alt="" class="img-40"></a>
+                                                                        <a href="#!"><img src="<?ASSETS.THEME?>admin/images/avatar-3.jpg" data-toggle="tooltip" title="Suzen" alt="" class="img-40 m-l-10"></a>
+                                                                        <a href="#!"><img src="<?ASSETS.THEME?>admin/images/avatar-4.jpg" data-toggle="tooltip" title="Lary Doe" alt="" class="img-40 m-l-10"></a>
+                                                                        <a href="#!"><img src="<?ASSETS.THEME?>admin/images/avatar-2.jpg" data-toggle="tooltip" title="Josephin Doe" alt="" class="img-40 m-l-10"></a>
                                                                     </div>
                                                                 </label>
                                                             </div>
@@ -569,9 +569,9 @@
                                                                     <span><h6>Meeting With HOD's and borad</h6>
                                                                         <p class="text-muted m-l-40">23 january 2003</p></span>
                                                                         <div class="task-card-img m-l-40">
-                                                                            <a href="#!"><img src="assets/admin/images/avatar-2.jpg" data-toggle="tooltip" title="Lary Doe" alt="" class="img-40"></a>
-                                                                            <a href="#!"><img src="assets/admin/images/avatar-3.jpg" data-toggle="tooltip" title="Alia" alt="" class="img-40 m-l-10"></a>
-                                                                            <a href="#!"><img src="assets/admin/images/avatar-2.jpg" data-toggle="tooltip" title="Josephin Doe" alt="" class="img-40 m-l-10"></a>
+                                                                            <a href="#!"><img src="<?ASSETS.THEME?>admin/images/avatar-2.jpg" data-toggle="tooltip" title="Lary Doe" alt="" class="img-40"></a>
+                                                                            <a href="#!"><img src="<?ASSETS.THEME?>admin/images/avatar-3.jpg" data-toggle="tooltip" title="Alia" alt="" class="img-40 m-l-10"></a>
+                                                                            <a href="#!"><img src="<?ASSETS.THEME?>admin/images/avatar-2.jpg" data-toggle="tooltip" title="Josephin Doe" alt="" class="img-40 m-l-10"></a>
                                                                         </div>
                                                                     </label>
                                                                 </div>
@@ -594,4 +594,4 @@
                     </div>
                 </div>
 <!-- footer-!>
-<?php $this->view("admin/header", $data); ?>                
+<?php $this->view("admin/header", $data); ?>                             
