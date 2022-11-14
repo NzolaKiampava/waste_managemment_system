@@ -4,7 +4,7 @@ session_start();
 
 //[REQUEST_SCHEME] => http
 //[SERVER_NAME] => localhost
-//[PHP_SELF] => /eshop/public/index.php
+//[PHP_SELF] => /waste_ms/public/index.php
 
 $path = $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['SERVER_NAME'] . $_SERVER['PHP_SELF'];
 $path = str_replace("index.php", "", $path);                                    //str_replace(search, replace, subject) replace a string index.php by nothing on the path
