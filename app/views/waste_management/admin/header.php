@@ -17,18 +17,18 @@
       <meta name="keywords" content=" Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
       <meta name="author" content="CodedThemes">
       <!-- Favicon icon -->
-      <link rel="icon" href="assets/admin/images/favicon.ico" type="image/x-icon">
+      <link rel="icon" href="<?=ASSETS.THEME?>admin/images/favicon.ico" type="image/x-icon">
       <!-- Google font-->
       <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
       <!-- Required Fremwork -->
-      <link rel="stylesheet" type="text/css" href="assets/admin/css/bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" type="text/css" href="<?=ASSETS.THEME?>admin/css/bootstrap/css/bootstrap.min.css">
       <!-- themify-icons line icon -->
-      <link rel="stylesheet" type="text/css" href="assets/admin/icon/themify-icons/themify-icons.css">
+      <link rel="stylesheet" type="text/css" href="<?=ASSETS.THEME?>admin/icon/themify-icons/themify-icons.css">
       <!-- ico font -->
-      <link rel="stylesheet" type="text/css" href="assets/admin/icon/icofont/css/icofont.css">
+      <link rel="stylesheet" type="text/css" href="<?=ASSETS.THEME?>admin/icon/icofont/css/icofont.css">
       <!-- Style.css -->
-      <link rel="stylesheet" type="text/css" href="assets/admin/css/style.css">
-      <link rel="stylesheet" type="text/css" href="assets/admin/css/jquery.mCustomScrollbar.css">
+      <link rel="stylesheet" type="text/css" href="<?=ASSETS.THEME?>admin/css/style.css">
+      <link rel="stylesheet" type="text/css" href="<?=ASSETS.THEME?>admin/css/jquery.mCustomScrollbar.css">
   </head>
 
   <body>
@@ -86,7 +86,7 @@
                             <i class="ti-search"></i>
                         </a>
                         <a href="index.html">
-                            <img class="img-fluid" src="assets/admin/images/logo.png" alt="Theme-Logo" />
+                            <img class="img-fluid" src="<?=ASSETS.THEME?>admin/images/logo.png" alt="Theme-Logo" />
                         </a>
                         <a class="mobile-options">
                             <i class="ti-more"></i>
@@ -118,7 +118,7 @@
                                     </li>
                                     <li>
                                         <div class="media">
-                                            <img class="d-flex align-self-center img-radius" src="assets/admin/images/avatar-4.jpg" alt="Generic placeholder image">
+                                            <img class="d-flex align-self-center img-radius" src="<?=ASSETS.THEME?>admin/images/avatar-4.jpg" alt="Generic placeholder image">
                                             <div class="media-body">
                                                 <h5 class="notification-user">John Doe</h5>
                                                 <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
@@ -128,7 +128,7 @@
                                     </li>
                                     <li>
                                         <div class="media">
-                                            <img class="d-flex align-self-center img-radius" src="assets/admin/images/avatar-3.jpg" alt="Generic placeholder image">
+                                            <img class="d-flex align-self-center img-radius" src="<?=ASSETS.THEME?>admin/images/avatar-3.jpg" alt="Generic placeholder image">
                                             <div class="media-body">
                                                 <h5 class="notification-user">Joseph William</h5>
                                                 <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
@@ -138,7 +138,7 @@
                                     </li>
                                     <li>
                                         <div class="media">
-                                            <img class="d-flex align-self-center img-radius" src="assets/admin/images/avatar-4.jpg" alt="Generic placeholder image">
+                                            <img class="d-flex align-self-center img-radius" src="<?=ASSETS.THEME?>admin/images/avatar-4.jpg" alt="Generic placeholder image">
                                             <div class="media-body">
                                                 <h5 class="notification-user">Sara Soudein</h5>
                                                 <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
@@ -150,7 +150,7 @@
                             </li>
                             <li class="user-profile header-notification">
                                 <a href="#!">
-                                    <img src="assets/admin/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
+                                    <img src="<?=ASSETS.THEME?>admin/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
                                     <span>John Doe</span>
                                     <i class="ti-angle-down"></i>
                                 </a>
