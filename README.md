@@ -1,1 +1,2 @@
 # Waste Management System with IOT
+PHP+MYSQL NODEMCU ESP + DISTANCE SENSOR
