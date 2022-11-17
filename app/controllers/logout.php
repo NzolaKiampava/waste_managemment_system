@@ -1,5 +1,5 @@
 <?php
-/*
+
 Class Logout extends Controller
 {
 
