@@ -40,7 +40,7 @@
           class="img-fluid" alt="Sample image">
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-        <form>
+        <form method="POST">
           <!--
           <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
             <p class="lead fw-normal mb-0 me-3">Sign in with</p>
@@ -64,38 +64,39 @@
 
           <div class="divider d-flex align-items-center my-4">
             <p class="lead fw-normal mb-0 me-3">Login</p>
+
+            <span style="font-size: 18px; color: red;"><?php check_error() ?></span>
           </div>
 
           <!-- Email input -->
           <div class="form-outline mb-4">
             <input type="email" id="form3Example3" class="form-control form-control-lg"
-              placeholder="Enter a valid email address" />
+              placeholder="Enter a valid email address" name="email" value="<?= isset($_POST['email']) ? $_POST['email'] : '';?>" />
             <label class="form-label" for="form3Example3">Email address</label>
           </div>
 
           <!-- Password input -->
           <div class="form-outline mb-3">
             <input type="password" id="form3Example4" class="form-control form-control-lg"
-              placeholder="Enter password" />
+              placeholder="Enter password" name="password" value="<?= isset($_POST['password']) ? $_POST['password'] : '';?>" />
             <label class="form-label" for="form3Example4">Password</label>
           </div>
 
           <div class="d-flex justify-content-between align-items-center">
             <!-- Checkbox -->
             <div class="form-check mb-0">
-              <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
+              <input onclick="show_password()" class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
               <label class="form-check-label" for="form2Example3">
-                Remember me
+                Show Password
               </label>
             </div>
             <a href="#!" class="text-body">Forgot password?</a>
           </div>
 
           <div class="text-center text-lg-start mt-4 pt-2">
-            <button type="button" class="btn btn-primary btn-lg"
+            <button type="submit" class="btn btn-primary btn-lg"
               style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
-            <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!"
-                class="link-danger">Register</a></p>
+            <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="<?=ROOT?>signup" class="link-danger">Register</a></p>
           </div>
 
         </form>
@@ -106,7 +107,7 @@
     class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
     <!-- Copyright -->
     <div class="text-white mb-3 mb-md-0">
-      Copyright © 2020. All rights reserved.
+      Copyright © 2022. All rights reserved.
     </div>
     <!-- Copyright -->
 
@@ -135,3 +136,17 @@
   type="text/javascript"
   src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.js"
 ></script>
+
+<script>
+  
+  function show_password()
+  {
+    mypass = document.getElementById('form3Example4');
+    if (mypass.type == "text") 
+      mypass.type = "password";
+    else
+      mypass.type = "text";
+    
+  }
+</script>
+
