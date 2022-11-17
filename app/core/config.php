@@ -7,10 +7,10 @@ define("WEBSITE_TITLE", "WasteManagement");
 
 if($_SERVER['SERVER_NAME'] == "localhost")
 {
-	define("DB_NAME", "");			//DATABASE NAME
-	define("DB_USER", "");			//DATABASE USER
+	define("DB_NAME", "waste");			//DATABASE NAME
+	define("DB_USER", "root");			//DATABASE USER
 	define("DB_PASS", "");                  //DATABASE PASSWORD
-	define("DB_TYPE", "");                  //DATABASE TYPE
+	define("DB_TYPE", "mysql");                  //DATABASE TYPE
 	define("DB_HOST", "localhost");         //DATABASE HOST
 } 
 
