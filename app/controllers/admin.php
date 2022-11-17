@@ -26,13 +26,6 @@ Class Admin extends Controller
 
 		$user_data = $User->check_login(true, ["admin"]);
 
-		//count_down
-			$DB = Database::newInstance();
-			$data['count_products'] = $DB->read("select * from products");
-			$data['count_category'] = $DB->read("select * from categories");
-			$data['count_brand'] = $DB->read("select * from brands");
-			$data['count_order'] = $DB->read("select * from orders");
-			$data['count_message'] = $DB->read("select * from contact_us order by id desc limit 10");
 
 
 		if(is_object($user_data)){
@@ -102,14 +95,6 @@ Class Admin extends Controller
 
 		$id = $data['user_data']->id;
 
-		//count_down
-			$DB = Database::newInstance();
-			$data['count_products'] = $DB->read("select * from products");
-			$data['count_category'] = $DB->read("select * from categories");
-			$data['count_brand'] = $DB->read("select * from brands");
-			$data['count_order'] = $DB->read("select * from orders");
-			$data['count_message'] = $DB->read("select * from contact_us order by id desc limit 10");
-
 
 		if(count($_POST) > 0)
 		{
@@ -128,56 +113,7 @@ Class Admin extends Controller
 	}
 
 
-	public function messages($type = '')
-	{
-		$type = "Messages";
-		$mode = "read";
-
-		$User = $this->load_model('User');
-		$Message = $this->load_model('Message');
-
-		$user_data = $User->check_login(true, ["admin"]);
-
-		//count_down
-			$DB = Database::newInstance();
-			$data['count_products'] = $DB->read("select * from products");
-			$data['count_category'] = $DB->read("select * from categories");
-			$data['count_brand'] = $DB->read("select * from brands");
-			$data['count_order'] = $DB->read("select * from orders");
-			$data['count_message'] = $DB->read("select * from contact_us order by id desc limit 10");
-
-
-		if(is_object($user_data)){
-			$data['user_data'] = $user_data;
-		}
-		
-		if(isset($_GET['delete']))
-		{
-			$mode = "delete";
-		} 
-
-		if(isset($_GET['delete_confirmed']))
-		{
-			$mode = "delete_confirmed";
-			$id = $_GET['delete_confirmed'];
-			$Message->delete($id);
-		}
-		
-
-		if ($mode == "delete") {
-			$id = $_GET['delete'];
-			$messages = $Message->get_one($id);
-		}else{
-			$messages = $Message->get_all();
-		}
-		
-		$data['mode'] = $mode;
-		$data['messages'] = $messages;
-		$data['page_title'] = "Admin - $type";
-		$data['current_page'] = "messages";
-		$this->view("admin/messages", $data);
-
-	}*/
+	
 
 	
 }
