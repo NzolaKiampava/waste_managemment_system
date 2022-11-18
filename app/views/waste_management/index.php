@@ -9,8 +9,8 @@
           <div class="row align-items-center">
             <div class="col-lg-6 col-md-5 order-md-1 pt-8"><img class="img-fluid" src="<?=ASSETS . THEME?>/assets/img/gallery/webimg.webp" width="400" alt="" /></div>
             <div class="col-md-7 col-lg-6 text-center text-md-start pt-5 pt-md-9">
-              <h1 class="display-2 fw-bold fs-4 fs-md-5 fs-xl-6">Building exactly the <br />eCommerce website you want.</h1>
-              <p class="mt-3 mb-4">WooCommerce is a customizable, open-source eCommerce platform built on WordPress.Get started quickly and make your way.</p><a class="btn btn-lg btn-info rounded-pill me-2" href="#" role="button">Start a New Store </a><span> or  </span><a class="btn btn-link ps-1 ps-md-4 ps-lg-1" href="#" role="button"> Customize &amp; Extend ›</a>
+              <h1 class="display-2 fw-bold fs-4 fs-md-5 fs-xl-6">Sistema de Geolocalização <br />e Monitoramento de Residuos Sólidos.</h1>
+              <p class="mt-3 mb-4">Tornar cidade mais limpa e inteligente por meio de Internet das Coisas e Inteligência Artificial.</p><a class="btn btn-lg btn-info rounded-pill me-2" href="#" role="button">Start a New Store </a><span> or  </span><a class="btn btn-link ps-1 ps-md-4 ps-lg-1" href="#" role="button"> Customize &amp; Extend ›</a>
             </div>
           </div>
         </div>
