@@ -186,6 +186,8 @@
                 title: "Good job!",
                 text: "You login with success!",
                 icon: "success",
+                showConfirmButton: false,
+                timer: 1500
               });
 
             </script>
