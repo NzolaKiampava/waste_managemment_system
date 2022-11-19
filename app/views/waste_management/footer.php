@@ -178,7 +178,18 @@
     <script src="<?=ASSETS . THEME?>/vendors/is/is.min.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
     <script src="<?=ASSETS . THEME?>/assets/js/theme.js"></script>
+    <script src="<?=ASSETS . THEME?>/assets/js/sweetalert.min.js"></script>
+    <?php if(isset($_SESSION['sucess'])):?>
+            <script>
+        
+              swal({
+                title: "Good job!",
+                text: "You login with success!",
+                icon: "success",
+              });
 
+            </script>
+    <?php unset($_SESSION['sucess']); endif;?>
   </body>
 
 </html>
