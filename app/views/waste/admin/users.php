@@ -36,6 +36,8 @@
                   <th>Nome</th>
                   <th>Estado</th>
                   <th>Data de Criação</th>
+                  <th>Login</th>
+                  <th>Logout</th>
                   <?php if($user_data->rank=="Administrador"):?>
                     <th>Ações</th>
                   <?php endif;?>
@@ -61,6 +63,9 @@
                         <td><?=$user->name?></td>
                         <td><span class="<?=($user->rank=="Administrador")?"label bg-green":"label bg-primary"?>"><?=$user->rank?></span></td>
                         <td><?=date('M d, Y', strtotime($user->date))?></td>
+                        <td><i class="<?=$user->online=='1'?'fa fa-circle text-success':''?>"></i> <?=($user->login_at==$user->logout_at)?"":date('d/m/y, H:i', strtotime($user->login_at))?></td>
+                        <td><?=($user->login_at==$user->logout_at)?"":date('d/m/y, H:i', strtotime($user->logout_at))?></td>
+                        <!--<td><?=($user->login_at==$user->logout_at || $user->login_at>$user->logout_at)?"":date('d/m/y, H:i', strtotime($user->logout_at))?></td>-->
                         <?php if($user_data->rank=="Administrador"):?>
                           <td>
                             <button class='btn btn-success btn-sm edit btn-flat' data-id="<?=$user->id?>"><i class='fa fa-edit'></i> Edit</button>
@@ -89,3 +94,46 @@
   <?php include 'includes/users_modal.php'; ?>
 
   <?php $this->view("admin/footer", $data);?>
+
+<script>
+  $(function(){
+
+    $(document).on('click', '.edit', function(e){
+      e.preventDefault();
+      $('#edit').modal('show');
+      var id = $(this).data('id');
+      getRow(id);
+    });
+
+    $(document).on('click', '.delete', function(e){
+      e.preventDefault();
+      $('#delete').modal('show');
+      var id = $(this).data('id');
+      getRow(id);
+    });
+
+    $(document).on('click', '.photo', function(e){
+      e.preventDefault();
+      var id = $(this).data('id');
+      getRow(id);
+    });
+
+  });
+
+  function getRow(id){
+    $.ajax({
+      type: 'POST',
+      url: '<?=ROOT?>admin/users_row',
+      data: {id:id},
+      dataType: 'json',
+      success: function(response){
+        //console.log(response);
+        $('.userid').val(response[0].id);
+        $('#edit_email').val(response[0].email);
+        $('#edit_name').val(response[0].name);
+        $('#rankselected').val(response[0].rank).html(response[0].rank);
+        $('.fullname').html(response[0].name);
+      }
+    });
+  }
+</script>
