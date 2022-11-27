@@ -60,9 +60,11 @@ Class User
 			//save
 			$data['rank'] = "Normal";
 			$data['date'] = date("Y-m-d H:i:s");
+			$data['login_at'] = date("Y-m-d H:i:s");
+			$data['logout_at'] = date("Y-m-d H:i:s");
 			$data['password'] = hash('sha1', $data['password']);
 
-			$query = "INSERT INTO users (url_address,name,email,password,date,rank) values (:url_address,:name,:email,:password,:date,:rank)";
+			$query = "INSERT INTO users (url_address,name,email,password,date,rank,login_at,logout_at) values (:url_address,:name,:email,:password,:date,:rank,:login_at,:logout_at)";
 
 			$result = $db->write($query,$data);
 
@@ -81,12 +83,12 @@ Class User
 		$data = array();
 		$db = Database::getInstance();
 
-		$data['email']     = trim($POST['email']);		
+		$data['name']     = trim($POST['name']);		
 		$data['password']  = trim($POST['password']);		
 
-		if(empty($data['email']) || !preg_match("/^[a-zA-Z0-9\\_\\-\\.]+@[a-zA-Z]+.[a-zA-Z]+$/", $data['email']))
+		if(empty($data['name']) || !preg_match("/^[a-zA-Z ]+$/", $data['name']))
 		{
-			$this->error .= "Porfavor entra com email valido <br>";
+			$this->error .= "Porfavor entra com nome valido <br>";
 		}
 
 
@@ -99,19 +101,22 @@ Class User
 			//comfirm
 
 			$data['password'] = hash('sha1', $data['password']);
-			$sql = "SELECT * FROM users WHERE email = :email and password = :password limit 1";
+			$sql = "SELECT * FROM users WHERE name = :name and password = :password limit 1";
 
 			$result = $db->read($sql,$data);
 
 			if(is_array($result))
 			{
+				$id = $result[0]->id;
+				$login_at = date("Y-m-d H:i:s");
+				$db->write("UPDATE users SET login_at = :login_at, online = '1' where id = :id",['login_at'=>$login_at, 'id'=>$id]);
 				$_SESSION['success'] =  "Bem Vindo(a) ".$result[0]->name."!";
 				$_SESSION['user_url'] = $result[0]->url_address;
 				header("Location: " . ROOT . "home");
 				die;
 			}
 
-			$this->error .= "Email ou Password errado <br>";
+			$this->error .= "Nome do Usuário ou Password errado <br>";
 		}
 
 		$_SESSION['error'] = $this->error;
@@ -257,6 +262,44 @@ Class User
 		$_SESSION['error'] = $this->error;
 	}
 
+	public function edit_user($POST)
+	{
+
+		$data = array();
+		$db = Database::getInstance();
+
+		$data['name']      = trim($POST['name']);		
+		$data['email']     = trim($POST['email']);		
+		$data['rank']      = trim($POST['rank']);	
+		$data['id']	       = trim($POST['id']);
+
+
+		if(empty($data['email']) || !preg_match("/^[a-zA-Z0-9\\_\\-\\.]+@[a-zA-Z]+.[a-zA-Z]+$/", $data['email']))
+		{
+			$this->error .= "Please enter a valid email <br>";
+		}
+
+		if(empty($data['name']) || !preg_match("/^[a-zA-Z ]+$/", $data['name']))
+		{
+			$this->error .= "Please enter a valid name <br>";
+		}
+
+		if($this->error == ""){
+			//save
+			$query = "UPDATE users SET name = :name ,email = :email, rank = :rank where id = :id";
+
+			$result = $db->write($query,$data);
+			if($result)
+			{
+				$_SESSION['success'] = "Salvo com Sucesso!";
+				header("Location: " . ROOT . "admin/users");
+				die;
+			}
+		}
+			
+		$_SESSION['error'] = $this->error;
+	}
+
 	public function get_user($url)
 	{
 		$db = Database::newInstance();
@@ -375,6 +418,10 @@ Class User
 	{
 		if(isset($_SESSION['user_url']))
 		{
+			$DB = Database::newInstance();
+			$url_address = $_SESSION['user_url'];
+			$logout_at = date("Y-m-d H:i:s");
+			$DB->write("UPDATE users SET logout_at = :logout_at, online = '0' where url_address = :url_address",['logout_at'=>$logout_at, 'url_address'=>$url_address]);
 			unset($_SESSION['user_url']);
 		}
 
@@ -382,12 +429,18 @@ Class User
 		die;
 	}
 
-	public function delete($id)
+	public function delete_user($POST)
 	{
 		$DB = Database::newInstance();
-		$id = (int)$id;
+		$id = trim($POST['id']);
 		$query = "delete from users where id = '$id' limit 1";
-		$DB->write($query);
+		$result = $DB->write($query);
+		if($result)
+		{
+			$_SESSION['success'] = "Usuário deletado com Sucesso!";
+			header("Location: " . ROOT . "admin/users");
+			die;
+		}
 	}
 
 	public function delete_array($ids)
