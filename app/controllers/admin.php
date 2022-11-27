@@ -66,13 +66,46 @@ Class Admin extends Controller
 		$DB = Database::newInstance();
 		$data['users'] = $DB->read("select * from users order by id desc");
 
+		// add user
 		if(isset($_POST['add']))
 		{
 			//show($_POST);
 			$User->add_user($_POST);
 		}
 
+		//edit user
+		if(isset($_POST['edit']))
+		{
+			//show($_POST);
+			$User->edit_user($_POST);
+		}
+
+		//delete user
+		if(isset($_POST['delete']))
+		{
+			$User->delete_user($_POST);
+		}
+
 		$data['page_title'] = "Usuarios";
 		$this->view("admin/users", $data);
+	}
+
+	public function users_row()
+	{
+		$User = $this->load_model('User');
+		$user_data = $User->check_login(true, ["Administrador"]);
+
+		if(is_object($user_data)){
+			$data['user_data'] = $user_data;
+		}
+		$DB = Database::newInstance();
+
+		if(isset($_POST['id'])){
+			$id = $_POST['id'];
+
+			$row = $DB->read("SELECT * FROM users WHERE id=:id",['id'=>$id]);
+
+			echo json_encode($row);
+		}
 	}
 }
