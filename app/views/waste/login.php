@@ -1,171 +1,165 @@
-<?php $this->view("header", $data);?>
+<!-- Font Awesome -->
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  rel="stylesheet"
+/>
+<!-- Google Fonts -->
+<link
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+  rel="stylesheet"
+/>
+<!-- MDB -->
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.css"
+  rel="stylesheet"
+/>
 
-      <section class="py-0 bg-light-gradient">
-        <div class="bg-holder" style="background-image:url(<?=ASSETS . THEME?>/assets/img/illustrations/hero-bg.png);background-position:top right;background-size:contain;">
-        </div>
-        <!--/.bg-holder-->
+<style>
+    .divider:after,
+    .divider:before {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #eee;
+    }
+    .h-custom {
+        height: calc(100% - 73px);
+    }
+    @media (max-width: 450px) {
+        .h-custom {
+            height: 100%;
+        }
+    }
+</style>
 
-        <div class="container">
-          <div class="row align-items-center">
-            <div class="col-lg-6 col-md-5 order-md-1 pt-8"><img class="img-fluid" src="<?=ASSETS . THEME?>/assets/img/gallery/webimg.webp" width="400" alt="" /></div>
-            <div class="col-md-7 col-lg-6 text-center text-md-start pt-5 pt-md-9">
-              <h1 class="display-2 fw-bold fs-4 fs-md-5 fs-xl-6">Construindo um <br />mundo saudável e verde.</h1>
-              <p class="mt-3 mb-4">Tornar cidade mais limpa e inteligente por meio de Internet das Coisas e Inteligência Artificial.</p><a class="btn btn-lg btn-info rounded-pill me-2" href="#" role="button">Start a New Store </a><span> or  </span><a class="btn btn-link ps-1 ps-md-4 ps-lg-1" href="#" role="button"> Customize &amp; Extend ›</a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-      <!-- ============================================-->
-      <!-- <section> begin ============================-->
-      <section class="py-6">
-
-        <div class="container">
-          <div class="row flex-center">
-            <div class="col-auto text-center my-4">
-              <h1 class="display-3 fw-bold">Monitoramento de Lixo<br /><span>com IOT</span></h1>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4 mb-5 mb-md-0"><img class="img-fluid shadow-sm" src="<?=ASSETS . THEME?>/assets/img/gallery/Smart-Waste-Recycling-System-1-1000x600.jpg" alt="" />
-              <div class="mt-3 text-center text-md-start">
-                <h4 class="display-6 fs-2 fs-lg-3 fw-bold">All You Need to Start</h4>
-                <p class="mb-0">Add WooCommerce plugin to any WordPress site and set up a new store in minutes.</p><a class="btn btn-link ps-0" href="#" role="button"> Ecommerce Wordpress ›</a>
-              </div>
-            </div>
-            <div class="col-md-4 mb-5 mb-md-0"><img class="img-fluid shadow-sm" src="<?=ASSETS . THEME?>/assets/img/gallery/garbage-sorting-waste-transportation-innovative-green-technology-eco-smart-system-for-recycling-clipart-vector_csp96689551.webp" width="310" alt="" />
-              <div class="mt-3 text-center text-md-start">
-                <h4 class="display-6 fs-2 fs-lg-3 fw-bold">Customize and Extend</h4>
-                <p class="mb-0">From subscriptions to gym classes to luxury cars, WooCommerce is fully customizable.</p><a class="btn btn-link ps-0" href="#" role="button"> Browse Extensions › </a>
-              </div>
-            </div>
-            <div class="col-md-4 mb-5 mb-md-0"><img class="img-fluid shadow-sm" src="<?=ASSETS . THEME?>/assets/img/gallery/garbage-truck-trash-recycling-factory-waste-sorting-transport-vehicle-innovative-technology-isometric-illustration-green-eco-234230240.jpg" alt="" />
-              <div class="mt-3 text-center text-md-start">
-                <h4 class="display-6 fs-2 fs-lg-3 fw-bold">Active Community</h4>
-                <p class="mb-0">WooCommerce is one of the fastest-growing eCommerce communities. </p><a class="btn btn-link ps-0" href="#" role="button"> Check our Forums ›</a>
-              </div>
-            </div>
-          </div>
-        </div><!-- end of .container-->
-
-      </section>
-      <!-- <section> close ============================-->
-      <!-- ============================================-->
-
-
-      <div class="shapeup">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 319">
-          <path fill="#7854F7" fill-opacity="1" d="M0,64L120,69.3C240,75,480,85,720,85.3C960,85,1200,75,1320,69.3L1440,64L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path>
-        </svg>
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img src="<?=ASSETS . THEME?>/assets/img/gallery/garbage-truck-trash-recycling-factory-waste-sorting-transport-vehicle-innovative-technology-isometric-illustration-green-eco-234230240.jpg"
+          class="img-fluid" alt="Sample image">
       </div>
-      <section class="pt-4 pt-md-5 bg-info">
-        <div class="bg-holder" style="background-image:url(<?=ASSETS . THEME?>/assets/img/illustrations/about-bg.png);background-position:center center;background-size:contain;">
-        </div>
-        <!--/.bg-holder-->
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <form method="POST">
+          <!--
+          <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+            <p class="lead fw-normal mb-0 me-3">Sign in with</p>
+            <button type="button" class="btn btn-primary btn-floating mx-1">
+              <i class="fab fa-facebook-f"></i>
+            </button>
 
-        <div class="container">
-          <div class="row mb-5 text-center">
-            <div class="col-12 col-md-4 mb-4"><img class="img-fluid rounded-3 shadow-lg image-up" src="<?=ASSETS . THEME?>/assets/img/gallery/about-2.png" alt="" /></div>
-            <div class="col-12 col-md-8 text-md-start" style="max-width: 460px;">
-              <h3 class="fw-medium text-light"> Develop <br />Without Limits</h3>
-              <p class="text-light">WooCommerce is developer friendly, too. Built with a REST API, WooCommerce is scalable and can integrate with virtually any service. Design a complex store from scratch, extend a store for a client, or simply add a single product to a WordPress site—your store, your way.</p><a class="btn btn-lg btn-success rounded-pill" href="#">Read the Documentation</a>
-            </div>
+            <button type="button" class="btn btn-primary btn-floating mx-1">
+              <i class="fab fa-twitter"></i>
+            </button>
+
+            <button type="button" class="btn btn-primary btn-floating mx-1">
+              <i class="fab fa-linkedin-in"></i>
+            </button>
           </div>
-          <div class="row flex-center">
-            <div class="col-12 col-md-4 order-0 order-md-1"><img class="img-fluid rounded-3 shadow-lg image-down" src="<?=ASSETS . THEME?>/assets/img/gallery/about-1.png" alt="" /></div>
-            <div class="col-12 col-md-8 text-center text-md-start order-1 order-md-0" style="max-width: 460px;">
-              <h3 class="fw-medium text-light">Know our<br />Global Community</h3>
-              <p class="text-light">WooCommerce is one of the fastest-growing eCommerce communities. We’re proud that the helpfulness of the community and a wealth of online resources are frequently cited as reasons our users love it. There are 80+ meetups worldwide!</p><a class="btn btn-lg btn-success rounded-pill" href="#">Read the Documentation</a>
-            </div>
+          
+          <div class="divider d-flex align-items-center my-4">
+            <p class="text-center fw-bold mx-3 mb-0">Or</p>
           </div>
-        </div>
-      </section>
-      <div class="shapedown">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 319">
-          <path fill="#7854F7" fill-opacity="1" d="M0,256L120,250.7C240,245,480,235,720,234.7C960,235,1200,245,1320,250.7L1440,256L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z"></path>
-        </svg>
+        -->
+          <div class="divider d-flex align-items-center my-4">
+            <p class="lead fw-normal mb-0 me-3"><img src="<?=ASSETS.THEME?>assets/logo/logo.png" width="70">ITEL PAP 2022</p>
+          </div>
+          <div class="divider d-flex align-items-center my-4">
+            <p class="lead fw-normal mb-0 me-3">Login</p>
+          </div>
+          <span style="font-size: 18px; color: red;"><?php check_error() ?></span><br>
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <input type="text" id="form3Example3" class="form-control form-control-lg"
+              placeholder="Entrar com um nome valido" name="name" value="<?= isset($_POST['name']) ? $_POST['name'] : '';?>" />
+            <label class="form-label" for="form3Example3">Nome do Usuário</label>
+          </div>
+
+          <!-- Password input -->
+          <div class="form-outline mb-3">
+            <input type="password" id="form3Example4" class="form-control form-control-lg"
+              placeholder="Password" name="password" value="<?= isset($_POST['password']) ? $_POST['password'] : '';?>" />
+            <label class="form-label" for="form3Example4">Password</label>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <!-- Checkbox -->
+            <div class="form-check mb-0">
+              <input onclick="show_password()" class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
+              <label class="form-check-label" for="form2Example3">
+                Ver Password
+              </label>
+            </div>
+            <a href="<?=ROOT?>recover_password" class="text-body">Esqueceu-se da Password?</a>
+          </div>
+
+          <div class="text-center text-lg-start mt-4 pt-2">
+            <button type="submit" class="btn btn-primary btn-lg"
+              style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
+            <p class="small fw-bold mt-2 pt-1 mb-0">Não tem uma conta? <a href="<?=ROOT?>signup" class="link-danger">Registrar</a></p>
+          </div>
+
+        </form>
       </div>
-      <section class="py-7 bg-light-gradient">
-        <div class="bg-holder" style="background-image:url(<?=ASSETS . THEME?>/assets/img/gallery/testimonial-bg.png);background-position:center center;background-size:contain;">
-        </div>
-        <!--/.bg-holder-->
+    </div>
+  </div>
 
-        <div class="container">
-          <div class="row flex-center mb-5">
-            <div class="col-auto text-center">
-              <h1 class="display-3 fw-bold fs-4 fs-md-6">Trusted by Agencies<br /><span>&amp; Store Owners</span></h1>
-            </div>
-          </div>
-          <div class="row flex-center">
-            <div class="col-12 col-md-9 col-lg-8 col-xl-7 col-xxl-6">
-              <div class="carousel slide carousel-fade" id="carouselExampleControls" data-bs-ride="carousel">
-                <div class="carousel-inner overflow-visible">
-                  <div class="card py-sm-6 px-sm-5 testimonial-card-shadow shadow-sm" style="transform: translateY(52px) scale(.9)"></div>
-                  <div class="card py-sm-6 px-sm-5 testimonial-card-shadow shadow-sm" style="transform: translateY(32px) scale(.934)"></div>
-                  <div class="card py-sm-6 px-sm-5 testimonial-card-shadow shadow-sm"></div>
-                  <div class="carousel-item z-index-1 active">
-                    <div class="card py-4 px-3 py-sm-6 px-sm-5 px-xl-7">
-                      <div class="bg-holder mt-4" style="background-image:url(<?=ASSETS . THEME?>/assets/img/gallery/q.png);background-position:center top;background-size:150px;">
-                      </div>
-                      <!--/.bg-holder-->
+  <div
+    class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
+    <!-- Copyright -->
+    <div class="text-white mb-3 mb-md-0">
+      Copyright © 2022. Made by Nzola &amp; Délcio.
+    </div>
+    <!-- Copyright -->
 
-                      <div class="card-body z-index-1">
-                        <p class="card-text fs-2 text-center">No other eCommerce platform allows people to start for free and grow their store as their business grows. More importantly, WooCommerce doesn't charge you a portion of your profits as your business grows!</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="carousel-item z-index-1">
-                    <div class="card py-4 px-3 py-sm-6 px-sm-5 px-xl-7">
-                      <div class="bg-holder mt-4" style="background-image:url(<?=ASSETS . THEME?>/assets/img/gallery/q.png);background-position:center top;background-size:150px;height:168px;">
-                      </div>
-                      <!--/.bg-holder-->
+    <!-- Right -->
+    <div>
+      <a href="#!" class="text-white me-4">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="#!" class="text-white me-4">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="#!" class="text-white me-4">
+        <i class="fab fa-google"></i>
+      </a>
+      <a href="#!" class="text-white">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+    </div>
+    <!-- Right -->
+  </div>
+</section>
 
-                      <div class="card-body z-index-1">
-                        <p class="card-text fs-2 text-center">WooCommerce doesn't charge you a portion of your profits as your business grows! No other eCommerce platform allows people to start for free and grow their store as their business grows. More importantly</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="carousel-item z-index-1">
-                    <div class="card py-4 px-3 py-sm-6 px-sm-5 px-xl-7">
-                      <div class="bg-holder mt-4" style="background-image:url(<?=ASSETS . THEME?>/assets/img/gallery/q.png);background-position:center top;background-size:150px;height:168px;">
-                      </div>
-                      <!--/.bg-holder-->
 
-                      <div class="card-body z-index-1">
-                        <p class="card-text fs-2 text-center">More importantly, WooCommerce doesn't charge you a portion of your profits as your business grows! No other eCommerce platform allows people to start for free and grow their store as their business grows</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row mt-7 pe-6">
-                  <div class="col-12 position-relative text-end"><a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span></a><a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next</span></a></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="bg-100 pb-0">
-        <div class="container">
-          <div class="row flex-center">
-            <div class="col-xl-5 text-center mb-5 z-index-1">
-              <h1 class="display-3 fw-bold fs-4 fs-md-6">Supported by real people</h1>
-              <p>Our team of Happiness Engineers works remotely from 58 countries providing customer support across multiple time zones.</p>
-            </div>
-          </div>
-        </div>
-        <div class="position-relative text-center">
-          <div class="bg-holder" style="background-image:url(undefined);background:url(<?=ASSETS . THEME?>/assets/img/gallery/people-bg-shape.png) no-repeat center bottom, url(<?=ASSETS . THEME?>/assets/img/gallery/people-bg-dot.png) no-repeat center bottom;">
-          </div>
-          <!--/.bg-holder-->
-          <img class="img-fluid position-relative z-index-1" src="<?=ASSETS . THEME?>/assets/img/gallery/people.png" alt="" />
-        </div>
-      </section>
-      <section class="py-0">
-        <div class="bg-holder z-index-2" style="background-image:url(<?=ASSETS . THEME?>/assets/img/illustrations/cta-bg.png);background-position:bottom right;background-size:61px 60px;margin-top:15px;margin-right:15px;margin-left:-58px;">
-        </div>
-        <!--/.bg-holder-->
+<!-- MDB -->
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.js"
+></script>
 
-<?php $this->view("footer", $data);?>
-        
+<script>
+  
+  function show_password()
+  {
+    mypass = document.getElementById('form3Example4');
+    if (mypass.type == "text") 
+      mypass.type = "password";
+    else
+      mypass.type = "text";
+    
+  }
+</script>
+<script src="<?=ASSETS.THEME?>admin/dist/js/sweetalert2.all.min.js"></script>
+<?php if(isset($_SESSION['sucess_recover_password'])):?>
+    <script>
+      Swal.fire({
+        icon: 'success',
+        title: '<?=$_SESSION['sucess_recover_password']?>',
+        showConfirmButton: true,
+        timer: 5000
+      })
+    </script>
+  <?php endif; unset($_SESSION['sucess_recover_password'])?>
+
+
