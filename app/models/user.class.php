@@ -1,7 +1,14 @@
 <?php 
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+require 'PHPMailer-master/src/Exception.php';
+require 'PHPMailer-master/src/PHPMailer.php';
+require 'PHPMailer-master/src/SMTP.php';
+
 Class User 
 {
+
 	private $error = "";
 
 	public function signup($POST)
@@ -120,6 +127,75 @@ Class User
 		}
 
 		$_SESSION['error'] = $this->error;
+	}
+
+	public function recover_password($POST)
+	{
+		$DB = Database::newInstance();
+		$email = trim($POST['email']);
+		$query = $DB->read("SELECT * FROM users WHERE email = :email limit 1", ['email'=>$email]);
+
+		if($query)
+		{
+		    $recover_password = $this->get_random_string_max(20);
+		    $rec_password = $recover_password;
+		    $password = hash('sha1', $recover_password);
+
+		    $recipient = $query[0]->email;
+		    $subject = "Recover Your Password🔐";
+		    $message = "Olá ".$query[0]->name."😁, esta é a sua nova palavra-passe: ".$rec_password.". Já podes fazer Login!";
+
+		    $send_mail = $this->send_mail($recipient,$subject,$message);
+		    if($send_mail)
+		    {
+		    	$result = $DB->write("UPDATE users SET password = :password where email = :email",['password'=>$password, 'email'=>$email]);
+				if($result)
+				{
+					$_SESSION['sucess_recover_password'] = "Porfavor verifica o seu Email";
+					header("Location: " . ROOT . "login");
+					die;
+				}
+		    }
+			
+		}
+
+	}
+
+	function send_mail($recipient,$subject,$message)
+	{
+	  
+	  $mail = new PHPMailer();
+	  $mail->CharSet = 'utf-8';
+	  $mail->IsSMTP();
+
+	  $mail->SMTPDebug  = 0;  
+	  $mail->SMTPAuth   = TRUE;
+	  $mail->SMTPSecure = "tls";
+	  $mail->Port       = 587;
+	  $mail->Host       = "smtp.gmail.com";
+	  //$mail->Host       = "smtp.mail.yahoo.com";
+	  $mail->Username   = "nzolakiampava@gmail.com";
+	  $mail->Password   = "kxzlxsyuayfdlrcj";
+
+	  $mail->IsHTML(true);
+	  $mail->AddAddress($recipient, "recipient-name");
+	  $mail->SetFrom("nzolakiampava@gmail.com", "KiampavaTheCoder");
+	  // $mail->SetFrom("nzolakiampava@gmail.com", "your-sender-name");
+	  //$mail->AddReplyTo("reply-to-email", "reply-to-name");
+	  //$mail->AddCC("cc-recipient-email", "cc-recipient-name");
+	  $mail->Subject = $subject;
+	  $content = $message;
+
+	  $mail->MsgHTML($content); 
+	  if(!$mail->Send()) {
+	    echo "Error while sending Email.";
+	    //var_dump($mail);
+	    return false;
+	  } else {
+	    echo "Email sent successfully";
+	    return true;
+	  }
+
 	}
 
 	public function add_user($POST)
@@ -298,6 +374,36 @@ Class User
 		}
 			
 		$_SESSION['error'] = $this->error;
+	}
+
+	public function upload_photo($POST)
+	{
+		$data = array();
+		$db = Database::getInstance();
+
+		$id = trim($POST['id']);
+		$filename = $_FILES['photo']['name'];
+		$destination = "";
+		$folder = "uploads/";
+
+		if (!file_exists($folder)) //if file $folder not exist
+		{
+			mkdir($folder, 0777, true);  //crete a directory to this $folder
+		}
+
+		$destination = $folder . "wastems-".rand(1,999)."-".$_FILES['photo']['name'];
+
+		if(!empty($filename)){
+			move_uploaded_file($_FILES['photo']['tmp_name'], $destination);	
+		}
+
+		$result = $db->write("UPDATE users set image=:image where id=:id",['image'=>$destination, 'id'=>$id]);
+		if($result)
+		{
+			$_SESSION['success'] = "Imagem foi salvo com sucesso!";
+			header("Location: " . ROOT . "admin/users");
+			die;
+		}
 	}
 
 	public function get_user($url)
