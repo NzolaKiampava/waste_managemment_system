@@ -86,6 +86,12 @@ Class Admin extends Controller
 			$User->delete_user($_POST);
 		}
 
+		//upload_photo
+		if(isset($_POST['upload_photo']))
+		{
+			$User->upload_photo($_POST);
+		}
+
 		$data['page_title'] = "Usuarios";
 		$this->view("admin/users", $data);
 	}
