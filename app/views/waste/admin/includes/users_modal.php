@@ -85,7 +85,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Fechar</button>
+              <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Cancelar</button>
               <button type="submit" class="btn btn-danger btn-flat" name="delete"><i class="fa fa-trash"></i> Deletar</button>
               </form>
             </div>
@@ -103,10 +103,10 @@
               <h4 class="modal-title"><b><span class="fullname"></span></b></h4>
             </div>
             <div class="modal-body">
-              <form class="form-horizontal" method="POST" action="users_photo.php" enctype="multipart/form-data">
+              <form class="form-horizontal" method="POST" enctype="multipart/form-data">
                 <input type="hidden" class="userid" name="id">
                 <div class="form-group">
-                    <label for="photo" class="col-sm-3 control-label">Photo</label>
+                    <label for="photo" class="col-sm-3 control-label">FOTO</label>
 
                     <div class="col-sm-9">
                       <input type="file" id="photo" name="photo" required>
@@ -114,8 +114,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
-              <button type="submit" class="btn btn-success btn-flat" name="upload"><i class="fa fa-check-square-o"></i> Update</button>
+              <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Cancelar</button>
+              <button type="submit" class="btn btn-success btn-flat" name="upload_photo"><i class="fa fa-check-square-o"></i> Atualizar</button>
               </form>
             </div>
         </div>
