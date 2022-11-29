@@ -12,6 +12,7 @@ Class Admin extends Controller
 		}
 		$DB = Database::newInstance();
 		$data['users'] = $DB->read("select * from users");
+		$data['groups'] = $DB->read("SELECT * FROM groups");
 		$data['limit_users'] = $DB->read("select * from users limit 8");
 		
 		$data['page_title'] = "Admin";
@@ -53,6 +54,41 @@ Class Admin extends Controller
 
 		$data['page_title'] = "Profile";
 		$this->view("admin/profile", $data);
+	}
+
+	public function groups()
+	{
+		$User = $this->load_model('User');
+		$user_data = $User->check_login(true, ["Administrador"]);
+
+		$Group = $this->load_model('Group');
+		if(is_object($user_data)){
+			$data['user_data'] = $user_data;
+		}
+
+		//add group
+		if(isset($_POST['add_group']))
+		{
+			$Group->add_group($_POST);
+		}
+
+		//edit group
+		if(isset($_POST['edit_group']))
+		{
+			
+		}
+
+		//delete group
+		if(isset($_POST['delete_group'])))
+		{
+
+		}
+
+		$DB = Database::newInstance();
+		$data['users'] = $DB->read("select * from users order by id desc");
+		$data['groups'] = $DB->read("select * from groups order by id desc");
+		$data['page_title'] = "Groups";
+		$this->view("admin/groups", $data);
 	}
 
 	public function users()
