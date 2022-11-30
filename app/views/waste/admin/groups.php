@@ -46,7 +46,7 @@
                     <th>Logo</th>
                     <th>ID</th>
                     <th>Nome do Grupo</th>
-                    <ht>Criado Por</th>
+                    <th>Criado Por</th>
                     <th>Data de Criação</th>
                     <th>Ações</th>
                     </tr>
@@ -58,14 +58,13 @@
                                     $DB = Database::newInstance();  
                                     $id = $group->created_by;
                                     $search = $DB->read("select * from users where id = '$id'");
-                                    $search = $search->name;
                                 ?>
                             <tr>
                                 <td><img src="<?=ASSETS . THEME?>/assets/logo/logo.jpg" class="img-circle" height='30px' width='30px'></td>
                                 <td><?=$group->id?></td>
-                                <td><?=$group->group?></td>
-                                <td><?=$search?></td>
-                                <td><?=$group->creted_at?></td>
+                                <td><?=$group->group_name?></td>
+                                <td><?=$search[0]->name?></td>
+                                <td><?=date('M d, Y', strtotime($group->created_at))?></td>
                                 <td>
                                     <button class='btn btn-success btn-sm edit btn-flat' data-id="<?=$group->id?>"><i class='fa fa-edit'></i> Edit</button>
                                     <button class='btn btn-danger btn-sm delete btn-flat' data-id="<?=$group->id?>"><i class='fa fa-trash'></i> Delete</button>
@@ -114,14 +113,14 @@
   function getRow(id){
     $.ajax({
       type: 'POST',
-      url: '<?=ROOT?>admin/users_row',
+      url: '<?=ROOT?>admin/groups_row',
       data: {id:id},
       dataType: 'json',
       success: function(response){
         //console.log(response);
         $('.userid').val(response[0].id);
-        $('#edit_group').val(response[0].name);
-        $('.groupname').html(response[0].name);
+        $('#edit_group').val(response[0].group_name);
+        $('.groupname').html(response[0].group_name);
       }
     });
   }
