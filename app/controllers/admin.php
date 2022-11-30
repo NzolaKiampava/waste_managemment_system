@@ -75,18 +75,18 @@ Class Admin extends Controller
 		//edit group
 		if(isset($_POST['edit_group']))
 		{
-			
+			$Group->edit_group($_POST);
 		}
 
 		//delete group
-		if(isset($_POST['delete_group'])))
+		if(isset($_POST['delete_group']))
 		{
-
+			$Group->delete_group($_POST);
 		}
 
 		$DB = Database::newInstance();
 		$data['users'] = $DB->read("select * from users order by id desc");
-		$data['groups'] = $DB->read("select * from groups order by id desc");
+		$data['groups'] = $DB->read("select * from colector_group order by id desc");
 		$data['page_title'] = "Groups";
 		$this->view("admin/groups", $data);
 	}
@@ -146,6 +146,25 @@ Class Admin extends Controller
 			$id = $_POST['id'];
 
 			$row = $DB->read("SELECT * FROM users WHERE id=:id",['id'=>$id]);
+
+			echo json_encode($row);
+		}
+	}
+
+	public function groups_row()
+	{
+		$User = $this->load_model('User');
+		$user_data = $User->check_login(true, ["Administrador"]);
+
+		if(is_object($user_data)){
+			$data['user_data'] = $user_data;
+		}
+		$DB = Database::newInstance();
+
+		if(isset($_POST['id'])){
+			$id = $_POST['id'];
+
+			$row = $DB->read("SELECT * FROM colector_group WHERE id=:id",['id'=>$id]);
 
 			echo json_encode($row);
 		}
