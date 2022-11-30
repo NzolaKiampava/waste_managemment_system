@@ -67,7 +67,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Cancelar</button>
-              <button type="submit" class="btn btn-danger btn-flat" name="delete"><i class="fa fa-trash"></i> Deletar</button>
+              <button type="submit" class="btn btn-danger btn-flat" name="delete_group"><i class="fa fa-trash"></i> Deletar</button>
               </form>
             </div>
         </div>
