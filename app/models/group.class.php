@@ -32,10 +32,9 @@ Class Group
 			$data['created_by'] = $create_check[0]->id;
 			
 			//save
-		
-			//$data['created_at'] = date("Y-m-d H:i:s");
+			$data['created_at'] = date("Y-m-d H:i:s");
 			//show($data);
-			$query = "INSERT INTO groups (group,created_by) values (:group,:created_by)";
+			$query = "INSERT INTO colector_group (group_name,created_by,created_at) values (:group,:created_by,:created_at)";
 			$result = $db->write($query,$data);
 
 			show($result);
@@ -60,14 +59,20 @@ Class Group
 		$data['id']	    = trim($POST['id']);
 
 
-		if(empty($data['group']) || !preg_match("/^[a-zA-Z ]+$/", $data['group']))
+		//Verify if the group exist
+		$arr['group'] = $data['group'];
+		$search = "SELECT * FROM colector_group where group_name = :group";
+		$verify = $db->read($search,$arr);
+		if($verify)
 		{
-			$this->error .= "Please enter a valid group <br>";
-		}
+			show($verify);
+			$_SESSION['error'] = "Nome do grupo já existe";
+			return false;
+			die;
+		}else{
 
-		if($this->error == ""){
 			//save
-			$query = "UPDATE groups SET group = :group where id = :id";
+			$query = "UPDATE colector_group SET group_name = :group where id = :id";
 
 			$result = $db->write($query,$data);
 			if($result)
@@ -77,20 +82,20 @@ Class Group
 				die;
 			}
 		}
-			
-		$_SESSION['error'] = $this->error;
+	
 	}
 
 	public function delete_group($POST)
 	{
+		show($POST);
 		$DB = Database::newInstance();
 		$id = trim($POST['id']);
-		$query = "delete from groups where id = '$id' limit 1";
+		$query = "delete from colector_group where id = '$id' limit 1";
 		$result = $DB->write($query);
 		if($result)
 		{
 			$_SESSION['success'] = "Grupo deletado com Sucesso!";
-			header("Location: " . ROOT . "admin/group");
+			header("Location: " . ROOT . "admin/groups");
 			die;
 		}
 	}
