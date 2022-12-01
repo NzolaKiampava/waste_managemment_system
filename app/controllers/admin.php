@@ -14,6 +14,10 @@ Class Admin extends Controller
 		$data['users'] = $DB->read("select * from users");
 		$data['groups'] = $DB->read("SELECT * FROM colector_group");
 		$data['limit_users'] = $DB->read("select * from users limit 8");
+
+		$data['count_trash'] = $DB->read('SELECT * FROM trash_buckets');
+		$data['count_trash_full'] = $DB->read("SELECT * FROM trash_buckets where status = 'full'");
+		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty'");
 		
 		$data['page_title'] = "Admin";
 		$this->view("admin/index", $data);
@@ -30,6 +34,10 @@ Class Admin extends Controller
 		}
 		$DB = Database::newInstance();
 		$data['users'] = $DB->read("select * from users");
+
+		$data['count_trash'] = $DB->read('SELECT * FROM trash_buckets');
+		$data['count_trash_full'] = $DB->read("SELECT * FROM trash_buckets where status = 'full'");
+		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty'");
 
 		//verify user created
 		$session_user = $_SESSION['user_url'];
@@ -85,6 +93,11 @@ Class Admin extends Controller
 		}
 
 		$DB = Database::newInstance();
+
+		$data['count_trash'] = $DB->read('SELECT * FROM trash_buckets');
+		$data['count_trash_full'] = $DB->read("SELECT * FROM trash_buckets where status = 'full'");
+		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty'");
+
 		$data['users'] = $DB->read("select * from users order by id desc");
 		$data['groups'] = $DB->read("select * from colector_group order by id desc");
 		$data['page_title'] = "Groups";
@@ -100,6 +113,11 @@ Class Admin extends Controller
 			$data['user_data'] = $user_data;
 		}
 		$DB = Database::newInstance();
+
+		$data['count_trash'] = $DB->read('SELECT * FROM trash_buckets');
+		$data['count_trash_full'] = $DB->read("SELECT * FROM trash_buckets where status = 'full'");
+		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty'");
+
 		$data['users'] = $DB->read("select * from users order by id desc");
 
 		// add user
@@ -161,6 +179,11 @@ Class Admin extends Controller
 		}
 
 		$DB = Database::newInstance();
+
+		$data['count_trash'] = $DB->read('SELECT * FROM trash_buckets');
+		$data['count_trash_full'] = $DB->read("SELECT * FROM trash_buckets where status = 'full'");
+		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty'");
+
 		$data['users'] = $DB->read("select * from users order by id desc");
 		$data['trashes'] = $DB->read("select * from trash_buckets order by id desc");
 		$data['page_title'] = "Trash";
@@ -196,6 +219,11 @@ Class Admin extends Controller
 		}
 
 		$DB = Database::newInstance();
+
+		$data['count_trash'] = $DB->read('SELECT * FROM trash_buckets');
+		$data['count_trash_full'] = $DB->read("SELECT * FROM trash_buckets where status = 'full'");
+		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty'");
+
 		$data['users'] = $DB->read("select * from users order by id desc");
 		$data['address'] = $DB->read("select * from garbage_address order by id desc");
 		$data['page_title'] = "Address";
