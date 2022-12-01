@@ -12,7 +12,7 @@ Class Admin extends Controller
 		}
 		$DB = Database::newInstance();
 		$data['users'] = $DB->read("select * from users");
-		$data['groups'] = $DB->read("SELECT * FROM groups");
+		$data['groups'] = $DB->read("SELECT * FROM colector_group");
 		$data['limit_users'] = $DB->read("select * from users limit 8");
 		
 		$data['page_title'] = "Admin";
@@ -132,6 +132,119 @@ Class Admin extends Controller
 		$this->view("admin/users", $data);
 	}
 
+	public function trash()
+	{
+		$User = $this->load_model('User');
+		$user_data = $User->check_login(true, ["Administrador"]);
+
+		$trash = $this->load_model('Trash');
+		if(is_object($user_data)){
+			$data['user_data'] = $user_data;
+		}
+
+		//add trash
+		if(isset($_POST['add_trash']))
+		{
+			$trash->add_trash($_POST);
+		}
+
+		//edit trash
+		if(isset($_POST['edit_trash']))
+		{
+			$trash->edit_trash($_POST);
+		}
+
+		//delete trash
+		if(isset($_POST['delete_trash']))
+		{
+			$trash->delete_trash($_POST);
+		}
+
+		$DB = Database::newInstance();
+		$data['users'] = $DB->read("select * from users order by id desc");
+		$data['trashes'] = $DB->read("select * from trash_buckets order by id desc");
+		$data['page_title'] = "Trash";
+		$this->view("admin/trash", $data);
+	}
+
+	public function address()
+	{
+		$User = $this->load_model('User');
+		$user_data = $User->check_login(true, ["Administrador"]);
+
+		$address = $this->load_model('Address');
+		if(is_object($user_data)){
+			$data['user_data'] = $user_data;
+		}
+
+		//add address
+		if(isset($_POST['add_address']))
+		{
+			$address->add_address($_POST);
+		}
+
+		//edit address
+		if(isset($_POST['edit_address']))
+		{
+			$address->edit_address($_POST);
+		}
+
+		//delete address
+		if(isset($_POST['delete_address']))
+		{
+			$address->delete_address($_POST);
+		}
+
+		$DB = Database::newInstance();
+		$data['users'] = $DB->read("select * from users order by id desc");
+		$data['address'] = $DB->read("select * from garbage_address order by id desc");
+		$data['page_title'] = "Address";
+		$this->view("admin/address", $data);
+	}
+
+	public function address_row()
+	{
+		$User = $this->load_model('User');
+		$user_data = $User->check_login(true, ["Administrador"]);
+
+		if(is_object($user_data)){
+			$data['user_data'] = $user_data;
+		}
+		$DB = Database::newInstance();
+
+		if(isset($_POST['id'])){
+			$id = $_POST['id'];
+
+			$row = $DB->read("SELECT * FROM garbage_address WHERE id=:id",['id'=>$id]);
+
+			echo json_encode($row);
+		}
+	}
+
+	/*public function address_fetch()
+	{
+		$User = $this->load_model('User');
+		$user_data = $User->check_login(true, ["Administrador"]);
+
+		if(is_object($user_data)){
+			$data['user_data'] = $user_data;
+		}
+		$DB = Database::newInstance();
+		$fetch = $DB->read("SELECT * FROM garbage_address");
+
+		if(is_array($fetch))
+		{
+			foreach($fetch as $row)
+			{
+				$output .= "
+					<option value='".$row->id."' class='append_items'>".$row->address."</option>
+				";
+			}
+		}
+
+		echo json_encode($output);
+	}*/
+
 	public function users_row()
 	{
 		$User = $this->load_model('User');
@@ -146,6 +259,25 @@ Class Admin extends Controller
 			$id = $_POST['id'];
 
 			$row = $DB->read("SELECT * FROM users WHERE id=:id",['id'=>$id]);
+
+			echo json_encode($row);
+		}
+	}
+
+	public function trash_row()
+	{
+		$User = $this->load_model('User');
+		$user_data = $User->check_login(true, ["Administrador"]);
+
+		if(is_object($user_data)){
+			$data['user_data'] = $user_data;
+		}
+		$DB = Database::newInstance();
+
+		if(isset($_POST['id'])){
+			$id = $_POST['id'];
+
+			$row = $DB->read("SELECT *, (SELECT address from garbage_address where id='$id') as add_name FROM trash_buckets WHERE id=:id",['id'=>$id]);
 
 			echo json_encode($row);
 		}
