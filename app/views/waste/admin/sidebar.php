@@ -57,9 +57,9 @@
           <a href="<?=ROOT?>admin/trash">
             <i class="fa  fa-trash"></i> <span>Baldes de Lixo</span>
             <span class="pull-right-container">
-              <small class="label pull-right bg-yellow">12</small>
-              <small class="label pull-right bg-green">16</small>
-              <small class="label pull-right bg-red">5</small>
+              <small class="label pull-right bg-yellow"><?=is_array($count_trash)?count($count_trash):'0'?></small>
+              <small class="label pull-right bg-green"><?=is_array($count_trash_empty)?count($count_trash_empty):'0'?></small>
+              <small class="label pull-right bg-red"><?=is_array($count_trash_full)?count($count_trash_full):'0'?></small>
             </span>
           </a>
         </li>
