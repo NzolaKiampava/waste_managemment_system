@@ -1,4 +1,4 @@
-  <!-- Left side column. contains the logo and sidebar -->
+   <!-- Left side column. contains the logo and sidebar -->
 <?php
   $image = 'uploads/user.jpg';
   if (file_exists($user_data->image)) //looking for if exist some file int the collumn image
@@ -48,12 +48,24 @@
             </span>
           </a>
         </li>
-        <li>
-          <a href="pages/widgets.html">
-            <i class="fa fa-th"></i> <span>Widgets</span>
+        <li class="<?= $page_title == "Groups" ? "active treeview" : "#"?>">
+          <a href="<?=ROOT?>admin/groups">
+            <i class="fa  fa-recycle"></i> <span>Grupos de Colecta</span>
+          </a>
+        </li>
+        <li class="<?= $page_title == "Trash" ? "active treeview" : "#"?>">
+          <a href="<?=ROOT?>admin/trash">
+            <i class="fa  fa-trash"></i> <span>Baldes de Lixo</span>
             <span class="pull-right-container">
-              <small class="label pull-right bg-green">new</small>
+              <small class="label pull-right bg-yellow">12</small>
+              <small class="label pull-right bg-green">16</small>
+              <small class="label pull-right bg-red">5</small>
             </span>
+          </a>
+        </li>
+        <li class="<?= $page_title == "Address" ? "active treeview" : "#"?>">
+          <a href="<?=ROOT?>admin/address">
+            <i class="fa  fa-map-marker"></i> <span>Endereços</span>
           </a>
         </li>
         <li class="<?= $page_title == "Profile" ? "active treeview" : ""?>">
