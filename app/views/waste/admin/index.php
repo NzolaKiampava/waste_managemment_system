@@ -40,7 +40,7 @@
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>44</h3>
+              <h3><?=is_array($count_trash)?count($count_trash):'0'?></h3>
 
               <p>Total de Baldes Lixo</p>
             </div>
@@ -55,7 +55,7 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>13<!--<sup style="font-size: 20px">%</sup>--></h3>
+              <h3><?=is_array($count_trash_empty)?count($count_trash_empty):'0'?><!--<sup style="font-size: 20px">%</sup>--></h3>
 
               <p>Baldes de Lixo vazios</p>
             </div>
@@ -70,7 +70,7 @@
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>31</h3>
+              <h3><?=is_array($count_trash_full)?count($count_trash_full):'0'?></h3>
 
               <p>Baldes de Lixo cheios</p>
             </div>
@@ -157,78 +157,26 @@
             </div>
             <div class="box-body">
             <ul class="todo-list">
-                  <li>
-                  <!-- drag handle -->
-                  <span class="handle">
-                          <i class="fa fa-ellipsis-v"></i>
-                          <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                  <!-- checkbox -->
-                  
-                  <!-- todo text -->
-                  <span class="text">Design a nice theme</span>
-                  <!-- Emphasis label -->
-                  <small class="label label-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
-                  <!-- General tools such as edit or delete-->
-                  <div class="tools">
-                  </div>
-                  </li>
-                  <li>
-                      <span class="handle">
-                          <i class="fa fa-ellipsis-v"></i>
-                          <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                  
-                  <span class="text">Make the theme responsive</span>
-                  <small class="label label-info"><i class="fa fa-clock-o"></i> 4 hours</small>
-                  <div class="tools">
-                  </div>
-                  </li>
-                  <li>
-                      <span class="handle">
-                          <i class="fa fa-ellipsis-v"></i>
-                          <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                  
-                  <span class="text">Let theme shine like a star</span>
-                  <small class="label label-warning"><i class="fa fa-clock-o"></i> 1 day</small>
-                  <div class="tools">
-                  </div>
-                  </li>
-                  <li>
-                      <span class="handle">
-                          <i class="fa fa-ellipsis-v"></i>
-                          <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                  
-                  <span class="text">Let theme shine like a star</span>
-                  <small class="label label-success"><i class="fa fa-clock-o"></i> 3 days</small>
-                  <div class="tools">
-                  </div>
-                  </li>
-                  <li>
-                      <span class="handle">
-                          <i class="fa fa-ellipsis-v"></i>
-                          <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                  
-                  <span class="text">Check your messages and notifications</span>
-                  <small class="label label-primary"><i class="fa fa-clock-o"></i> 1 week</small>
-                  <div class="tools">
-                  </div>
-                  </li>
-                  <li>
-                      <span class="handle">
-                          <i class="fa fa-ellipsis-v"></i>
-                          <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                  
-                  <span class="text">Let theme shine like a star</span>
-                  <small class="label label-default"><i class="fa fa-clock-o"></i> 1 month</small>
-                  <div class="tools">
-                  </div>
-                  </li>
-                </ul>
+              <?php if(is_array($count_address)):?>
+                <?php foreach($count_address as $address):?>
+                <li>
+                    <span class="handle">
+                        <i class="fa fa-ellipsis-v"></i>
+                        <i class="fa fa-ellipsis-v"></i>
+                    </span>
+                
+                <span class="text"><?=$address->address?></span>
+                <?php
+                  $DB = Database::newInstance();
+                  $find = $DB->read("SELECT * from trash_buckets where address_id = '$address->id'");
+                ?>
+                <small class="label label-warning"><i class="fa fa-map-marker"></i> &nbsp;<?=is_array($find)?count($find):'0'?></small>
+                <div class="tools">
+                </div>
+                </li>
+                <?php endforeach;?>
+              <?php endif;?>
+            </ul>
             </div>
             <!-- /.box-body-->
           </div>
@@ -249,10 +197,10 @@
     new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['Usuarios', 'Baldes de Lixo', 'Baldes Vazio', 'Baldes Cheio', 'Purple', 'Orange'],
+        labels: ['Usuarios', 'Baldes de Lixo', 'Baldes Vazio', 'Baldes Cheio', 'Grupos', 'Orange'],
         datasets: [{
           label: '# Total',
-          data: [<?=is_array($users)?count($users):'0'?>, 19, 3, 5, 2, 3],
+          data: [<?=is_array($users)?count($users):'0'?>, <?=is_array($count_trash)?count($count_trash):'0'?>,<?=is_array($count_trash_empty)?count($count_trash_empty):'0'?>, <?=is_array($count_trash_full)?count($count_trash_full):'0'?>, <?=is_array($groups)?count($groups):'0'?>, 3],
           borderWidth: 1,
           backgroundColor: ['#00c0ef', '#f39c12', '#00a65a', '#CB4335', '#884EA0', '#D35400'],
         }]
