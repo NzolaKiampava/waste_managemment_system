@@ -18,6 +18,8 @@ Class Admin extends Controller
 		$data['count_trash'] = $DB->read('SELECT * FROM trash_buckets');
 		$data['count_trash_full'] = $DB->read("SELECT * FROM trash_buckets where status = 'full'");
 		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty'");
+
+		$data['count_address'] = $DB->read("SELECT * FROM garbage_address");
 		
 		$data['page_title'] = "Admin";
 		$this->view("admin/index", $data);
