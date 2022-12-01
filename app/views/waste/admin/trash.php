@@ -63,7 +63,7 @@
                                     $search_add = $DB->read("select * from garbage_address where id = '$trash->address_id'");
                                 ?>
                             <tr>
-                                <td><img src="<?=ASSETS . THEME?>/assets/logo/logo.jpg" class="img-circle" height='30px' width='30px'></td>
+                                <td><img src="<?=ASSETS . THEME?><?=($trash->status == 'full')?'/assets/logo/garbage-red.png':'/assets/logo/garbage.jpg'?>" class="img-circle" height='30px' width='30px'></td>
                                 <td><?=$trash->id?></td>
                                 <td><?=$trash->name?></td>
                                 <td><?=$search_add[0]->address?></td>
