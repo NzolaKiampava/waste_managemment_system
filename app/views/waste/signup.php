@@ -36,6 +36,8 @@
   <div class="container-fluid h-custom">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-md-9 col-lg-6 col-xl-5">
+      <p class="lead fw-normal mb-0 me-3"><img src="<?=ASSETS.THEME?>/assets/logo/logo.jpg" width="50"> <strong>SmartWASTE</strong></p>
+      <P class="lead fw-normal mb-0 me-3">Sistema de Gestão, Geolocalização e Monitoramento de Resíduos Sólidos</P>
         <img src="<?=ASSETS . THEME?>/assets/img/gallery/garbage-truck-trash-recycling-factory-waste-sorting-transport-vehicle-innovative-technology-isometric-illustration-green-eco-234230240.jpg"
           class="img-fluid" alt="Sample image">
       </div>
