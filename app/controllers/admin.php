@@ -13,14 +13,15 @@ Class Admin extends Controller
 		$DB = Database::newInstance();
 		$data['users'] = $DB->read("select * from users");
 		$data['groups'] = $DB->read("SELECT * FROM colector_group");
-		$data['limit_users'] = $DB->read("select * from users limit 8");
+		$data['limit_users'] = $DB->read("select * from users order by id desc limit 8");
 
 		$data['count_trash'] = $DB->read('SELECT * FROM trash_buckets');
 		$data['count_trash_full'] = $DB->read("SELECT * FROM trash_buckets where status = 'full'");
 		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty'");
 
-		$data['count_address'] = $DB->read("SELECT * FROM garbage_address");
-		
+		$data['count_address'] = $DB->read("SELECT * FROM garbage_address");	
+		$data['count_car'] = $DB->read("select * from garbage_cars");
+
 		$data['page_title'] = "Admin";
 		$this->view("admin/index", $data);
 	}
@@ -232,6 +233,55 @@ Class Admin extends Controller
 		$this->view("admin/address", $data);
 	}
 
+	//colector cars
+	public function trucks()
+	{
+		$User = $this->load_model('User');
+		$user_data = $User->check_login(true, ["Administrador"]);
+		
+		$truck = $this->load_model('Truck');
+
+		if(is_object($user_data)){
+			$data['user_data'] = $user_data;
+		}
+		$DB = Database::newInstance();
+
+		if(isset($_POST['add']))
+		{
+			$truck->add_truck($_POST);
+		}
+		
+		$data['count_trash'] = $DB->read('SELECT * FROM trash_buckets');
+		$data['count_trash_full'] = $DB->read("SELECT * FROM trash_buckets where status = 'full'");
+		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty'");
+
+		$data['users'] = $DB->read("select * from users order by id desc");
+		$data['trashes'] = $DB->read("select * from trash_buckets order by id desc");
+		$data['trucks'] = $DB->read("select * from garbage_cars order by id desc");
+		$data['page_title'] = "Truck";
+		$this->view("admin/trucks", $data);
+	}
+
+	public function truck_row()
+	{
+		$User = $this->load_model('User');
+		$user_data = $User->check_login(true, ["Administrador"]);
+
+		if(is_object($user_data)){
+			$data['user_data'] = $user_data;
+		}
+		$DB = Database::newInstance();
+
+		if(isset($_POST['id'])){
+			$id = $_POST['id'];
+
+			$row = $DB->read("SELECT * FROM garbage_cars WHERE id=:id",['id'=>$id]);
+
+			echo json_encode($row);
+		}
+	}
+	
+	// some row no controllers
 	public function address_row()
 	{
 		$User = $this->load_model('User');
