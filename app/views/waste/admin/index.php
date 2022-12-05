@@ -197,10 +197,10 @@
     new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['Usuarios', 'Baldes de Lixo', 'Baldes Vazio', 'Baldes Cheio', 'Grupos', 'Orange'],
+        labels: ['Usuarios', 'Baldes de Lixo', 'Baldes Vazio', 'Baldes Cheio', 'Grupos', 'Carros de Recolha'],
         datasets: [{
           label: '# Total',
-          data: [<?=is_array($users)?count($users):'0'?>, <?=is_array($count_trash)?count($count_trash):'0'?>,<?=is_array($count_trash_empty)?count($count_trash_empty):'0'?>, <?=is_array($count_trash_full)?count($count_trash_full):'0'?>, <?=is_array($groups)?count($groups):'0'?>, 3],
+          data: [<?=is_array($users)?count($users):'0'?>, <?=is_array($count_trash)?count($count_trash):'0'?>,<?=is_array($count_trash_empty)?count($count_trash_empty):'0'?>, <?=is_array($count_trash_full)?count($count_trash_full):'0'?>, <?=is_array($groups)?count($groups):'0'?>, <?=is_array($count_car)?count($count_car):'0'?>],
           borderWidth: 1,
           backgroundColor: ['#00c0ef', '#f39c12', '#00a65a', '#CB4335', '#884EA0', '#D35400'],
         }]
