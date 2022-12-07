@@ -60,11 +60,13 @@ class Truck
 		$data = array();
 		$db = Database::getInstance();
 	
-		$data['id']	    = trim($POST['id']);
-        $data['name'] = trim($POST['name']);
-        $data['address_id'] = trim($POST['address_id']);
-        $data['status'] = trim($POST['status']);
-
+		$data['id'] = trim($POST['id']);
+		$data['name'] = trim($POST['name']);
+		$data['registration'] = trim($POST['registration']);
+        $data['group_id'] = trim($POST['group_id']);
+        $data['address_id_1'] = trim($POST['address_id_1']);
+        $data['address_id_2'] = trim($POST['address_id_2']);
+        $data['address_id_3'] = trim($POST['address_id_3']);
 
 		if(empty($data['name']) || !preg_match("/^[a-zA-Z ]+$/", $data['name']))
 		{
@@ -73,13 +75,13 @@ class Truck
 
 		if($this->error == ""){
 			//save
-			$query = "UPDATE trash_buckets SET name = :name, address_id = :address_id, status = :status where id = :id";
+			$query = "UPDATE garbage_cars SET name = :name, registration = :registration, group_id = :group_id, address_id_1 = :address_id_1, address_id_2 = :address_id_2, address_id_3 = :address_id_3   where id = :id";
 
 			$result = $db->write($query,$data);
 			if($result)
 			{
 				$_SESSION['success'] = "Salvo com Sucesso!";
-				header("Location: " . ROOT . "admin/trash");
+				header("Location: " . ROOT . "admin/trucks");
 				die;
 			}
 		}
@@ -89,15 +91,15 @@ class Truck
 
 	public function delete_truck($POST)
 	{
-		show($POST);
+		//show($POST);
 		$DB = Database::newInstance();
 		$id = trim($POST['id']);
-		$query = "delete from trash_buckets where id = '$id' limit 1";
+		$query = "delete from garbage_cars where id = '$id' limit 1";
 		$result = $DB->write($query);
 		if($result)
 		{
-			$_SESSION['success'] = "Balde deletado com Sucesso!";
-			header("Location: " . ROOT . "admin/trash");
+			$_SESSION['success'] = "Caminhão deletado com Sucesso!";
+			header("Location: " . ROOT . "admin/trucks");
 			die;
 		}
 	}
