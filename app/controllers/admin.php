@@ -250,6 +250,16 @@ Class Admin extends Controller
 		{
 			$truck->add_truck($_POST);
 		}
+
+		if(isset($_POST['edit']))
+		{
+			$truck->edit_truck($_POST);
+		}
+
+		if(isset($_POST['delete']))
+		{
+			$truck->delete_truck($_POST);
+		}
 		
 		$data['count_trash'] = $DB->read('SELECT * FROM trash_buckets');
 		$data['count_trash_full'] = $DB->read("SELECT * FROM trash_buckets where status = 'full'");
