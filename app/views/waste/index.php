@@ -10,7 +10,7 @@
             <div class="col-lg-6 col-md-5 order-md-1 pt-8"><img class="img-fluid" src="<?=ASSETS . THEME?>/assets/img/gallery/webimg.webp" width="400" alt="" /></div>
             <div class="col-md-7 col-lg-6 text-center text-md-start pt-5 pt-md-9">
               <h1 class="display-2 fw-bold fs-4 fs-md-5 fs-xl-6">Construindo um <br />mundo saudável e verde.</h1>
-              <p class="mt-3 mb-4">Tornar cidade mais limpa e inteligente por meio de Internet das Coisas e Inteligência Artificial.</p><a class="btn btn-lg btn-info rounded-pill me-2" href="#" role="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Start a New Store </a><span> or  </span><a class="btn btn-link ps-1 ps-md-4 ps-lg-1" href="#" role="button"> Customize &amp; Extend ›</a>
+              <p class="mt-3 mb-4">Tornar cidade mais limpa e inteligente por meio de Internet das Coisas e Inteligência Artificial.</p><a class="btn btn-lg btn-info rounded-pill me-2" href="#" role="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Enviar Mensagem </a><span> or  </span><a class="btn btn-lg btn-success rounded-pill me-2" href="#" role="button" data-bs-toggle="modal" data-bs-target="#exampleModa2" title="Video Demo"> <i class="fa fa-play"></i></a>
               <!-- Button trigger modal -->
               <!--<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Launch demo modal
@@ -23,31 +23,60 @@
       
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Nova Mensagem</h1>
+        <small>Enviar uma Mensagem para de Colhecta de Lixo</small>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method="POST" enctype="multipart/form-data">
+        <div class="modal-body">
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Nome Completo:</label>
+              <input type="text" name="sender_name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Endereço do Contentor:</label>
+              <input type="text" name="address" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label for="message-text" class="col-form-label">Messagem:</label>
+              <textarea name="message" class="form-control" id="message-text" required></textarea>
+            </div>
+            <div class="mb-3">
+              <img id="uploadPreview" style="width: 200px; height: 200px;" /> 
+              <input id="uploadImage" type="file" name="image" onchange="PreviewImage();" required/>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Send message <i class="fa fa-send"></i></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- END VIDEO MODAL-->
+
+
+<!-- VIDEO MODAL -->
+<div class="modal fade" id="exampleModa2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">VIDEO DEMO</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Recipient:</label>
-            <input type="text" class="form-control" id="recipient-name">
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
+      <video width="760" height="640" poster="<?=ASSETS.THEME?>assets/img/gallery/shutterstock.jpg" controls loop>
+        <source src="<?=ASSETS.THEME?>videos/IoT Solutions - Smart Waste Management.mp4" type="video/mp4">
+      </video>
       </div>
     </div>
   </div>
 </div>
+<!--- END VIDEO MODAL -->
 
 
 
@@ -193,7 +222,10 @@
           <div class="bg-holder" style="background-image:url(undefined);background:url(<?=ASSETS . THEME?>/assets/img/gallery/people-bg-shape.png) no-repeat center bottom, url(<?=ASSETS . THEME?>/assets/img/gallery/people-bg-dot.png) no-repeat center bottom;">
           </div>
           <!--/.bg-holder-->
-          <img class="img-fluid position-relative z-index-1" src="<?=ASSETS . THEME?>/assets/img/gallery/people.png" alt="" />
+          <!--<img class="img-fluid position-relative z-index-1" src="<?=ASSETS . THEME?>/assets/img/gallery/people.png" alt="" />-->
+          <video width="1500" height="690" poster="<?=ASSETS.THEME?>assets/img/gallery/shutterstock.jpg" controls loop>
+            <source src="<?=ASSETS.THEME?>videos/Smart Waste Management Monitoring System _ Smart City Solutions.mp4" type="video/mp4">
+          </video>
         </div>
       </section>
       <section class="py-0">
@@ -203,4 +235,17 @@
 
        
 <?php $this->view("footer", $data);?>
+
+<script type="text/javascript">
+
+    function PreviewImage() {
+        var oFReader = new FileReader();
+        oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
+
+        oFReader.onload = function (oFREvent) {
+            document.getElementById("uploadPreview").src = oFREvent.target.result;
+        };
+    };
+
+</script>
         
