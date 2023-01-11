@@ -2,7 +2,7 @@
 Sistema de gestão, geolocalização e monitoramento de resíduos sólidos (SmartWASTE)
 
 
-Pojecto de Conclusão do curso.
+Pojecto de Conclusão do curso técnico de informática.
 ITEL - INSTITUTO DE TELECOMUNICAÇÕES
 By Nzola Kiampava and Délcio Borges
 
