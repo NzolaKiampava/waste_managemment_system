@@ -4,6 +4,6 @@ Sistema de gestão, geolocalização e monitoramento de resíduos sólidos (Smar
 
 Pojecto de Conclusão do curso técnico de informática.
 ITEL - INSTITUTO DE TELECOMUNICAÇÕES
-By Nzola Kiampava and Délcio Borges
+By Nzola António Kiampava
 
 PHP+MYSQL | NODEMCU ESP + DISTANCE SENSOR (ULTRASONIC)
