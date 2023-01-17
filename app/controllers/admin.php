@@ -21,7 +21,8 @@ Class Admin extends Controller
 
 		$data['count_address'] = $DB->read("SELECT * FROM garbage_address");	
 		$data['count_car'] = $DB->read("select * from garbage_cars");
-
+		$data['messages'] = $DB->read("select * from messages order by id desc");
+		
 		$data['page_title'] = "Admin";
 		$this->view("admin/index", $data);
 	}
@@ -48,6 +49,7 @@ Class Admin extends Controller
 		$user_created = $create_check[0]->id;
 
 		$data['user_created'] = $DB->read("select * from users where created_by = '$user_created'");
+		$data['messages'] = $DB->read("select * from messages order by id desc");
 
 		$id = $data['user_data']->id;
 
@@ -102,6 +104,7 @@ Class Admin extends Controller
 		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty'");
 
 		$data['users'] = $DB->read("select * from users order by id desc");
+		$data['messages'] = $DB->read("select * from messages order by id desc");
 		$data['groups'] = $DB->read("select * from colector_group order by id desc");
 		$data['page_title'] = "Groups";
 		$this->view("admin/groups", $data);
@@ -122,6 +125,7 @@ Class Admin extends Controller
 		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty'");
 
 		$data['users'] = $DB->read("select * from users order by id desc");
+		$data['messages'] = $DB->read("select * from messages order by id desc");
 
 		// add user
 		if(isset($_POST['add']))
@@ -188,6 +192,7 @@ Class Admin extends Controller
 		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty'");
 
 		$data['users'] = $DB->read("select * from users order by id desc");
+		$data['messages'] = $DB->read("select * from messages order by id desc");
 		$data['trashes'] = $DB->read("select * from trash_buckets order by id desc");
 		$data['page_title'] = "Trash";
 		$this->view("admin/trash", $data);
@@ -228,6 +233,7 @@ Class Admin extends Controller
 		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty'");
 
 		$data['users'] = $DB->read("select * from users order by id desc");
+		$data['messages'] = $DB->read("select * from messages order by id desc");
 		$data['address'] = $DB->read("select * from garbage_address order by id desc");
 		$data['page_title'] = "Address";
 		$this->view("admin/address", $data);
@@ -266,10 +272,37 @@ Class Admin extends Controller
 		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty'");
 
 		$data['users'] = $DB->read("select * from users order by id desc");
+		$data['messages'] = $DB->read("select * from messages order by id desc");
 		$data['trashes'] = $DB->read("select * from trash_buckets order by id desc");
 		$data['trucks'] = $DB->read("select * from garbage_cars order by id desc");
 		$data['page_title'] = "Truck";
 		$this->view("admin/trucks", $data);
+	}
+
+	public function messages() 
+	{
+		$User = $this->load_model('User');
+		$user_data = $User->check_login(true, ["Administrador"]);
+		
+		$message = $this->load_model('Message');
+
+		if(is_object($user_data)){
+			$data['user_data'] = $user_data;
+		}
+		$DB = Database::newInstance();
+
+		if(isset($_POST['delete_message']))
+		{
+			$message->delete_message($_POST);
+		}
+		
+		$data['count_trash'] = $DB->read('SELECT * FROM trash_buckets');
+		$data['count_trash_full'] = $DB->read("SELECT * FROM trash_buckets where status = 'full'");
+		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty'");
+		$data['users'] = $DB->read("select * from users order by id desc");
+		$data['messages'] = $DB->read("select * from messages order by id desc");
+		$data['page_title'] = "Messages";
+		$this->view("admin/messages", $data);
 	}
 
 	public function truck_row()
@@ -387,6 +420,25 @@ Class Admin extends Controller
 			$id = $_POST['id'];
 
 			$row = $DB->read("SELECT * FROM colector_group WHERE id=:id",['id'=>$id]);
+
+			echo json_encode($row);
+		}
+	}
+
+	public function message_row()
+	{
+		$User = $this->load_model('User');
+		$user_data = $User->check_login(true, ["Administrador"]);
+
+		if(is_object($user_data)){
+			$data['user_data'] = $user_data;
+		}
+		$DB = Database::newInstance();
+
+		if(isset($_POST['id'])){
+			$id = $_POST['id'];
+
+			$row = $DB->read("SELECT * FROM messages WHERE id=:id",['id'=>$id]);
 
 			echo json_encode($row);
 		}
