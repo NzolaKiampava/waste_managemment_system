@@ -1,4 +1,4 @@
-   <!-- Left side column. contains the logo and sidebar -->
+     <!-- Left side column. contains the logo and sidebar -->
 <?php
   $image = 'uploads/user.jpg';
   if (file_exists($user_data->image)) //looking for if exist some file int the collumn image
@@ -53,19 +53,30 @@
             <i class="fa  fa-recycle"></i> <span>Grupos de Colecta</span>
           </a>
         </li>
+        
         <li class="<?= $page_title == "Trash" ? "active treeview" : "#"?>">
           <a href="<?=ROOT?>admin/trash">
             <i class="fa  fa-trash"></i> <span>Baldes de Lixo</span>
             <span class="pull-right-container">
-              <small class="label pull-right bg-yellow"><?=is_array($count_trash)?count($count_trash):'0'?></small>
-              <small class="label pull-right bg-green"><?=is_array($count_trash_empty)?count($count_trash_empty):'0'?></small>
-              <small class="label pull-right bg-red"><?=is_array($count_trash_full)?count($count_trash_full):'0'?></small>
+              <small class="label pull-right bg-yellow" title="Total"><?=is_array($count_trash)?count($count_trash):'0'?></small>
+              <small class="label pull-right bg-green" title="Vazio"><?=is_array($count_trash_empty)?count($count_trash_empty):'0'?></small>
+              <small class="label pull-right bg-red" title="Cheio"><?=is_array($count_trash_full)?count($count_trash_full):'0'?></small>
             </span>
+          </a>
+        </li>
+        <li class="<?= $page_title == "Truck" ? "active treeview" : "#"?>">
+          <a href="<?=ROOT?>admin/trucks">
+            <i class="fa  fa-truck"></i> <span>Carros de Colecta</span>
           </a>
         </li>
         <li class="<?= $page_title == "Address" ? "active treeview" : "#"?>">
           <a href="<?=ROOT?>admin/address">
             <i class="fa  fa-map-marker"></i> <span>Endereços</span>
+          </a>
+        </li>
+        <li class="<?= $page_title == "Messages" ? "active treeview" : "#"?>">
+          <a href="<?=ROOT?>admin/messages">
+            <i class="fa fa-envelope"></i> <span>Mensagens</span>
           </a>
         </li>
         <li class="<?= $page_title == "Profile" ? "active treeview" : ""?>">
