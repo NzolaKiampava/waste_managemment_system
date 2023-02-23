@@ -93,20 +93,20 @@
           <div class="row">
             <div class="col-md-4 mb-5 mb-md-0"><img class="img-fluid shadow-sm" src="<?=ASSETS . THEME?>/assets/img/gallery/Smart-Waste-Recycling-System-1-1000x600.jpg" alt="" />
               <div class="mt-3 text-center text-md-start">
-                <h4 class="display-6 fs-2 fs-lg-3 fw-bold">All You Need to Start</h4>
-                <p class="mb-0">Add WooCommerce plugin to any WordPress site and set up a new store in minutes.</p><a class="btn btn-link ps-0" href="#" role="button"> Ecommerce Wordpress ›</a>
+                <h4 class="display-6 fs-2 fs-lg-3 fw-bold">Clean & safe public spaces</h4>
+                <p class="mb-0">Creating clean and safe public spaces is important for several reasons. First, it helps to promote public health and safety by reducing the risk of injury or illness.</p><a class="btn btn-link ps-0" href="#" role="button"> Smart Waste ›</a>
               </div>
             </div>
             <div class="col-md-4 mb-5 mb-md-0"><img class="img-fluid shadow-sm" src="<?=ASSETS . THEME?>/assets/img/gallery/garbage-sorting-waste-transportation-innovative-green-technology-eco-smart-system-for-recycling-clipart-vector_csp96689551.webp" width="310" alt="" />
               <div class="mt-3 text-center text-md-start">
-                <h4 class="display-6 fs-2 fs-lg-3 fw-bold">Customize and Extend</h4>
-                <p class="mb-0">From subscriptions to gym classes to luxury cars, WooCommerce is fully customizable.</p><a class="btn btn-link ps-0" href="#" role="button"> Browse Extensions › </a>
+                <h4 class="display-6 fs-2 fs-lg-3 fw-bold">Zero waste approach support</h4>
+                <p class="mb-0">Help to create a sense of community pride and ownership, as residents and visitors are more likely to feel invested in spaces that are clean and well-maintained.</p><a class="btn btn-link ps-0" href="#" role="button"> Smart Waste › </a>
               </div>
             </div>
             <div class="col-md-4 mb-5 mb-md-0"><img class="img-fluid shadow-sm" src="<?=ASSETS . THEME?>/assets/img/gallery/garbage-truck-trash-recycling-factory-waste-sorting-transport-vehicle-innovative-technology-isometric-illustration-green-eco-234230240.jpg" alt="" />
               <div class="mt-3 text-center text-md-start">
-                <h4 class="display-6 fs-2 fs-lg-3 fw-bold">Active Community</h4>
-                <p class="mb-0">WooCommerce is one of the fastest-growing eCommerce communities. </p><a class="btn btn-link ps-0" href="#" role="button"> Check our Forums ›</a>
+                <h4 class="display-6 fs-2 fs-lg-3 fw-bold">No littering</h4>
+                <p class="mb-0">Help to attract visitors and investment to a community, as businesses and residents are more likely to choose areas that are clean and safe for their activities. </p><a class="btn btn-link ps-0" href="#" role="button"> Smart Waste ›</a>
               </div>
             </div>
           </div>
@@ -131,15 +131,15 @@
           <div class="row mb-5 text-center">
             <div class="col-12 col-md-4 mb-4"><img class="img-fluid rounded-3 shadow-lg image-up" src="<?=ASSETS . THEME?>/assets/img/gallery/about-2.png" alt="" /></div>
             <div class="col-12 col-md-8 text-md-start" style="max-width: 460px;">
-              <h3 class="fw-medium text-light"> Develop <br />Without Limits</h3>
-              <p class="text-light">WooCommerce is developer friendly, too. Built with a REST API, WooCommerce is scalable and can integrate with virtually any service. Design a complex store from scratch, extend a store for a client, or simply add a single product to a WordPress site—your store, your way.</p><a class="btn btn-lg btn-success rounded-pill" href="#">Read the Documentation</a>
+              <h3 class="fw-medium text-light"> Clean & safe <br />public spaces</h3>
+              <p class="text-light">Helps to promote public health and safety by reducing the risk of injury or illness. Second, it can help to create a sense of community pride and ownership, as residents and visitors are more likely to feel invested in spaces that are clean and well-maintained. Finally, it can help to attract visitors and investment to a community, as businesses and residents are more likely to choose areas that are clean and safe for their activities.</p><a class="btn btn-lg btn-success rounded-pill" href="#">Smart waste Management</a>
             </div>
           </div>
           <div class="row flex-center">
             <div class="col-12 col-md-4 order-0 order-md-1"><img class="img-fluid rounded-3 shadow-lg image-down" src="<?=ASSETS . THEME?>/assets/img/gallery/about-1.png" alt="" /></div>
             <div class="col-12 col-md-8 text-center text-md-start order-1 order-md-0" style="max-width: 460px;">
-              <h3 class="fw-medium text-light">Know our<br />Global Community</h3>
-              <p class="text-light">WooCommerce is one of the fastest-growing eCommerce communities. We’re proud that the helpfulness of the community and a wealth of online resources are frequently cited as reasons our users love it. There are 80+ meetups worldwide!</p><a class="btn btn-lg btn-success rounded-pill" href="#">Read the Documentation</a>
+              <h3 class="fw-medium text-light">Zero waste <br />approach support</h3>
+              <p class="text-light">There are many benefits to adopting a Zero Waste approach, including reducing the environmental impact of waste disposal, conserving natural resources, and reducing greenhouse gas emissions. However, transitioning to a Zero Waste approach can be challenging, especially for individuals, businesses, and communities that are used to traditional waste management practices.</p><a class="btn btn-lg btn-success rounded-pill" href="#">Read the Documentation</a>
             </div>
           </div>
         </div>
@@ -154,10 +154,11 @@
         </div>
         <!--/.bg-holder-->
 
+        <?php if(is_array($messages)):?>
         <div class="container">
           <div class="row flex-center mb-5">
             <div class="col-auto text-center">
-              <h1 class="display-3 fw-bold fs-4 fs-md-6">Trusted by Agencies<br /><span>&amp; Store Owners</span></h1>
+              <h1 class="display-3 fw-bold fs-4 fs-md-6">ÚLTIMOS PEDIDOS<br /></h1>
             </div>
           </div>
           <div class="row flex-center">
@@ -167,6 +168,7 @@
                   <div class="card py-sm-6 px-sm-5 testimonial-card-shadow shadow-sm" style="transform: translateY(52px) scale(.9)"></div>
                   <div class="card py-sm-6 px-sm-5 testimonial-card-shadow shadow-sm" style="transform: translateY(32px) scale(.934)"></div>
                   <div class="card py-sm-6 px-sm-5 testimonial-card-shadow shadow-sm"></div>
+                  <?php foreach($messages as $message):?>
                   <div class="carousel-item z-index-1 active">
                     <div class="card py-4 px-3 py-sm-6 px-sm-5 px-xl-7">
                       <div class="bg-holder mt-4" style="background-image:url(<?=ASSETS . THEME?>/assets/img/gallery/q.png);background-position:center top;background-size:150px;">
@@ -174,32 +176,11 @@
                       <!--/.bg-holder-->
 
                       <div class="card-body z-index-1">
-                        <p class="card-text fs-2 text-center">No other eCommerce platform allows people to start for free and grow their store as their business grows. More importantly, WooCommerce doesn't charge you a portion of your profits as your business grows!</p>
+                        <p class="card-text fs-2 text-center"><?=$message->message?> - <small><?=$message->address?></span></small>
                       </div>
                     </div>
                   </div>
-                  <div class="carousel-item z-index-1">
-                    <div class="card py-4 px-3 py-sm-6 px-sm-5 px-xl-7">
-                      <div class="bg-holder mt-4" style="background-image:url(<?=ASSETS . THEME?>/assets/img/gallery/q.png);background-position:center top;background-size:150px;height:168px;">
-                      </div>
-                      <!--/.bg-holder-->
-
-                      <div class="card-body z-index-1">
-                        <p class="card-text fs-2 text-center">WooCommerce doesn't charge you a portion of your profits as your business grows! No other eCommerce platform allows people to start for free and grow their store as their business grows. More importantly</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="carousel-item z-index-1">
-                    <div class="card py-4 px-3 py-sm-6 px-sm-5 px-xl-7">
-                      <div class="bg-holder mt-4" style="background-image:url(<?=ASSETS . THEME?>/assets/img/gallery/q.png);background-position:center top;background-size:150px;height:168px;">
-                      </div>
-                      <!--/.bg-holder-->
-
-                      <div class="card-body z-index-1">
-                        <p class="card-text fs-2 text-center">More importantly, WooCommerce doesn't charge you a portion of your profits as your business grows! No other eCommerce platform allows people to start for free and grow their store as their business grows</p>
-                      </div>
-                    </div>
-                  </div>
+                  <?php endforeach?>
                 </div>
                 <div class="row mt-7 pe-6">
                   <div class="col-12 position-relative text-end"><a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span></a><a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next</span></a></div>
@@ -208,6 +189,7 @@
             </div>
           </div>
         </div>
+        <?php endif;?>
       </section>
       <section class="bg-100 pb-0">
         <div class="container">
@@ -223,9 +205,7 @@
           </div>
           <!--/.bg-holder-->
           <!--<img class="img-fluid position-relative z-index-1" src="<?=ASSETS . THEME?>/assets/img/gallery/people.png" alt="" />-->
-          <video width="1500" height="690" poster="<?=ASSETS.THEME?>assets/img/gallery/shutterstock.jpg" controls loop>
-            <source src="<?=ASSETS.THEME?>videos/Smart Waste Management Monitoring System _ Smart City Solutions.mp4" type="video/mp4">
-          </video>
+          
         </div>
       </section>
       <section class="py-0">
