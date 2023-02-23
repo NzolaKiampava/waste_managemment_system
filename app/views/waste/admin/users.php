@@ -23,9 +23,11 @@
             <div class="box-header">
               <h3 class="box-title">Lista de todos os Usuários</h3>
             </div>
+            <?php if($user_data->rank=="Administrador"):?>
             <div class="box-footer clearfix no-border">
               <button type="button" class="btn btn-primary pull-left" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Adicionar</button>
             </div>
+            <?php endif;?>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
@@ -61,7 +63,17 @@
                         </td>
                         <td><?=$user->email?></td>
                         <td><?=$user->name?></td>
-                        <td><span class="<?=($user->rank=="Administrador")?"label bg-green":"label bg-primary"?>"><?=$user->rank?></span></td>
+                        <td>
+                          <span class="
+                            <?php if($user->rank=="Administrador"):?>
+                              label bg-green
+                            <?php elseif($user->rank=="Supervisor"):?>
+                              label bg-orange
+                            <?php else:?>
+                              label bg-primary
+                            <?php endif;?>"><?=$user->rank?>
+                          </span>
+                        </td>
                         <td><?=date('M d, Y', strtotime($user->date))?></td>
                         <td><i class="<?=$user->online=='1'?'fa fa-circle text-success':''?>"></i> <?=($user->login_at==$user->logout_at)?"":date('d/m/y, H:i', strtotime($user->login_at))?></td>
                         <td><?=($user->login_at==$user->logout_at)?"":date('d/m/y, H:i', strtotime($user->logout_at))?></td>
