@@ -5,7 +5,7 @@ Class Admin extends Controller
 	public function index()
 	{
 		$User = $this->load_model('User');
-		$user_data = $User->check_login(true, ["Administrador"]);
+		$user_data = $User->check_login(true, ["Administrador","Supervisor"]);
 
 		if(is_object($user_data)){
 			$data['user_data'] = $user_data;
@@ -31,7 +31,7 @@ Class Admin extends Controller
 	public function profile()
 	{
 		$User = $this->load_model('User');
-		$user_data = $User->check_login(true, ["Administrador"]);
+		$user_data = $User->check_login(true, ["Administrador","Supervisor"]);
 
 		if(is_object($user_data)){
 			$data['user_data'] = $user_data;
@@ -72,7 +72,7 @@ Class Admin extends Controller
 	public function groups()
 	{
 		$User = $this->load_model('User');
-		$user_data = $User->check_login(true, ["Administrador"]);
+		$user_data = $User->check_login(true, ["Administrador","Supervisor"]);
 
 		$Group = $this->load_model('Group');
 		if(is_object($user_data)){
@@ -113,7 +113,7 @@ Class Admin extends Controller
 	public function users()
 	{
 		$User = $this->load_model('User');
-		$user_data = $User->check_login(true, ["Administrador"]);
+		$user_data = $User->check_login(true, ["Administrador","Supervisor"]);
 
 		if(is_object($user_data)){
 			$data['user_data'] = $user_data;
@@ -160,7 +160,7 @@ Class Admin extends Controller
 	public function trash()
 	{
 		$User = $this->load_model('User');
-		$user_data = $User->check_login(true, ["Administrador"]);
+		$user_data = $User->check_login(true, ["Administrador","Supervisor"]);
 
 		$trash = $this->load_model('Trash');
 		if(is_object($user_data)){
@@ -201,7 +201,7 @@ Class Admin extends Controller
 	public function address()
 	{
 		$User = $this->load_model('User');
-		$user_data = $User->check_login(true, ["Administrador"]);
+		$user_data = $User->check_login(true, ["Administrador","Supervisor"]);
 
 		$address = $this->load_model('Address');
 		if(is_object($user_data)){
@@ -243,7 +243,7 @@ Class Admin extends Controller
 	public function trucks()
 	{
 		$User = $this->load_model('User');
-		$user_data = $User->check_login(true, ["Administrador"]);
+		$user_data = $User->check_login(true, ["Administrador","Supervisor"]);
 		
 		$truck = $this->load_model('Truck');
 
@@ -282,7 +282,7 @@ Class Admin extends Controller
 	public function messages() 
 	{
 		$User = $this->load_model('User');
-		$user_data = $User->check_login(true, ["Administrador"]);
+		$user_data = $User->check_login(true, ["Administrador","Supervisor"]);
 		
 		$message = $this->load_model('Message');
 
@@ -308,7 +308,7 @@ Class Admin extends Controller
 	public function truck_row()
 	{
 		$User = $this->load_model('User');
-		$user_data = $User->check_login(true, ["Administrador"]);
+		$user_data = $User->check_login(true, ["Administrador","Supervisor"]);
 
 		if(is_object($user_data)){
 			$data['user_data'] = $user_data;
@@ -328,7 +328,7 @@ Class Admin extends Controller
 	public function address_row()
 	{
 		$User = $this->load_model('User');
-		$user_data = $User->check_login(true, ["Administrador"]);
+		$user_data = $User->check_login(true, ["Administrador","Supervisor"]);
 
 		if(is_object($user_data)){
 			$data['user_data'] = $user_data;
@@ -347,7 +347,7 @@ Class Admin extends Controller
 	/*public function address_fetch()
 	{
 		$User = $this->load_model('User');
-		$user_data = $User->check_login(true, ["Administrador"]);
+		$user_data = $User->check_login(true, ["Administrador","Supervisor"]);
 
 		if(is_object($user_data)){
 			$data['user_data'] = $user_data;
@@ -371,7 +371,7 @@ Class Admin extends Controller
 	public function users_row()
 	{
 		$User = $this->load_model('User');
-		$user_data = $User->check_login(true, ["Administrador"]);
+		$user_data = $User->check_login(true, ["Administrador","Supervisor"]);
 
 		if(is_object($user_data)){
 			$data['user_data'] = $user_data;
@@ -390,7 +390,7 @@ Class Admin extends Controller
 	public function trash_row()
 	{
 		$User = $this->load_model('User');
-		$user_data = $User->check_login(true, ["Administrador"]);
+		$user_data = $User->check_login(true, ["Administrador","Supervisor"]);
 
 		if(is_object($user_data)){
 			$data['user_data'] = $user_data;
@@ -409,7 +409,7 @@ Class Admin extends Controller
 	public function groups_row()
 	{
 		$User = $this->load_model('User');
-		$user_data = $User->check_login(true, ["Administrador"]);
+		$user_data = $User->check_login(true, ["Administrador","Supervisor"]);
 
 		if(is_object($user_data)){
 			$data['user_data'] = $user_data;
@@ -428,7 +428,7 @@ Class Admin extends Controller
 	public function message_row()
 	{
 		$User = $this->load_model('User');
-		$user_data = $User->check_login(true, ["Administrador"]);
+		$user_data = $User->check_login(true, ["Administrador","Supervisor"]);
 
 		if(is_object($user_data)){
 			$data['user_data'] = $user_data;
