@@ -1,4 +1,4 @@
-     <!-- Left side column. contains the logo and sidebar -->
+  <!-- Left side column. contains the logo and sidebar -->
 <?php
   $image = 'uploads/user.jpg';
   if (file_exists($user_data->image)) //looking for if exist some file int the collumn image
@@ -78,6 +78,24 @@
           <a href="<?=ROOT?>admin/messages">
             <i class="fa fa-envelope"></i> <span>Mensagens</span>
           </a>
+        </li>
+        
+        <li class="<?= $page_title == "Geolocalizacao" ? "active treeview" : "#"?>">
+          <a href="<?=ROOT?>admin/geolocalizacao">
+            <i class="fa fa-map"></i> <span>Geolocalizacao</span>
+          </a>
+        </li>
+
+        <li class="treeview <?=$page_title=="RelatorioGeral"?"active":""?> menu-open">
+          <a href="#">
+            <i class="fa fa-folder"></i> <span>Relatorios</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="<?=$page_title=="RelatorioGeral"?"active":""?>"><a href="<?=ROOT?>admin/relatoriogeral"><i class="fa fa-circle-o"></i> Relatorio Geral</a></li>
+          </ul>
         </li>
         <li class="<?= $page_title == "Profile" ? "active treeview" : ""?>">
           <a href="<?=ROOT?>admin/profile">
