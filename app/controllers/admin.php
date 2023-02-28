@@ -320,6 +320,7 @@ Class Admin extends Controller
 		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty'");
 		$data['users'] = $DB->read("select * from users order by id desc");
 		$data['messages'] = $DB->read("select * from messages order by id desc");
+		$data['last_msg_img'] = $DB->read("select image from messages order by id desc limit 4");
 		$data['last_msg'] = $DB->read("select * from messages order by id desc limit 1");
 		$data['page_title'] = "Geolocalizacao";
 		$this->view("admin/geolocalizacao", $data);
