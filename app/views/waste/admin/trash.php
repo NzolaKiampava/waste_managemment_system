@@ -8,13 +8,12 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
         <h1>
-            Blank page
-            <small>it all starts here</small>
+            Baldes de Lixo
+            <small>Contentores de lixos</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="<?=ROOT?>admin"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="#">Examples</a></li>
-            <li class="active">Blank page</li>
+            <li class="active">Baldee de Lixo</li>
         </ol>
         </section>
 
@@ -25,7 +24,7 @@
         <div class="box">
             
             <div class="box-header with-border">
-            <h3 class="box-title">Title</h3>
+            <h3 class="box-title">Baldes de Lixo</h3>
 
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -67,7 +66,15 @@
                                 <td><?=$trash->id?></td>
                                 <td><?=$trash->name?></td>
                                 <td><?=$search_add[0]->address?></td>
-                                <td><?=$trash->status?></td>
+                                <td>
+                                  <span class="
+                                      <?php if($trash->status=="empty"):?>
+                                      label bg-green
+                                      <?php else:?>
+                                      label bg-red
+                                      <?php endif;?>"><?=($trash->status == "empty")?"Vazio":"Cheio"?>
+                                  </span>
+                                </td>
                                 <td><?=$search[0]->name?></td>
                                 <td><?=date('M d, Y', strtotime($trash->created_at))?></td>
                                 <td>
