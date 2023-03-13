@@ -10,6 +10,8 @@ class Trash
 		$db = Database::getInstance();
 
 		$data['name'] = trim($POST['name']);
+		$data['province'] = trim($POST['province']);
+		$data['municipy'] = trim($POST['municipy']);
         $data['address_id'] = trim($POST['address_id']);
         $data['status'] = trim($POST['status']);
 
@@ -36,7 +38,7 @@ class Trash
 			//save
 			$data['created_at'] = date("Y-m-d H:i:s");
 			show($data);
-			$query = "INSERT INTO trash_buckets(name,address_id,created_by,created_at,status) values(:name,:address_id,:created_by,:created_at,:status)";
+			$query = "INSERT INTO trash_buckets(name,province,municipy,address_id,created_by,created_at,status) values(:name,:province,:municipy,:address_id,:created_by,:created_at,:status)";
 			$result = $db->write($query,$data);
 
 			show($result);
@@ -58,6 +60,8 @@ class Trash
 		$db = Database::getInstance();
 	
 		$data['id']	    = trim($POST['id']);
+		$data['province'] = trim($POST['province']);
+		$data['municipy'] = trim($POST['municipy']);
         $data['name'] = trim($POST['name']);
         $data['address_id'] = trim($POST['address_id']);
         $data['status'] = trim($POST['status']);
@@ -70,7 +74,7 @@ class Trash
 
 		if($this->error == ""){
 			//save
-			$query = "UPDATE trash_buckets SET name = :name, address_id = :address_id, status = :status where id = :id";
+			$query = "UPDATE trash_buckets SET name = :name, province = :province, municipy = :municipy, address_id = :address_id, status = :status where id = :id";
 
 			$result = $db->write($query,$data);
 			if($result)
