@@ -1,4 +1,4 @@
-  <!-- Left side column. contains the logo and sidebar -->
+   <!-- Left side column. contains the logo and sidebar -->
 <?php
   $image = 'uploads/user.jpg';
   if (file_exists($user_data->image)) //looking for if exist some file int the collumn image
@@ -56,7 +56,7 @@
         
         <li class="<?= $page_title == "Trash" ? "active treeview" : "#"?>">
           <a href="<?=ROOT?>admin/trash">
-            <i class="fa  fa-trash"></i> <span>Baldes de Lixo</span>
+            <i class="fa  fa-trash"></i> <span>Contentores </span>
             <span class="pull-right-container">
               <small class="label pull-right bg-yellow" title="Total"><?=is_array($count_trash)?count($count_trash):'0'?></small>
               <small class="label pull-right bg-green" title="Vazio"><?=is_array($count_trash_empty)?count($count_trash_empty):'0'?></small>
@@ -95,6 +95,18 @@
           </a>
           <ul class="treeview-menu">
             <li class="<?=$page_title=="RelatorioGeral"?"active":""?>"><a href="<?=ROOT?>admin/relatoriogeral"><i class="fa fa-circle-o"></i> Relatorio Geral</a></li>
+          </ul>
+        </li>
+        <li class="treeview <?=($page_title=="GraficoContentores" || $page_title=="GraficoGeral")?"active":""?> menu-open">
+          <a href="#">
+            <i class="fa fa-bar-chart"></i> <span>Gráficos</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="<?=$page_title=="GraficoContentores"?"active":""?>"><a href="<?=ROOT?>admin/grafico_contentores"><i class="fa fa-circle-o"></i> Estatistica de contentores</a></li>
+            <li class="<?=$page_title=="GraficoGeral"?"active":""?>"><a href="<?=ROOT?>admin/grafico_geral"><i class="fa fa-circle-o"></i> Gráfico Geral</a></li>
           </ul>
         </li>
         <li class="<?= $page_title == "Profile" ? "active treeview" : ""?>">
