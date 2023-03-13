@@ -23,6 +23,11 @@ Class Admin extends Controller
 		$data['count_car'] = $DB->read("select * from garbage_cars");
 		$data['messages'] = $DB->read("select * from messages order by id desc");
 		
+		$data['luanda'] = $DB->read("SELECT * FROM trash_buckets where province = 'Luanda' AND status = 'full'");
+		$data['uige'] = $DB->read("SELECT * FROM trash_buckets where province = 'Uige' AND status = 'full'");
+		$data['huambo'] = $DB->read("SELECT * FROM trash_buckets where province = 'Huambo' AND status = 'full'");
+		$data['benguela'] = $DB->read("SELECT * FROM trash_buckets where province = 'Benguela' AND status = 'full'");
+
 		$data['page_title'] = "Admin";
 		$this->view("admin/index", $data);
 	}
@@ -166,6 +171,10 @@ Class Admin extends Controller
 		if(is_object($user_data)){
 			$data['user_data'] = $user_data;
 		}
+
+		//get provinces
+		$provinces = $this->load_model('Provinces');
+		$data['provinces'] = $provinces->get_provinces();
 
 		//add trash
 		if(isset($_POST['add_trash']))
@@ -368,6 +377,80 @@ Class Admin extends Controller
 		$data['groups'] = $DB->read("select * from colector_group order by id desc");
 		$data['page_title'] = "RelatorioGeral";
 		$this->view("admin/imprimirelatorio", $data);
+	}
+
+
+	public function grafico_geral()
+	{
+		$User = $this->load_model('User');
+		$user_data = $User->check_login(true, ["Administrador","Supervisor"]);
+
+		if(is_object($user_data)){
+			$data['user_data'] = $user_data;
+		}
+		$DB = Database::newInstance();
+		$data['users'] = $DB->read("select * from users");
+		$data['groups'] = $DB->read("SELECT * FROM colector_group");
+		$data['limit_users'] = $DB->read("select * from users order by id desc limit 8");
+
+		$data['count_trash'] = $DB->read('SELECT * FROM trash_buckets');
+		$data['count_trash_full'] = $DB->read("SELECT * FROM trash_buckets where status = 'full'");
+		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty'");
+
+		$data['count_address'] = $DB->read("SELECT * FROM garbage_address");	
+		$data['count_car'] = $DB->read("select * from garbage_cars");
+		$data['messages'] = $DB->read("select * from messages order by id desc");
+		
+		$data['luanda'] = $DB->read("SELECT * FROM trash_buckets where province = 'Luanda' AND status = 'full'");
+		$data['uige'] = $DB->read("SELECT * FROM trash_buckets where province = 'Uige' AND status = 'full'");
+		$data['huambo'] = $DB->read("SELECT * FROM trash_buckets where province = 'Huambo' AND status = 'full'");
+		$data['benguela'] = $DB->read("SELECT * FROM trash_buckets where province = 'Benguela' AND status = 'full'");
+
+		$data['luanda_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Luanda' AND status = 'empty'");
+		$data['uige_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Uige' AND status = 'empty'");
+		$data['huambo_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Huambo' AND status = 'empty'");
+		$data['benguela_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Benguela' AND status = 'empty'");
+
+
+		$data['page_title'] = "GraficoGeral";
+		$this->view("admin/grafico_geral", $data);
+	}
+
+	public function grafico_contentores()
+	{
+		$User = $this->load_model('User');
+		$user_data = $User->check_login(true, ["Administrador","Supervisor"]);
+
+		if(is_object($user_data)){
+			$data['user_data'] = $user_data;
+		}
+
+		$DB = Database::newInstance();
+		$data['users'] = $DB->read("select * from users");
+		$data['groups'] = $DB->read("SELECT * FROM colector_group");
+		$data['limit_users'] = $DB->read("select * from users order by id desc limit 8");
+
+		$data['count_trash'] = $DB->read('SELECT * FROM trash_buckets');
+		$data['count_trash_full'] = $DB->read("SELECT * FROM trash_buckets where status = 'full'");
+		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty'");
+
+		$data['count_address'] = $DB->read("SELECT * FROM garbage_address");	
+		$data['count_car'] = $DB->read("select * from garbage_cars");
+		$data['messages'] = $DB->read("select * from messages order by id desc");
+		
+		$data['luanda'] = $DB->read("SELECT * FROM trash_buckets where province = 'Luanda' AND status = 'full'");
+		$data['uige'] = $DB->read("SELECT * FROM trash_buckets where province = 'Uige' AND status = 'full'");
+		$data['huambo'] = $DB->read("SELECT * FROM trash_buckets where province = 'Huambo' AND status = 'full'");
+		$data['benguela'] = $DB->read("SELECT * FROM trash_buckets where province = 'Benguela' AND status = 'full'");
+
+		$data['luanda_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Luanda' AND status = 'empty'");
+		$data['uige_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Uige' AND status = 'empty'");
+		$data['huambo_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Huambo' AND status = 'empty'");
+		$data['benguela_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Benguela' AND status = 'empty'");
+
+		
+		$data['page_title'] = "GraficoContentores";
+		$this->view("admin/grafico_contentores", $data);
 	}
 
 	public function qrcode()
