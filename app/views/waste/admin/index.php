@@ -42,12 +42,12 @@
             <div class="inner">
               <h3><?=is_array($count_trash)?count($count_trash):'0'?></h3>
 
-              <p>Total de Baldes Lixo</p>
+              <p>Total de Contentores</p>
             </div>
             <div class="icon">
               <i class="fa fa-recycle"></i>
             </div>
-            <a href="#" class="small-box-footer">Mais info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?=ROOT?>admin/trash" class="small-box-footer">Mais info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -57,12 +57,12 @@
             <div class="inner">
               <h3><?=is_array($count_trash_empty)?count($count_trash_empty):'0'?><!--<sup style="font-size: 20px">%</sup>--></h3>
 
-              <p>Baldes de Lixo vazios</p>
+              <p>Contentores vazios</p>
             </div>
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="#" class="small-box-footer">Mais info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?=ROOT?>admin/trash" class="small-box-footer">Mais info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -72,12 +72,12 @@
             <div class="inner">
               <h3><?=is_array($count_trash_full)?count($count_trash_full):'0'?></h3>
 
-              <p>Baldes de Lixo cheios</p>
+              <p>Contentores cheios</p>
             </div>
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="#" class="small-box-footer">Mais info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?=ROOT?>admin/trash" class="small-box-footer">Mais info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -91,7 +91,7 @@
           <div class="nav-tabs-custom">
             <!-- Tabs within a box -->
             <ul class="nav nav-tabs pull-right">
-              <li class="pull-left header"><i class="fa fa-bar-chart"></i> Estatistica</li>
+              <li class="pull-left header"><i class="fa fa-bar-chart"></i> Estatistica dos contentores cheios | Provincia</li>
             </ul>
             <div class="tab-content no-padding">
               <!-- Morris chart - Sales -->
@@ -153,7 +153,7 @@
           <div class="box box-solid ">
             <div class="box-header">
               <i class="fa fa-map-marker"></i>
-              <h3 class="box-title">Endereços de Baldes Lixo</h3>
+              <h3 class="box-title">Endereços de Contentores de Lixo</h3>
             </div>
             <div class="box-body">
             <ul class="todo-list">
@@ -180,6 +180,18 @@
             </div>
             <!-- /.box-body-->
           </div>
+          <div class="box box-solid ">
+            <div class="box-header">
+              <i class="fa fa-map-marker"></i>
+              <h3 class="box-title">Acessar Apartir do Telefone</h3>
+            </div>
+            <div class="box-body">
+            <ul class="todo-list">
+            <img src="<?=ROOT?>admin/qrcode?text=https://kiampava.000webhostapp.com&size=200&padding=10" alt="QR Code">
+            </ul>
+            </div>
+            <!-- /.box-body-->
+          </div>
           <!-- /.box -->
         </section>
         <!-- right col -->
@@ -197,12 +209,12 @@
     new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['Usuarios', 'Baldes de Lixo', 'Baldes Vazio', 'Baldes Cheio', 'Grupos', 'Carros de Recolha'],
+        labels: ['Luanda', 'Uíge', 'Huambo', 'Benguela', 'Total'],
         datasets: [{
           label: '# Total',
-          data: [<?=is_array($users)?count($users):'0'?>, <?=is_array($count_trash)?count($count_trash):'0'?>,<?=is_array($count_trash_empty)?count($count_trash_empty):'0'?>, <?=is_array($count_trash_full)?count($count_trash_full):'0'?>, <?=is_array($groups)?count($groups):'0'?>, <?=is_array($count_car)?count($count_car):'0'?>],
+          data: [<?=is_array($luanda)?count($luanda):'0'?>, <?=is_array($uige)?count($uige):'0'?>,<?=is_array($huambo)?count($huambo):'0'?>, <?=is_array($benguela)?count($benguela):'0'?>, <?=is_array($count_trash_full)?count($count_trash_full):'0'?>],
           borderWidth: 1,
-          backgroundColor: ['#00c0ef', '#f39c12', '#00a65a', '#CB4335', '#884EA0', '#D35400'],
+          backgroundColor: ['#00c0ef', '#f39c12', '#00a65a', '#CB4335', '#ec2424'],
         }]
       },
       options: {
