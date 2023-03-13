@@ -9,6 +9,9 @@ Class Home extends Controller
 		$user_data = $User->check_login();
 
 		$Message = $this->load_model('Message');
+		//get provinces
+		$provinces = $this->load_model('Provinces');
+		$data['provinces'] = $provinces->get_provinces();
 
 		if(is_object($user_data)){
 			$data['user_data'] = $user_data;
