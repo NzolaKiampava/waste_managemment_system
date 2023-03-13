@@ -8,7 +8,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
         <h1>
-            Baldes de Lixo
+            Contentores de Lixo
             <small>Contentores de lixos</small>
         </h1>
         <ol class="breadcrumb">
@@ -22,9 +22,8 @@
 
         <!-- Default box -->
         <div class="box">
-            
             <div class="box-header with-border">
-            <h3 class="box-title">Baldes de Lixo</h3>
+            <h3 class="box-title">Contentor de Lixo</h3>
 
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -44,6 +43,9 @@
                     <tr>
                     <th>#</th>
                     <th>ID</th>
+                    <th>Nome</th>
+                    <th>Provincia</th>
+                    <th>Municipio</th>
                     <th>Nome</th>
                     <th>Endereço</th>
                     <th>Estado</th>
@@ -65,6 +67,8 @@
                                 <td><img src="<?=ASSETS . THEME?><?=($trash->status == 'full')?'/assets/logo/garbage-red.png':'/assets/logo/garbage.jpg'?>" class="img-circle" height='30px' width='30px'></td>
                                 <td><?=$trash->id?></td>
                                 <td><?=$trash->name?></td>
+                                <td><?=$trash->province?></td>
+                                <td><?=$trash->municipy?></td>
                                 <td><?=$search_add[0]->address?></td>
                                 <td>
                                   <span class="
@@ -146,6 +150,8 @@
         $('.userid').val(response[0].id);
         $('#edit_name').val(response[0].name);
         $('#addselected').val(response[0].address_id).html(response[0].address_id);
+        $('#addselectedp').val(response[0].province).html(response[0].province);
+        $('#addselectedm').val(response[0].municipy).html(response[0].municipy);
         $('#statusselected').val(response[0].status).html(response[0].status);
         $('.trash_name').html(response[0].name);
       }
