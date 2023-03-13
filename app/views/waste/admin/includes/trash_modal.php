@@ -1,6 +1,6 @@
 <?php 
   $User = $this->load_model('User');
-  $user_data = $User->check_login(true, ["Administrador"]);
+  $user_data = $User->check_login(true, ["Administrador","Supervisor"]);
 
   if(is_object($user_data)){
     $data['user_data'] = $user_data;
@@ -15,12 +15,38 @@
       <div class="modal-content">
           <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title">Adicionar novo Balde</h4>
+              <h4 class="modal-title">Adicionar novo Contentor</h4>
           </div>
           <div class="modal-body">
             <form method="post">
-              <p>Entrar com Nome do balde</p>
-              <input type="text" name="name" placeholder="Nome do balde" autocomplete="off" class="form-control placeholder-no-fix" required>
+              <p>Entrar com Nome de Referência</p>
+              <input type="text" name="name" placeholder="Nome de Referência" autocomplete="off" class="form-control placeholder-no-fix" required>
+              <br>
+              <p>Selecionar Provincia</p>
+              <select name="province" class="form-control" classname="js-country" oninput="get_municipies(this.value)" required><br><br>
+                    <?php if($province == ""){
+                      echo "<option>-- Provincia --</option>";
+                    }else{
+                      echo "<option>$province</option>";
+                    }?>
+                    <?php if(isset($provinces) && $provinces):?>
+                      <?php foreach ($provinces as $row): ?>
+
+                        <option value="<?=$row->province?>"><?=$row->province?></option>
+
+                      <?php endforeach;?>
+									 	<?php endif;?>
+              </select><br>
+              <p>Selecionar Municipio</p>
+              <select name="municipy" class="js-municipy form-control" required>
+                <?php if($municipy == ""){
+                    echo "<option>-- Municipio --</option>";
+                  }else{
+                    echo "<option>$municipy</option>";
+                  }
+                ?>
+              </select>
+              <br>
 
               <p>Entrar com Endereço</p>
               <select name="address_id" id="address" class="form-control placeholder-no-fix" autocomplete="off" required>
@@ -29,7 +55,7 @@
                     <option value="<?=$row->id?>"><?=$row->address?></option>
                   <?php endforeach;?>
                 <?php endif;?>
-              </select>
+              </select><br>
 
               <p>Estado</p>
               <select name="status" class="form-control placeholder-no-fix" autocomplete="off" required>
@@ -61,6 +87,35 @@
               <input type="hidden" class="userid" name="id">
               <p>Balde</p>
               <input type="text" name="name" id="edit_name" placeholder="Nome do balde" autocomplete="off" class="form-control placeholder-no-fix" required>
+              
+              <p>Selecionar Provincia</p>
+              <select name="province" id="edit_province" class="form-control" classname="js-country" oninput="get_municipies_edit(this.value)" required><br><br>
+                    <option id="addselectedp"></option>
+                    <?php if($province == ""){
+                      echo "<option>-- Provincia --</option>";
+                    }else{
+                      echo "<option>$province</option>";
+                    }?>
+                    <?php if(isset($provinces) && $provinces):?>
+                      <?php foreach ($provinces as $row): ?>
+
+                        <option value="<?=$row->province?>"><?=$row->province?></option>
+
+                      <?php endforeach;?>
+									 	<?php endif;?>
+              </select><br>
+              <p>Selecionar Municipio</p>
+              <select name="municipy" class="js-municip form-control" required>
+  
+                <option id="addselectedm"></option>
+                <?php if($municipy == ""){
+                    echo "<option>-- Municipio --</option>";
+                  }else{
+                    echo "<option>$municipy</option>";
+                  }
+                ?>
+              </select>
+              <br>
 
               <p>Endereço</p>
               <select name="address_id" id="edit_address" class="form-control placeholder-no-fix" autocomplete="off" required>
@@ -171,4 +226,118 @@
     </div>
 </div> 
 
+
+<script>
+  function get_municipies(province) {
+    console.log(province)
+    send_data({
+	  		id:province.trim()
+	 	},"get_municipies");
+  }
+
+  function send_data(data = {},data_type) {
+    var ajax = new XMLHttpRequest();
+
+    ajax.addEventListener('readystatechange', function(){
+
+    if(ajax.readyState == 4 && ajax.status == 200)
+    {
+      handle_result(ajax.responseText);
+    }
+    });
+
+    var info = {};
+    info.data_type = data_type;
+    info.data = data;
+
+    ajax.open("POST","<?=ROOT?>ajax_province",true);
+    ajax.send(JSON.stringify(info));
+
+  }
+
+  function handle_result(result)
+		{
+
+			
+			if(result != ""){
+				var obj = JSON.parse(result);
+
+				if(typeof obj.data_type != 'undefined')
+				{
+          
+					if(obj.data_type == "get_municipies"){
+						//alert(result);
+            console.log(obj.data.length);
+						var select_input = document.querySelector(".js-municipy");
+            console.log(select_input);
+						select_input.innerHTML = "<option>-- Municipio --</option>";
+						for (var i = 0; i < obj.data.length; i++) {
+							select_input.innerHTML += "<option value='"+obj.data[i].municipy+"'>"+obj.data[i].municipy+"</option>";
+						}
+					}
+				}
+
+			}
+
+
+		}
+</script>
+
+<script>
+  function get_municipies_edit(province) {
+    console.log(province)
+    send_data_edit({
+	  		id:province.trim()
+	 	},"get_municipies");
+  }
+
+  function send_data_edit(data = {},data_type) {
+    var ajax = new XMLHttpRequest();
+
+    ajax.addEventListener('readystatechange', function(){
+
+    if(ajax.readyState == 4 && ajax.status == 200)
+    {
+      handle_result_edit(ajax.responseText);
+    }
+    });
+
+    var info = {};
+    info.data_type = data_type;
+    info.data = data;
+
+    ajax.open("POST","<?=ROOT?>ajax_province",true);
+    ajax.send(JSON.stringify(info));
+
+  }
+
+  function handle_result_edit(result)
+		{
+
+			
+			if(result != ""){
+				var obj = JSON.parse(result);
+
+				if(typeof obj.data_type != 'undefined')
+				{
+          
+					if(obj.data_type == "get_municipies"){
+						//alert(result);
+            console.log(obj.data.length);
+						var select_input = document.querySelector(".js-municip");
+            console.log(select_input);
+						select_input.innerHTML = "<option>-- Municipio --</option>";
+						for (var i = 0; i < obj.data.length; i++) {
+							select_input.innerHTML += "<option value='"+obj.data[i].municipy+"'>"+obj.data[i].municipy+"</option>";
+						}
+					}
+				}
+
+			}
+
+
+		}
+</script>
+
+     
      
