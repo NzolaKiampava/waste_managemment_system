@@ -41,7 +41,9 @@
                     <tr>
                     <th>Imagem</th>
                     <th>Nome</th>
-                    <th>Endereço do Balde</th>
+                    <th>Província</th>
+                    <th>Município</th>
+                    <th>Endereço do Contentor</th>
                     <th>Mensagem</th>
                     <th>Data do envio</th>
                     <th>Ações</th>
@@ -59,6 +61,8 @@
                             <tr>
                                 <td><img src="<?=ROOT.$image?>" height='100px' width='100px'></td>
                                 <td><?=$message->sender_name?></td>
+                                <td><?=$message->province?></td>
+                                <td><?=$message->municipy?></td>
                                 <td><?=$message->address?></td>
                                 <td><?=$message->message?></td>
                                 <td><?=date('M d, Y', strtotime($message->date))?></td>
