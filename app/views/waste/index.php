@@ -37,6 +37,32 @@
               <input type="text" name="sender_name" class="form-control" required>
             </div>
             <div class="mb-3">
+              <label for="" class="col-form-label">Seleciona Provincia:</label>
+              <select name="province" classname="js-country" oninput="get_municipies(this.value)" required>
+                    <?php if($province == ""){
+                      echo "<option>-- Province --</option>";
+                    }else{
+                      echo "<option>$province</option>";
+                    }?>
+                    <?php if(isset($provinces) && $provinces):?>
+                      <?php foreach ($provinces as $row): ?>
+
+                        <option value="<?=$row->province?>"><?=$row->province?></option>
+
+                      <?php endforeach;?>
+									 	<?php endif;?>
+              </select>
+              <select name="municipy" class="js-municipy" required>
+                <?php if($municipy == ""){
+                    echo "<option>-- Municipio --</option>";
+                  }else{
+                    echo "<option>$municipy</option>";
+                  }
+                ?>
+              </select>
+            </div>
+            
+            <div class="mb-3">
               <label for="recipient-name" class="col-form-label">Endereço do Contentor:</label>
               <input type="text" name="address" class="form-control" required>
             </div>
@@ -80,6 +106,11 @@
 
 
 
+
+            
+            
+
+
       <!-- ============================================-->
       <!-- <section> begin ============================-->
       <section class="py-6">
@@ -93,20 +124,20 @@
           <div class="row">
             <div class="col-md-4 mb-5 mb-md-0"><img class="img-fluid shadow-sm" src="<?=ASSETS . THEME?>/assets/img/gallery/Smart-Waste-Recycling-System-1-1000x600.jpg" alt="" />
               <div class="mt-3 text-center text-md-start">
-                <h4 class="display-6 fs-2 fs-lg-3 fw-bold">Clean & safe public spaces</h4>
-                <p class="mb-0">Creating clean and safe public spaces is important for several reasons. First, it helps to promote public health and safety by reducing the risk of injury or illness.</p><a class="btn btn-link ps-0" href="#" role="button"> Smart Waste ›</a>
+                <h4 class="display-6 fs-2 fs-lg-3 fw-bold">Espaços públicos limpos e seguros</h4>
+                <p class="mb-0">Criar espaços públicos limpos e seguros é importante por vários motivos. Em primeiro lugar, ajuda a promover a saúde e a segurança pública, reduzindo o risco de lesões ou doenças.</p><a class="btn btn-link ps-0" href="#" role="button"> Smart Waste ›</a>
               </div>
             </div>
             <div class="col-md-4 mb-5 mb-md-0"><img class="img-fluid shadow-sm" src="<?=ASSETS . THEME?>/assets/img/gallery/garbage-sorting-waste-transportation-innovative-green-technology-eco-smart-system-for-recycling-clipart-vector_csp96689551.webp" width="310" alt="" />
               <div class="mt-3 text-center text-md-start">
-                <h4 class="display-6 fs-2 fs-lg-3 fw-bold">Zero waste approach support</h4>
-                <p class="mb-0">Help to create a sense of community pride and ownership, as residents and visitors are more likely to feel invested in spaces that are clean and well-maintained.</p><a class="btn btn-link ps-0" href="#" role="button"> Smart Waste › </a>
+                <h4 class="display-6 fs-2 fs-lg-3 fw-bold">Suporte à abordagem de desperdício zero</h4>
+                <p class="mb-0">Ajude a criar um sentimento de orgulho e propriedade da comunidade, pois é mais provável que residentes e visitantes se sintam investidos em espaços limpos e bem conservados.</p><a class="btn btn-link ps-0" href="#" role="button"> Smart Waste › </a>
               </div>
             </div>
             <div class="col-md-4 mb-5 mb-md-0"><img class="img-fluid shadow-sm" src="<?=ASSETS . THEME?>/assets/img/gallery/garbage-truck-trash-recycling-factory-waste-sorting-transport-vehicle-innovative-technology-isometric-illustration-green-eco-234230240.jpg" alt="" />
               <div class="mt-3 text-center text-md-start">
-                <h4 class="display-6 fs-2 fs-lg-3 fw-bold">No littering</h4>
-                <p class="mb-0">Help to attract visitors and investment to a community, as businesses and residents are more likely to choose areas that are clean and safe for their activities. </p><a class="btn btn-link ps-0" href="#" role="button"> Smart Waste ›</a>
+                <h4 class="display-6 fs-2 fs-lg-3 fw-bold">Proibido jogar lixo</h4>
+                <p class="mb-0">Ajude a atrair visitantes e investimentos para uma comunidade, pois empresas e residentes têm maior probabilidade de escolher áreas limpas e seguras para suas atividades.</p><a class="btn btn-link ps-0" href="#" role="button"> Smart Waste ›</a>
               </div>
             </div>
           </div>
@@ -218,14 +249,68 @@
 
 <script type="text/javascript">
 
-    function PreviewImage() {
-        var oFReader = new FileReader();
-        oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
+  function PreviewImage() {
+    var oFReader = new FileReader();
+    oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
 
-        oFReader.onload = function (oFREvent) {
-            document.getElementById("uploadPreview").src = oFREvent.target.result;
-        };
+    oFReader.onload = function (oFREvent) {
+        document.getElementById("uploadPreview").src = oFREvent.target.result;
     };
+  };
+
+  function get_municipies(province) {
+    console.log(province)
+    send_data({
+	  		id:province.trim()
+	 	},"get_municipies");
+  }
+
+  function send_data(data = {},data_type) {
+    var ajax = new XMLHttpRequest();
+
+    ajax.addEventListener('readystatechange', function(){
+
+    if(ajax.readyState == 4 && ajax.status == 200)
+    {
+      handle_result(ajax.responseText);
+    }
+    });
+
+    var info = {};
+    info.data_type = data_type;
+    info.data = data;
+
+    ajax.open("POST","<?=ROOT?>ajax_province",true);
+    ajax.send(JSON.stringify(info));
+
+  }
+
+  function handle_result(result)
+		{
+
+			
+			if(result != ""){
+				var obj = JSON.parse(result);
+
+				if(typeof obj.data_type != 'undefined')
+				{
+          
+					if(obj.data_type == "get_municipies"){
+						//alert(result);
+            console.log(obj.data.length);
+						var select_input = document.querySelector(".js-municipy");
+            console.log(select_input);
+						select_input.innerHTML = "<option>-- Municipio --</option>";
+						for (var i = 0; i < obj.data.length; i++) {
+							select_input.innerHTML += "<option value='"+obj.data[i].municipy+"'>"+obj.data[i].municipy+"</option>";
+						}
+					}
+				}
+
+			}
+
+
+		}
 
 </script>
         
