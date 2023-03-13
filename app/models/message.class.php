@@ -8,6 +8,8 @@ class Message
 		$db = Database::getInstance();
 
 		$data['sender_name'] = trim($POST['sender_name']);
+		$data['province'] = trim($POST['province']);
+		$data['municipy'] = trim($POST['municipy']);
         $data['address'] = trim($POST['address']);
         $data['message'] = trim($POST['message']);
         $data['date'] = date("Y-m-d H:i:s");
@@ -30,7 +32,7 @@ class Message
 
         $data['image'] = $destination;
 
-        $query = "INSERT INTO messages (sender_name,address,message,image,date) values (:sender_name,:address,:message,:image,:date)";
+        $query = "INSERT INTO messages (sender_name,province,municipy,address,message,image,date) values (:sender_name,:province,:municipy,:address,:message,:image,:date)";
 
         $result = $db->write($query,$data);
 
