@@ -209,12 +209,12 @@
     new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['Luanda', 'Uíge', 'Huambo', 'Benguela', 'Total'],
+        labels: ['Luanda', 'Uíge', 'Huambo', 'Benguela', 'Zaire', 'Namibe','Moxico','Cabinda','Malanje','Lunda-Norte','Lunda-Sul','Cunene','Huila','Kwanza-Norte','Kwanza-Sul','Bie','Bengo','Cuando-Cubango','Total'],
         datasets: [{
           label: '# Total',
-          data: [<?=is_array($luanda)?count($luanda):'0'?>, <?=is_array($uige)?count($uige):'0'?>,<?=is_array($huambo)?count($huambo):'0'?>, <?=is_array($benguela)?count($benguela):'0'?>, <?=is_array($count_trash_full)?count($count_trash_full):'0'?>],
+          data: [<?=is_array($luanda)?count($luanda):'0'?>, <?=is_array($uige)?count($uige):'0'?>,<?=is_array($huambo)?count($huambo):'0'?>, <?=is_array($benguela)?count($benguela):'0'?>, <?=is_array($zaire)?count($zaire):'0'?>, <?=is_array($namibe)?count($namibe):'0'?>, <?=is_array($moxico)?count($moxico):'0'?>, <?=is_array($cabinda)?count($cabinda):'0'?>, <?=is_array($malanje)?count($malanje):'0'?>, <?=is_array($lunda_norte)?count($lunda_norte):'0'?>, <?=is_array($lunda_sul)?count($lunda_sul):'0'?>, <?=is_array($cunene)?count($cunene):'0'?>, <?=is_array($huila)?count($huila):'0'?>, <?=is_array($kwanza_norte)?count($kwanza_norte):'0'?>, <?=is_array($kwanza_sul)?count($kwanza_sul):'0'?>, <?=is_array($bie)?count($bie):'0'?>, <?=is_array($bengo)?count($bengo):'0'?>, <?=is_array($cuando_cubango)?count($cuando_cubango):'0'?>, <?=is_array($count_trash_full)?count($count_trash_full):'0'?>],
           borderWidth: 1,
-          backgroundColor: ['#00c0ef', '#f39c12', '#00a65a', '#CB4335', '#ec2424'],
+          backgroundColor: ['#C71339', '#CB0319', '#CB4119', '#CB4335', '#CB1335', '#aB4335', '#CB4339', '#CB4324', '#CB1335', '#CB4125', '#CB4325', '#C24335', '#Cf4335', '#CB4322', '#DD4335', '#CB4135', '#CB3315', '#DD4335', '#ec2424'],
         }]
       },
       options: {
