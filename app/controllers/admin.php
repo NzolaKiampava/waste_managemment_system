@@ -27,6 +27,20 @@ Class Admin extends Controller
 		$data['uige'] = $DB->read("SELECT * FROM trash_buckets where province = 'Uige' AND status = 'full'");
 		$data['huambo'] = $DB->read("SELECT * FROM trash_buckets where province = 'Huambo' AND status = 'full'");
 		$data['benguela'] = $DB->read("SELECT * FROM trash_buckets where province = 'Benguela' AND status = 'full'");
+		$data['zaire'] = $DB->read("SELECT * FROM trash_buckets where province = 'Zaire' AND status = 'full'");
+		$data['namibe'] = $DB->read("SELECT * FROM trash_buckets where province = 'Namibe' AND status = 'full'");
+		$data['moxico'] = $DB->read("SELECT * FROM trash_buckets where province = 'Moxico' AND status = 'full'");
+		$data['cabinda'] = $DB->read("SELECT * FROM trash_buckets where province = 'Cabinda' AND status = 'full'");
+		$data['malanje'] = $DB->read("SELECT * FROM trash_buckets where province = 'Malanje' AND status = 'full'");
+		$data['lunda_norte'] = $DB->read("SELECT * FROM trash_buckets where province = 'Lunda-Norte' AND status = 'full'");
+		$data['lunda_sul'] = $DB->read("SELECT * FROM trash_buckets where province = 'Lunda-Sul' AND status = 'full'");
+		$data['cunene'] = $DB->read("SELECT * FROM trash_buckets where province = 'Cunene' AND status = 'full'");
+		$data['huila'] = $DB->read("SELECT * FROM trash_buckets where province = 'Huila' AND status = 'full'");
+		$data['kwanza_norte'] = $DB->read("SELECT * FROM trash_buckets where province = 'Kwanza-Norte' AND status = 'full'");
+		$data['kwanza_sul'] = $DB->read("SELECT * FROM trash_buckets where province = 'Kwanza-Sul' AND status = 'full'");
+		$data['bie'] = $DB->read("SELECT * FROM trash_buckets where province = 'Bie' AND status = 'full'");
+		$data['bengo'] = $DB->read("SELECT * FROM trash_buckets where province = 'Bengo' AND status = 'full'");
+		$data['cuando_cubango'] = $DB->read("SELECT * FROM trash_buckets where province = 'Cuando-Cubango' AND status = 'full'");
 
 		$data['page_title'] = "Admin";
 		$this->view("admin/index", $data);
@@ -400,16 +414,6 @@ Class Admin extends Controller
 		$data['count_address'] = $DB->read("SELECT * FROM garbage_address");	
 		$data['count_car'] = $DB->read("select * from garbage_cars");
 		$data['messages'] = $DB->read("select * from messages order by id desc");
-		
-		$data['luanda'] = $DB->read("SELECT * FROM trash_buckets where province = 'Luanda' AND status = 'full'");
-		$data['uige'] = $DB->read("SELECT * FROM trash_buckets where province = 'Uige' AND status = 'full'");
-		$data['huambo'] = $DB->read("SELECT * FROM trash_buckets where province = 'Huambo' AND status = 'full'");
-		$data['benguela'] = $DB->read("SELECT * FROM trash_buckets where province = 'Benguela' AND status = 'full'");
-
-		$data['luanda_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Luanda' AND status = 'empty'");
-		$data['uige_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Uige' AND status = 'empty'");
-		$data['huambo_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Huambo' AND status = 'empty'");
-		$data['benguela_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Benguela' AND status = 'empty'");
 
 
 		$data['page_title'] = "GraficoGeral";
@@ -442,11 +446,40 @@ Class Admin extends Controller
 		$data['uige'] = $DB->read("SELECT * FROM trash_buckets where province = 'Uige' AND status = 'full'");
 		$data['huambo'] = $DB->read("SELECT * FROM trash_buckets where province = 'Huambo' AND status = 'full'");
 		$data['benguela'] = $DB->read("SELECT * FROM trash_buckets where province = 'Benguela' AND status = 'full'");
+		$data['zaire'] = $DB->read("SELECT * FROM trash_buckets where province = 'Zaire' AND status = 'full'");
+		$data['namibe'] = $DB->read("SELECT * FROM trash_buckets where province = 'Namibe' AND status = 'full'");
+		$data['moxico'] = $DB->read("SELECT * FROM trash_buckets where province = 'Moxico' AND status = 'full'");
+		$data['cabinda'] = $DB->read("SELECT * FROM trash_buckets where province = 'Cabinda' AND status = 'full'");
+		$data['malanje'] = $DB->read("SELECT * FROM trash_buckets where province = 'Malanje' AND status = 'full'");
+		$data['lunda_norte'] = $DB->read("SELECT * FROM trash_buckets where province = 'Lunda-Norte' AND status = 'full'");
+		$data['lunda_sul'] = $DB->read("SELECT * FROM trash_buckets where province = 'Lunda-Sul' AND status = 'full'");
+		$data['cunene'] = $DB->read("SELECT * FROM trash_buckets where province = 'Cunene' AND status = 'full'");
+		$data['huila'] = $DB->read("SELECT * FROM trash_buckets where province = 'Huila' AND status = 'full'");
+		$data['kwanza_norte'] = $DB->read("SELECT * FROM trash_buckets where province = 'Kwanza-Norte' AND status = 'full'");
+		$data['kwanza_sul'] = $DB->read("SELECT * FROM trash_buckets where province = 'Kwanza-Sul' AND status = 'full'");
+		$data['bie'] = $DB->read("SELECT * FROM trash_buckets where province = 'Bie' AND status = 'full'");
+		$data['bengo'] = $DB->read("SELECT * FROM trash_buckets where province = 'Bengo' AND status = 'full'");
+		$data['cuando_cubango'] = $DB->read("SELECT * FROM trash_buckets where province = 'Cuando-Cubango' AND status = 'full'");
+
 
 		$data['luanda_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Luanda' AND status = 'empty'");
 		$data['uige_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Uige' AND status = 'empty'");
 		$data['huambo_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Huambo' AND status = 'empty'");
 		$data['benguela_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Benguela' AND status = 'empty'");
+		$data['zaire_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Zaire' AND status = 'empty'");
+		$data['namibe_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Namibe' AND status = 'empty'");
+		$data['moxico_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Moxico' AND status = 'empty'");
+		$data['cabinda_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Cabinda' AND status = 'empty'");
+		$data['malanje_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Malanje' AND status = 'empty'");
+		$data['lunda_norte_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Lunda-Norte' AND status = 'empty'");
+		$data['lunda_sul_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Lunda-Sul' AND status = 'empty'");
+		$data['cunene_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Cunene' AND status = 'empty'");
+		$data['huila_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Huila' AND status = 'empty'");
+		$data['kwanza_norte_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Kwanza-Norte' AND status = 'empty'");
+		$data['kwanza_sul_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Kwanza-Sul' AND status = 'empty'");
+		$data['bie_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Bie' AND status = 'empty'");
+		$data['bengo_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Bengo' AND status = 'empty'");
+		$data['cuando_cubango_empty'] = $DB->read("SELECT * FROM trash_buckets where province = 'Cuando-Cubango' AND status = 'empty'");
 
 		
 		$data['page_title'] = "GraficoContentores";
