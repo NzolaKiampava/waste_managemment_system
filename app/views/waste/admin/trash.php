@@ -37,6 +37,9 @@
             <div class="box-footer clearfix no-border">
               <button type="button" class="btn btn-success pull-left" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash"></i>&nbsp; Adicionar </button>
             </div>
+            <div class="box-footer clearfix no-border">
+              <a href="http://localhost/ultrasonic_wastems/" target="_blank"><button type="button" class="btn btn-primary pull-right"><i class="fa fa-area-chart"></i>&nbsp; Ver Monitoramento </button></a>
+            </div>
             <div class="box-body">
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
@@ -46,7 +49,6 @@
                     <th>Nome</th>
                     <th>Provincia</th>
                     <th>Municipio</th>
-                    <th>Nome</th>
                     <th>Endereço</th>
                     <th>Estado</th>
                     <th>Criado por</th>
@@ -64,7 +66,7 @@
                                     $search_add = $DB->read("select * from garbage_address where id = '$trash->address_id'");
                                 ?>
                             <tr>
-                                <td><img src="<?=ASSETS . THEME?><?=($trash->status == 'full')?'/assets/logo/garbage-red.png':'/assets/logo/garbage.jpg'?>" class="img-circle" height='30px' width='30px'></td>
+                                <td><img src="<?=ASSETS . THEME?><?php if($trash->status == 'full'){echo "/assets/logo/garbage-red.png";}elseif($trash->status == 'empty'){echo'/assets/logo/garbage.jpg';}else echo'/assets/logo/garbage-yellow.jpg';?>"  class="img-circle" height='30px' width='30px'></td>
                                 <td><?=$trash->id?></td>
                                 <td><?=$trash->name?></td>
                                 <td><?=$trash->province?></td>
@@ -74,9 +76,18 @@
                                   <span class="
                                       <?php if($trash->status=="empty"):?>
                                       label bg-green
+                                      <?php elseif($trash->status=="middle"):?>
+                                        label bg-yellow
                                       <?php else:?>
                                       label bg-red
-                                      <?php endif;?>"><?=($trash->status == "empty")?"Vazio":"Cheio"?>
+                                      <?php endif;?>">
+                                      <?php if($trash->status == "empty"):?>
+                                        Vazio
+                                      <?php elseif($trash->status == "middle"):?>
+                                        Meio
+                                      <?php else:?>
+                                        Cheio
+                                      <?php endif;?>
                                   </span>
                                 </td>
                                 <td><?=$search[0]->name?></td>
@@ -170,4 +181,11 @@
       }
     });
   }
+</script>
+
+<script>
+  // Refresh the page every 5 seconds
+setInterval(function() {
+    location.reload();
+}, 5000);
 </script>
