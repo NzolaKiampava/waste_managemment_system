@@ -83,7 +83,7 @@
           label: '# Total',
           data: [<?=is_array($luanda)?count($luanda):'0'?>, <?=is_array($uige)?count($uige):'0'?>,<?=is_array($huambo)?count($huambo):'0'?>, <?=is_array($benguela)?count($benguela):'0'?>, <?=is_array($zaire)?count($zaire):'0'?>, <?=is_array($namibe)?count($namibe):'0'?>, <?=is_array($moxico)?count($moxico):'0'?>, <?=is_array($cabinda)?count($cabinda):'0'?>, <?=is_array($malanje)?count($malanje):'0'?>, <?=is_array($lunda_norte)?count($lunda_norte):'0'?>, <?=is_array($lunda_sul)?count($lunda_sul):'0'?>, <?=is_array($cunene)?count($cunene):'0'?>, <?=is_array($huila)?count($huila):'0'?>, <?=is_array($kwanza_norte)?count($kwanza_norte):'0'?>, <?=is_array($kwanza_sul)?count($kwanza_sul):'0'?>, <?=is_array($bie)?count($bie):'0'?>, <?=is_array($bengo)?count($bengo):'0'?>, <?=is_array($cuando_cubango)?count($cuando_cubango):'0'?>, <?=is_array($count_trash_full)?count($count_trash_full):'0'?>],
           borderWidth: 1,
-          backgroundColor: ['#00a65a', '#00a65a', '#00a65a', '#00a65a', '#00a65a', '#00a65a', '#00a65a', '#00a65a', '#00a65a', '#00a65a', '#00a65a', '#00a65a', '#00a65a', '#00a65a', '#00a65a', '#00a65a', '#00a65a', '#00a65a', '#124315'],
+          backgroundColor: ['#C71339', '#CB0319', '#CB4119', '#CB4335', '#CB1335', '#aB4335', '#CB4339', '#CB4324', '#CB1335', '#CB4125', '#CB4325', '#C24335', '#Cf4335', '#CB4322', '#DD4335', '#CB4135', '#CB3315', '#DD4335', '#ec2424'],
         }]
       },
       options: {
@@ -114,7 +114,7 @@
           label: '# Total',
           data: [<?=is_array($luanda_empty)?count($luanda_empty):'0'?>, <?=is_array($uige_empty)?count($uige_empty):'0'?>,<?=is_array($huambo_empty)?count($huambo_empty):'0'?>, <?=is_array($benguela_empty)?count($benguela_empty):'0'?>, <?=is_array($zaire_empty)?count($zaire_empty):'0'?>, <?=is_array($namibe_empty)?count($namibe_empty):'0'?>, <?=is_array($moxico_empty)?count($moxico_empty):'0'?>, <?=is_array($cabinda_empty)?count($cabinda_empty):'0'?>, <?=is_array($malanje_empty)?count($malanje_empty):'0'?>, <?=is_array($lunda_norte_empty)?count($lunda_norte_empty):'0'?>, <?=is_array($lunda_sul_empty)?count($lunda_sul_empty):'0'?>, <?=is_array($cunene_empty)?count($cunene_empty):'0'?>, <?=is_array($huila_empty)?count($huila_empty):'0'?>, <?=is_array($kwanza_norte_empty)?count($kwanza_norte_empty):'0'?>, <?=is_array($kwanza_sul_empty)?count($kwanza_sul_empty):'0'?>, <?=is_array($bie_empty)?count($bie_empty):'0'?>, <?=is_array($bengo_empty)?count($bengo_empty):'0'?>, <?=is_array($cuando_cubango_empty)?count($cuando_cubango_empty):'0'?>, <?=is_array($count_trash_full)?count($count_trash_full):'0'?>],
           borderWidth: 1,
-          backgroundColor: ['#C71339', '#CB0319', '#CB4119', '#CB4335', '#CB1335', '#aB4335', '#CB4339', '#CB4324', '#CB1335', '#CB4125', '#CB4325', '#C24335', '#Cf4335', '#CB4322', '#DD4335', '#CB4135', '#CB3315', '#DD4335', '#ec2424'],
+          backgroundColor: ['#00a65a', '#00a65a', '#00a65a', '#00a65a', '#00a65a', '#00a65a', '#00a65a', '#00a65a', '#00a65a', '#00a65a', '#00a65a', '#00a65a', '#00a65a', '#00a65a', '#00a65a', '#00a65a', '#00a65a', '#00a65a', '#124315'],
         }]
       },
       options: {
