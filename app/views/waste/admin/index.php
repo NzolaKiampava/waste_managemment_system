@@ -187,7 +187,8 @@
             </div>
             <div class="box-body">
             <ul class="todo-list">
-            <img src="<?=ROOT?>admin/qrcode?text=https://kiampava.000webhostapp.com&size=200&padding=10" alt="QR Code">
+            <!--<img src="<?=ROOT?>admin/qrcode?text=https://kiampava.000webhostapp.com&size=200&padding=10" alt="QR Code">-->
+            <img src="<?=ROOT?>uploads/smartwastweb.png" alt="QR Code">
             </ul>
             </div>
             <!-- /.box-body-->
