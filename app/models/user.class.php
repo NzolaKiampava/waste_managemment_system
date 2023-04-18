@@ -77,7 +77,7 @@ Class User
 
 			if($result)
 			{
-				header("Location: " . ROOT . "login");
+				header("Location: " . ROOT . "register");
 				die;
 			}
 		}
@@ -152,7 +152,7 @@ Class User
 				if($result)
 				{
 					$_SESSION['sucess_recover_password'] = "Porfavor verifica o seu Email";
-					header("Location: " . ROOT . "login");
+					header("Location: " . ROOT . "register");
 					die;
 				}
 		    }
@@ -179,7 +179,7 @@ Class User
 
 	  $mail->IsHTML(true);
 	  $mail->AddAddress($recipient, "recipient-name");
-	  $mail->SetFrom("nzolakiampava@gmail.com", "KiampavaTheCoder");
+	  $mail->SetFrom("nzolakiampava@gmail.com", "SmartWASTE");
 	  // $mail->SetFrom("nzolakiampava@gmail.com", "your-sender-name");
 	  //$mail->AddReplyTo("reply-to-email", "reply-to-name");
 	  //$mail->AddCC("cc-recipient-email", "cc-recipient-name");
@@ -333,6 +333,114 @@ Class User
 					}
 				}
 			}
+		}
+
+		$_SESSION['error'] = $this->error;
+	}
+
+	public function update_user_profile($POST, $FILES = "", $id)
+	{
+
+		$data = array();
+		$db = Database::getInstance();
+
+		$data['name']      = trim($POST['name']);		
+		$data['email']     = trim($POST['email']);		
+		$data['id']	       = (int)$id;
+
+
+		$filename = $FILES['image']['name'];
+		$destination = "";
+		$folder = "uploads/";
+
+		if (!file_exists($folder)) //if file $folder not exist
+		{
+			mkdir($folder, 0777, true);  //crete a directory to this $folder
+		}
+
+
+		if(empty($data['email']) || !preg_match("/^[a-zA-Z0-9\\_\\-\\.]+@[a-zA-Z]+.[a-zA-Z]+$/", $data['email']))
+		{
+			$this->error .= "Please enter a valid email <br>";
+		}
+
+		if(empty($data['name']) || !preg_match("/^[a-zA-Z ]+$/", $data['name']))
+		{
+			$this->error .= "Please enter a valid name <br>";
+		}	
+
+		if($this->error == ""){
+			//save
+			if(!empty($filename)){
+				$destination = $folder . "wastems-".rand(1,999)."-".$FILES['image']['name'];
+				move_uploaded_file($FILES['image']['tmp_name'], $destination);
+				$data['image'] = $destination;
+				$query = "UPDATE users SET name = :name ,email = :email, image = :image where id = :id";
+
+			}else {
+				$query = "UPDATE users SET name = :name ,email = :email where id = :id";
+			}
+
+			$result = $db->write($query,$data);
+			if($result)
+			{
+				$_SESSION['success'] = "Salvo com Sucesso!";
+				header("Location: " . ROOT . "dashboard_userprofile");
+				die;
+			}
+		}
+
+		$_SESSION['error'] = $this->error;
+	}
+
+	public function update_user_password($POST, $id)
+	{
+
+		$data = array();
+		$db = Database::getInstance();
+		
+		$datap['password']  = trim($POST['new_password']);
+		$data['id']	       = (int)$id;
+		$current_password  = trim($POST['current_password']);
+	
+		//check the current password
+		$sql = "SELECT * FROM users WHERE id = :id limit 1";
+		$arr['id'] = (int)$id;
+		$check = $db->read($sql,$arr);
+		if(is_array($check)){
+			
+			$current_password = hash('sha1', $current_password);
+
+			if(!empty($datap['password']) && !empty($current_password)){
+				if($current_password == $check[0]->password)
+				{
+					if(strlen($datap['password']) < 4)
+					{
+						$this->error .= "Password must be at least 4 characters long <br>";
+					}
+					if($this->error == ""){
+
+						//save
+						$data['password'] = hash('sha1', $datap['password']);
+
+						$query = "UPDATE users SET password = :password where id = :id";
+
+						$result = $db->write($query,$data);
+
+						if($result)
+						{
+							$_SESSION['success'] = "Salvo com Sucesso!";
+							header("Location: " . ROOT . "dashboard_userchangepassword");
+							die;
+						}
+					}
+				}
+				else
+				{
+					$this->error = "The current password is wrong <br/>";
+				}
+			}
+			
 		}
 
 		$_SESSION['error'] = $this->error;
@@ -531,7 +639,7 @@ Class User
 			unset($_SESSION['user_url']);
 		}
 
-		header("Location: " . ROOT . "login");
+		header("Location: " . ROOT . "register");
 		die;
 	}
 
