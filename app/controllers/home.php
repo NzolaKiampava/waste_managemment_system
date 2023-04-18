@@ -17,13 +17,17 @@ Class Home extends Controller
 			$data['user_data'] = $user_data;
 		}
 
-		if($_SERVER['REQUEST_METHOD'] == "POST")
+		if(isset($_POST['send_message']))
 		{
-			$Message->insert_message($_POST, $_FILES);
+			$id = $data['user_data']->id;
+			$Message->insert_message($_POST, $_FILES, $id);
 		}
 
 		$DB = Database::newInstance();
 		$data['messages'] = $DB->read("select * from messages order by id desc");
+		$data['users'] = $DB->read("select * from users");
+		$data['contentores'] = $DB->read("select * from trash_buckets");
+		$data['colector_group'] = $DB->read("select * from colector_group");
 		$data['page_title'] = "Home";
 		$this->view("index", $data);
 	}
