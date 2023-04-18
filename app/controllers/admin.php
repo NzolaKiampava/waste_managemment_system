@@ -42,6 +42,18 @@ Class Admin extends Controller
 		$data['bengo'] = $DB->read("SELECT * FROM trash_buckets where province = 'Bengo' AND status = 'full'");
 		$data['cuando_cubango'] = $DB->read("SELECT * FROM trash_buckets where province = 'Cuando-Cubango' AND status = 'full'");
 
+
+		//municipios de luanda
+		$data['belas'] = $DB->read("SELECT * FROM trash_buckets where province = 'Luanda' and municipy = 'Belas' AND status = 'full'");
+		$data['cacuaco'] = $DB->read("SELECT * FROM trash_buckets where province = 'Luanda' and municipy = 'Cacuaco' AND status = 'full'");
+		$data['cazenga'] = $DB->read("SELECT * FROM trash_buckets where province = 'Luanda' and municipy = 'Cazenga' AND status = 'full'");
+		$data['icolo'] = $DB->read("SELECT * FROM trash_buckets where province = 'Luanda' and municipy = 'Icolo e Bengo' AND status = 'full'");
+		$data['quissama'] = $DB->read("SELECT * FROM trash_buckets where province = 'Luanda' and municipy = 'Quissama' AND status = 'full'");
+		$data['viana'] = $DB->read("SELECT * FROM trash_buckets where province = 'Luanda' and municipy = 'Viana' AND status = 'full'");
+		$data['luandam'] = $DB->read("SELECT * FROM trash_buckets where province = 'Luanda' and municipy = 'Luanda' AND status = 'full'");
+
+
+
 		$data['page_title'] = "Admin";
 		$this->view("admin/index", $data);
 	}
@@ -604,7 +616,7 @@ Class Admin extends Controller
 			$id = $_POST['id'];
 
 			$row = $DB->read("SELECT *, (SELECT address from garbage_address where id='$id') as add_name FROM trash_buckets WHERE id=:id",['id'=>$id]);
-
+			//SELECT garbage_address.address, trash_buckets.address_id FROM `garbage_address` INNER join trash_buckets on garbage_address.id = trash_buckets.address_id;
 			echo json_encode($row);
 		}
 	}
