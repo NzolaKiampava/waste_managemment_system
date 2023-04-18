@@ -2,17 +2,17 @@
 
 class Message 
 {
-    public function insert_message($POST,$FILES)
+    public function insert_message($POST,$FILES,$id)
     {
         $data = array();
 		$db = Database::getInstance();
 
-		$data['sender_name'] = trim($POST['sender_name']);
 		$data['province'] = trim($POST['province']);
 		$data['municipy'] = trim($POST['municipy']);
         $data['address'] = trim($POST['address']);
         $data['message'] = trim($POST['message']);
         $data['date'] = date("Y-m-d H:i:s");
+		$data['user_id'] = $id;
 
         $filename = $FILES['image']['name'];
 
@@ -32,9 +32,9 @@ class Message
 
         $data['image'] = $destination;
 
-        $query = "INSERT INTO messages (sender_name,province,municipy,address,message,image,date) values (:sender_name,:province,:municipy,:address,:message,:image,:date)";
-
-        $result = $db->write($query,$data);
+        $query = "INSERT INTO messages (user_id,province,municipy,address,message,image,date) values (:user_id,:province,:municipy,:address,:message,:image,:date)";
+        
+		$result = $db->write($query,$data);
 
         if($result)
         {
@@ -44,9 +44,10 @@ class Message
         }
     }
 
-    public function delete_message()
+    public function delete_message($POST)
     {
         //show($POST);
+		
 		$DB = Database::newInstance();
 		$id = trim($POST['id']);
 		$query = "delete from messages where id = '$id' limit 1";
