@@ -11434,7 +11434,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sEmptyTable": "Sem dados dispon�veis na tabela",
+			"sEmptyTable": "Sem dados disponiveis na tabela",
 	
 	
 			/**

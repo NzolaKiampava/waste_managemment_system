@@ -238,6 +238,13 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="<?=ASSETS.THEME?>admin/dist/js/pages/dashboard.js"></script>
 
+<!-- DataTables -->
+<script src="<?=ASSETS.THEME?>admin/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="<?=ASSETS.THEME?>admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="<?=ASSETS.THEME?>admin/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="<?=ASSETS.THEME?>admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+
+
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="<?=ASSETS.THEME?>admin/dist/js/demo.js"></script>
 <script src="<?=ASSETS.THEME?>admin/bower_components/datatables.net/js/jquery.dataTables.js"></script>

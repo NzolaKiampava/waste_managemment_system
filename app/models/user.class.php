@@ -1,7 +1,14 @@
 <?php 
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+require 'PHPMailer-master/src/Exception.php';
+require 'PHPMailer-master/src/PHPMailer.php';
+require 'PHPMailer-master/src/SMTP.php';
+
 Class User 
 {
+
 	private $error = "";
 
 	public function signup($POST)
@@ -60,15 +67,17 @@ Class User
 			//save
 			$data['rank'] = "Normal";
 			$data['date'] = date("Y-m-d H:i:s");
+			$data['login_at'] = date("Y-m-d H:i:s");
+			$data['logout_at'] = date("Y-m-d H:i:s");
 			$data['password'] = hash('sha1', $data['password']);
 
-			$query = "INSERT INTO users (url_address,name,email,password,date,rank) values (:url_address,:name,:email,:password,:date,:rank)";
+			$query = "INSERT INTO users (url_address,name,email,password,date,rank,login_at,logout_at) values (:url_address,:name,:email,:password,:date,:rank,:login_at,:logout_at)";
 
 			$result = $db->write($query,$data);
 
 			if($result)
 			{
-				header("Location: " . ROOT . "login");
+				header("Location: " . ROOT . "register");
 				die;
 			}
 		}
@@ -81,12 +90,12 @@ Class User
 		$data = array();
 		$db = Database::getInstance();
 
-		$data['email']     = trim($POST['email']);		
+		$data['name']     = trim($POST['name']);		
 		$data['password']  = trim($POST['password']);		
 
-		if(empty($data['email']) || !preg_match("/^[a-zA-Z0-9\\_\\-\\.]+@[a-zA-Z]+.[a-zA-Z]+$/", $data['email']))
+		if(empty($data['name']) || !preg_match("/^[a-zA-Z ]+$/", $data['name']))
 		{
-			$this->error .= "Porfavor entra com email valido <br>";
+			$this->error .= "Porfavor entra com nome valido <br>";
 		}
 
 
@@ -99,22 +108,94 @@ Class User
 			//comfirm
 
 			$data['password'] = hash('sha1', $data['password']);
-			$sql = "SELECT * FROM users WHERE email = :email and password = :password limit 1";
+			$sql = "SELECT * FROM users WHERE name = :name and password = :password limit 1";
 
 			$result = $db->read($sql,$data);
 
 			if(is_array($result))
 			{
+				$id = $result[0]->id;
+				$login_at = date("Y-m-d H:i:s");
+				$db->write("UPDATE users SET login_at = :login_at, online = '1' where id = :id",['login_at'=>$login_at, 'id'=>$id]);
 				$_SESSION['success'] =  "Bem Vindo(a) ".$result[0]->name."!";
 				$_SESSION['user_url'] = $result[0]->url_address;
 				header("Location: " . ROOT . "home");
 				die;
 			}
 
-			$this->error .= "Email ou Password errado <br>";
+			$this->error .= "Nome do Usuário ou Password errado <br>";
 		}
 
 		$_SESSION['error'] = $this->error;
+	}
+
+	public function recover_password($POST)
+	{
+		$DB = Database::newInstance();
+		$email = trim($POST['email']);
+		$query = $DB->read("SELECT * FROM users WHERE email = :email limit 1", ['email'=>$email]);
+
+		if($query)
+		{
+		    $recover_password = $this->get_random_string_max(20);
+		    $rec_password = $recover_password;
+		    $password = hash('sha1', $recover_password);
+
+		    $recipient = $query[0]->email;
+		    $subject = "Recover Your Password🔐";
+		    $message = "Olá ".$query[0]->name."😁, esta é a sua nova palavra-passe: ".$rec_password.". Já podes fazer Login!";
+
+		    $send_mail = $this->send_mail($recipient,$subject,$message);
+		    if($send_mail)
+		    {
+		    	$result = $DB->write("UPDATE users SET password = :password where email = :email",['password'=>$password, 'email'=>$email]);
+				if($result)
+				{
+					$_SESSION['sucess_recover_password'] = "Porfavor verifica o seu Email";
+					header("Location: " . ROOT . "register");
+					die;
+				}
+		    }
+			
+		}
+
+	}
+
+	function send_mail($recipient,$subject,$message)
+	{
+	  
+	  $mail = new PHPMailer();
+	  $mail->CharSet = 'utf-8';
+	  $mail->IsSMTP();
+
+	  $mail->SMTPDebug  = 0;  
+	  $mail->SMTPAuth   = TRUE;
+	  $mail->SMTPSecure = "tls";
+	  $mail->Port       = 587;
+	  $mail->Host       = "smtp.gmail.com";
+	  //$mail->Host       = "smtp.mail.yahoo.com";
+	  $mail->Username   = "nzolakiampava@gmail.com";
+	  $mail->Password   = "kxzlxsyuayfdlrcj";
+
+	  $mail->IsHTML(true);
+	  $mail->AddAddress($recipient, "recipient-name");
+	  $mail->SetFrom("nzolakiampava@gmail.com", "SmartWASTE");
+	  // $mail->SetFrom("nzolakiampava@gmail.com", "your-sender-name");
+	  //$mail->AddReplyTo("reply-to-email", "reply-to-name");
+	  //$mail->AddCC("cc-recipient-email", "cc-recipient-name");
+	  $mail->Subject = $subject;
+	  $content = $message;
+
+	  $mail->MsgHTML($content); 
+	  if(!$mail->Send()) {
+	    echo "Error while sending Email.";
+	    //var_dump($mail);
+	    return false;
+	  } else {
+	    echo "Email sent successfully";
+	    return true;
+	  }
+
 	}
 
 	public function add_user($POST)
@@ -127,7 +208,7 @@ Class User
 		$data['name']      = trim($POST['name']);		
 		$data['email']     = trim($POST['email']);	
 		$data['rank']      = trim($POST['rank']);	
-		$data['password']  = "kiampava";	
+		$data['password']  = "12345678";	
 
 		//check if email already exits
 		
@@ -257,6 +338,182 @@ Class User
 		$_SESSION['error'] = $this->error;
 	}
 
+	public function update_user_profile($POST, $FILES = "", $id)
+	{
+
+		$data = array();
+		$db = Database::getInstance();
+
+		$data['name']      = trim($POST['name']);		
+		$data['email']     = trim($POST['email']);		
+		$data['id']	       = (int)$id;
+
+
+		$filename = $FILES['image']['name'];
+		$destination = "";
+		$folder = "uploads/";
+
+		if (!file_exists($folder)) //if file $folder not exist
+		{
+			mkdir($folder, 0777, true);  //crete a directory to this $folder
+		}
+
+
+		if(empty($data['email']) || !preg_match("/^[a-zA-Z0-9\\_\\-\\.]+@[a-zA-Z]+.[a-zA-Z]+$/", $data['email']))
+		{
+			$this->error .= "Please enter a valid email <br>";
+		}
+
+		if(empty($data['name']) || !preg_match("/^[a-zA-Z ]+$/", $data['name']))
+		{
+			$this->error .= "Please enter a valid name <br>";
+		}	
+
+		if($this->error == ""){
+			//save
+			if(!empty($filename)){
+				$destination = $folder . "wastems-".rand(1,999)."-".$FILES['image']['name'];
+				move_uploaded_file($FILES['image']['tmp_name'], $destination);
+				$data['image'] = $destination;
+				$query = "UPDATE users SET name = :name ,email = :email, image = :image where id = :id";
+
+			}else {
+				$query = "UPDATE users SET name = :name ,email = :email where id = :id";
+			}
+
+			$result = $db->write($query,$data);
+			if($result)
+			{
+				$_SESSION['success'] = "Salvo com Sucesso!";
+				header("Location: " . ROOT . "dashboard_userprofile");
+				die;
+			}
+		}
+
+		$_SESSION['error'] = $this->error;
+	}
+
+	public function update_user_password($POST, $id)
+	{
+
+		$data = array();
+		$db = Database::getInstance();
+		
+		$datap['password']  = trim($POST['new_password']);
+		$data['id']	       = (int)$id;
+		$current_password  = trim($POST['current_password']);
+	
+		//check the current password
+		$sql = "SELECT * FROM users WHERE id = :id limit 1";
+		$arr['id'] = (int)$id;
+		$check = $db->read($sql,$arr);
+		if(is_array($check)){
+			
+			$current_password = hash('sha1', $current_password);
+
+			if(!empty($datap['password']) && !empty($current_password)){
+				if($current_password == $check[0]->password)
+				{
+					if(strlen($datap['password']) < 4)
+					{
+						$this->error .= "Password must be at least 4 characters long <br>";
+					}
+					if($this->error == ""){
+
+						//save
+						$data['password'] = hash('sha1', $datap['password']);
+
+						$query = "UPDATE users SET password = :password where id = :id";
+
+						$result = $db->write($query,$data);
+
+						if($result)
+						{
+							$_SESSION['success'] = "Salvo com Sucesso!";
+							header("Location: " . ROOT . "dashboard_userchangepassword");
+							die;
+						}
+					}
+				}
+				else
+				{
+					$this->error = "The current password is wrong <br/>";
+				}
+			}
+			
+		}
+
+		$_SESSION['error'] = $this->error;
+	}
+
+	public function edit_user($POST)
+	{
+
+		$data = array();
+		$db = Database::getInstance();
+
+		$data['name']      = trim($POST['name']);		
+		$data['email']     = trim($POST['email']);		
+		$data['rank']      = trim($POST['rank']);	
+		$data['id']	       = trim($POST['id']);
+
+
+		if(empty($data['email']) || !preg_match("/^[a-zA-Z0-9\\_\\-\\.]+@[a-zA-Z]+.[a-zA-Z]+$/", $data['email']))
+		{
+			$this->error .= "Please enter a valid email <br>";
+		}
+
+		if(empty($data['name']) || !preg_match("/^[a-zA-Z ]+$/", $data['name']))
+		{
+			$this->error .= "Please enter a valid name <br>";
+		}
+
+		if($this->error == ""){
+			//save
+			$query = "UPDATE users SET name = :name ,email = :email, rank = :rank where id = :id";
+
+			$result = $db->write($query,$data);
+			if($result)
+			{
+				$_SESSION['success'] = "Salvo com Sucesso!";
+				header("Location: " . ROOT . "admin/users");
+				die;
+			}
+		}
+			
+		$_SESSION['error'] = $this->error;
+	}
+
+	public function upload_photo($POST)
+	{
+		$data = array();
+		$db = Database::getInstance();
+
+		$id = trim($POST['id']);
+		$filename = $_FILES['photo']['name'];
+		$destination = "";
+		$folder = "uploads/";
+
+		if (!file_exists($folder)) //if file $folder not exist
+		{
+			mkdir($folder, 0777, true);  //crete a directory to this $folder
+		}
+
+		$destination = $folder . "wastems-".rand(1,999)."-".$_FILES['photo']['name'];
+
+		if(!empty($filename)){
+			move_uploaded_file($_FILES['photo']['tmp_name'], $destination);	
+		}
+
+		$result = $db->write("UPDATE users set image=:image where id=:id",['image'=>$destination, 'id'=>$id]);
+		if($result)
+		{
+			$_SESSION['success'] = "Imagem foi salvo com sucesso!";
+			header("Location: " . ROOT . "admin/users");
+			die;
+		}
+	}
+
 	public function get_user($url)
 	{
 		$db = Database::newInstance();
@@ -375,19 +632,29 @@ Class User
 	{
 		if(isset($_SESSION['user_url']))
 		{
+			$DB = Database::newInstance();
+			$url_address = $_SESSION['user_url'];
+			$logout_at = date("Y-m-d H:i:s");
+			$DB->write("UPDATE users SET logout_at = :logout_at, online = '0' where url_address = :url_address",['logout_at'=>$logout_at, 'url_address'=>$url_address]);
 			unset($_SESSION['user_url']);
 		}
 
-		header("Location: " . ROOT . "login");
+		header("Location: " . ROOT . "register");
 		die;
 	}
 
-	public function delete($id)
+	public function delete_user($POST)
 	{
 		$DB = Database::newInstance();
-		$id = (int)$id;
+		$id = trim($POST['id']);
 		$query = "delete from users where id = '$id' limit 1";
-		$DB->write($query);
+		$result = $DB->write($query);
+		if($result)
+		{
+			$_SESSION['success'] = "Usuário deletado com Sucesso!";
+			header("Location: " . ROOT . "admin/users");
+			die;
+		}
 	}
 
 	public function delete_array($ids)

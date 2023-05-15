@@ -11,8 +11,15 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?=ASSETS.THEME?>admin/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
+   <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
   <link rel="stylesheet" href="<?=ASSETS.THEME?>admin/bower_components/Ionicons/css/ionicons.min.css">
   <!-- DataTables -->
+  <link rel="stylesheet" href="<?=ASSETS.THEME?>admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="<?=ASSETS.THEME?>admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+
+
   <link rel="stylesheet" href="<?=ASSETS.THEME?>admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?=ASSETS.THEME?>admin/dist/css/AdminLTE.min.css">
@@ -29,6 +36,12 @@
   <link rel="stylesheet" href="<?=ASSETS.THEME?>admin/bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="<?=ASSETS.THEME?>admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="<?=ASSETS . THEME?>/assets/img/favicons_io/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="<?=ASSETS . THEME?>/assets/img/favicons_io/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="<?=ASSETS . THEME?>/assets/img/favicons_io/favicon-16x16.png">
+  <link rel="shortcut icon" type="image/x-icon" href="<?=ASSETS . THEME?>/assets/img/favicons_io/favicon.ico">
+  <link rel="manifest" href="<?=ASSETS . THEME?>/assets/img/favicons_io//site.webmanifest">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -71,142 +84,86 @@
           <li class="dropdown messages-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
-              <span class="label label-success">4</span>
+              <span class="label label-success"><?=is_array($messages)?count($messages):'0'?></span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 4 messages</li>
+              <li class="header">Tens <?=is_array($messages)?count($messages):'0'?> mensagem</li>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
-                  <li><!-- start message -->
-                    <a href="#">
-                      <div class="pull-left">
-                        <img src="<?=ASSETS.THEME?>admin/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                      </div>
-                      <h4>
-                        Support Team
-                        <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                      </h4>
-                      <p>Why not buy a new awesome theme?</p>
-                    </a>
-                  </li>
-                  <!-- end message -->
+                  <?php if(is_array($messages)):?>
+                    <?php foreach($messages as $message): ?>
+                      <?php
+                          $DB = Database::newInstance();
+                          $id = $message->user_id;
+                          $user_info = $DB->read("select * from users where id = '$id'");
+                      ?>
+                    <li><!-- start message -->
+                      <a href="<?=ROOT?>admin/messages">
+                        <div class="pull-left">
+                          <img src="<?=ROOT?><?=$user_info[0]->image!=""?$user_info[0]->image:'uploads/user.jpg'?>" class="img-circle" alt="User Image">
+                        </div>
+                        <h4>
+                          <?=$user_info[0]->name?>
+                          <small><i class="fa fa-clock-o"></i> <?=date('M/d', strtotime($message->date))?></small>
+                        </h4>
+                        <p><?=(strlen($message->message) > 30) ? substr($message->message,0,30).'...' : $message->message?></p>
+                      </a>
+                    </li>
+                    <?php endforeach;?>
+                  <?php endif;?>
                   <li>
-                    <a href="#">
-                      <div class="pull-left">
-                        <img src="<?=ASSETS.THEME?>admin/dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
-                      </div>
-                      <h4>
-                        AdminLTE Design Team
-                        <small><i class="fa fa-clock-o"></i> 2 hours</small>
-                      </h4>
-                      <p>Why not buy a new awesome theme?</p>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <div class="pull-left">
-                        <img src="<?=ASSETS.THEME?>admin/dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
-                      </div>
-                      <h4>
-                        Developers
-                        <small><i class="fa fa-clock-o"></i> Today</small>
-                      </h4>
-                      <p>Why not buy a new awesome theme?</p>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <div class="pull-left">
-                        <img src="<?=ASSETS.THEME?>admin/dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
-                      </div>
-                      <h4>
-                        Sales Department
-                        <small><i class="fa fa-clock-o"></i> Yesterday</small>
-                      </h4>
-                      <p>Why not buy a new awesome theme?</p>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <div class="pull-left">
-                        <img src="<?=ASSETS.THEME?>admin/dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
-                      </div>
-                      <h4>
-                        Reviewers
-                        <small><i class="fa fa-clock-o"></i> 2 days</small>
-                      </h4>
-                      <p>Why not buy a new awesome theme?</p>
-                    </a>
-                  </li>
                 </ul>
               </li>
-              <li class="footer"><a href="#">See All Messages</a></li>
+              <li class="footer"><a href="<?=ROOT?>admin/messages">Ver todas mensagens</a></li>
             </ul>
           </li>
           <!-- Notifications: style can be found in dropdown.less -->
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
+              <span class="label label-warning">2</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
+              <li class="header">Tens 2 notificações</li>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
                   <li>
                     <a href="#">
-                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                      <i class="fa fa-users text-aqua"></i> <?=is_array($users)?count($users):'0'?> usuarios cadastrados
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
-                      page and may cause design problems
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-users text-red"></i> 5 new members joined
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-user text-red"></i> You changed your username
+                      <i class="fa fa-trash text-red"></i> <?=is_array($count_trash)?count($count_trash):'0'?> Baldes de Lixo
                     </a>
                   </li>
                 </ul>
               </li>
-              <li class="footer"><a href="#">View all</a></li>
             </ul>
           </li>
           <!-- Tasks: style can be found in dropdown.less -->
           <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-flag-o"></i>
-              <span class="label label-danger">9</span>
+              <span class="label label-danger">4</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 9 tasks</li>
+              <li class="header">Tens 4 actividades</li>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
                   <li><!-- Task item -->
                     <a href="#">
                       <h3>
-                        Design some buttons
-                        <small class="pull-right">20%</small>
+                       Total de Usuários
+                        <small class="pull-right"><?=is_array($users)?count($users):'0'?>%</small>
                       </h3>
                       <div class="progress xs">
-                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">20% Complete</span>
+                        <div class="progress-bar progress-bar-aqua" style="width: <?=is_array($users)?count($users):'0'?>%" role="progressbar"
+                             aria-valuenow="<?=is_array($users)?count($users):'0'?>" aria-valuemin="0" aria-valuemax="100">
+                          <span class="sr-only"><?=is_array($users)?count($users):'0'?>% Complete</span>
                         </div>
                       </div>
                     </a>
@@ -215,13 +172,13 @@
                   <li><!-- Task item -->
                     <a href="#">
                       <h3>
-                        Create a nice theme
-                        <small class="pull-right">40%</small>
+                        Contentor Vazios
+                        <small class="pull-right"><?=is_array($count_trash_empty)?count($count_trash_empty):'0'?>%</small>
                       </h3>
                       <div class="progress xs">
-                        <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">40% Complete</span>
+                        <div class="progress-bar progress-bar-green" style="width: <?=is_array($count_trash_empty)?count($count_trash_empty):'0'?>%" role="progressbar"
+                             aria-valuenow="<?=is_array($count_trash_empty)?count($count_trash_empty):'0'?>" aria-valuemin="0" aria-valuemax="100">
+                          <span class="sr-only"><?=is_array($count_trash_empty)?count($count_trash_empty):'0'?>% Complete</span>
                         </div>
                       </div>
                     </a>
@@ -230,13 +187,13 @@
                   <li><!-- Task item -->
                     <a href="#">
                       <h3>
-                        Some task I need to do
-                        <small class="pull-right">60%</small>
+                        Contentor Cheios
+                        <small class="pull-right"><?=is_array($count_trash_full)?count($count_trash_full):'0'?>%</small>
                       </h3>
                       <div class="progress xs">
-                        <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">60% Complete</span>
+                        <div class="progress-bar progress-bar-red" style="width: <?=is_array($count_trash_full)?count($count_trash_full):'0'?>%" role="progressbar"
+                             aria-valuenow="<?=is_array($count_trash_full)?count($count_trash_full):'0'?>" aria-valuemin="0" aria-valuemax="100">
+                          <span class="sr-only"><?=is_array($count_trash_full)?count($count_trash_full):'0'?>% Complete</span>
                         </div>
                       </div>
                     </a>
@@ -245,13 +202,13 @@
                   <li><!-- Task item -->
                     <a href="#">
                       <h3>
-                        Make beautiful transitions
-                        <small class="pull-right">80%</small>
+                        Total de Baldes
+                        <small class="pull-right"><?=is_array($count_trash)?count($count_trash):'0'?>%</small>
                       </h3>
                       <div class="progress xs">
-                        <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">80% Complete</span>
+                        <div class="progress-bar progress-bar-yellow" style="width: <?=is_array($count_trash)?count($count_trash):'0'?>%" role="progressbar"
+                             aria-valuenow="<?=is_array($count_trash)?count($count_trash):'0'?>" aria-valuemin="0" aria-valuemax="100">
+                          <span class="sr-only"><?=is_array($count_trash)?count($count_trash):'0'?>% Complete</span>
                         </div>
                       </div>
                     </a>
@@ -260,7 +217,7 @@
                 </ul>
               </li>
               <li class="footer">
-                <a href="#">View all tasks</a>
+                <a href="<?=ROOT?>admin/trash">Ver tudo</a>
               </li>
             </ul>
           </li>

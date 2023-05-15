@@ -40,14 +40,14 @@
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>44</h3>
+              <h3><?=is_array($count_trash)?count($count_trash):'0'?></h3>
 
-              <p>Total de Baldes Lixo</p>
+              <p>Total de Contentores</p>
             </div>
             <div class="icon">
               <i class="fa fa-recycle"></i>
             </div>
-            <a href="#" class="small-box-footer">Mais info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?=ROOT?>admin/trash" class="small-box-footer">Mais info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -55,14 +55,14 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>13<!--<sup style="font-size: 20px">%</sup>--></h3>
+              <h3><?=is_array($count_trash_empty)?count($count_trash_empty):'0'?><!--<sup style="font-size: 20px">%</sup>--></h3>
 
-              <p>Baldes de Lixo vazios</p>
+              <p>Contentores vazios</p>
             </div>
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="#" class="small-box-footer">Mais info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?=ROOT?>admin/trash" class="small-box-footer">Mais info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -70,14 +70,14 @@
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>31</h3>
+              <h3><?=is_array($count_trash_full)?count($count_trash_full):'0'?></h3>
 
-              <p>Baldes de Lixo cheios</p>
+              <p>Contentores cheios</p>
             </div>
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="#" class="small-box-footer">Mais info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?=ROOT?>admin/trash" class="small-box-footer">Mais info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -91,7 +91,7 @@
           <div class="nav-tabs-custom">
             <!-- Tabs within a box -->
             <ul class="nav nav-tabs pull-right">
-              <li class="pull-left header"><i class="fa fa-bar-chart"></i> Estatistica</li>
+              <li class="pull-left header"><i class="fa fa-bar-chart"></i> Estatistica dos contentores cheios | Provincia</li>
             </ul>
             <div class="tab-content no-padding">
               <!-- Morris chart - Sales -->
@@ -153,85 +153,59 @@
           <div class="box box-solid ">
             <div class="box-header">
               <i class="fa fa-map-marker"></i>
-              <h3 class="box-title">Endereços de Baldes Lixo</h3>
+              <h3 class="box-title">Endereços de Contentores de Lixo</h3>
             </div>
             <div class="box-body">
             <ul class="todo-list">
-                  <li>
-                  <!-- drag handle -->
-                  <span class="handle">
-                          <i class="fa fa-ellipsis-v"></i>
-                          <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                  <!-- checkbox -->
-                  
-                  <!-- todo text -->
-                  <span class="text">Design a nice theme</span>
-                  <!-- Emphasis label -->
-                  <small class="label label-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
-                  <!-- General tools such as edit or delete-->
-                  <div class="tools">
-                  </div>
-                  </li>
-                  <li>
-                      <span class="handle">
-                          <i class="fa fa-ellipsis-v"></i>
-                          <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                  
-                  <span class="text">Make the theme responsive</span>
-                  <small class="label label-info"><i class="fa fa-clock-o"></i> 4 hours</small>
-                  <div class="tools">
-                  </div>
-                  </li>
-                  <li>
-                      <span class="handle">
-                          <i class="fa fa-ellipsis-v"></i>
-                          <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                  
-                  <span class="text">Let theme shine like a star</span>
-                  <small class="label label-warning"><i class="fa fa-clock-o"></i> 1 day</small>
-                  <div class="tools">
-                  </div>
-                  </li>
-                  <li>
-                      <span class="handle">
-                          <i class="fa fa-ellipsis-v"></i>
-                          <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                  
-                  <span class="text">Let theme shine like a star</span>
-                  <small class="label label-success"><i class="fa fa-clock-o"></i> 3 days</small>
-                  <div class="tools">
-                  </div>
-                  </li>
-                  <li>
-                      <span class="handle">
-                          <i class="fa fa-ellipsis-v"></i>
-                          <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                  
-                  <span class="text">Check your messages and notifications</span>
-                  <small class="label label-primary"><i class="fa fa-clock-o"></i> 1 week</small>
-                  <div class="tools">
-                  </div>
-                  </li>
-                  <li>
-                      <span class="handle">
-                          <i class="fa fa-ellipsis-v"></i>
-                          <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                  
-                  <span class="text">Let theme shine like a star</span>
-                  <small class="label label-default"><i class="fa fa-clock-o"></i> 1 month</small>
-                  <div class="tools">
-                  </div>
-                  </li>
-                </ul>
+              <?php if(is_array($count_address)):?>
+                <?php foreach($count_address as $address):?>
+                <li>
+                    <span class="handle">
+                        <i class="fa fa-ellipsis-v"></i>
+                        <i class="fa fa-ellipsis-v"></i>
+                    </span>
+                
+                <span class="text"><?=$address->address?></span>
+                <?php
+                  $DB = Database::newInstance();
+                  $find = $DB->read("SELECT * from trash_buckets where address_id = '$address->id'");
+                ?>
+                <small class="label label-warning"><i class="fa fa-map-marker"></i> &nbsp;<?=is_array($find)?count($find):'0'?></small>
+                <div class="tools">
+                </div>
+                </li>
+                <?php endforeach;?>
+              <?php endif;?>
+            </ul>
             </div>
             <!-- /.box-body-->
           </div>
+          <div class="box box-solid ">
+            <div class="box-header">
+              <i class="fa fa-map-marker"></i>
+              <h3 class="box-title">Acessar Apartir do Telefone</h3>
+            </div>
+            <div class="box-body">
+            <ul class="todo-list">
+            <img src="<?=ASSETS.THEME?>smartwastweb.png" alt="QRCode">
+            </ul>
+            </div>
+            <!-- /.box-body-->
+          </div>
+          <!-- Custom tabs (Charts with tabs)-->
+          <div class="nav-tabs-custom">
+            <!-- Tabs within a box -->
+            <ul class="nav nav-tabs pull-right">
+              <li class="pull-left header"><i class="fa fa-bar-chart"></i> Contentores cheios | Luanda</li>
+            </ul>
+            <div class="tab-content no-padding">
+              <!-- Morris chart - Sales -->
+                <div>
+                  <canvas id="myChart2"></canvas>
+                </div>
+            </div>
+          </div>
+          <!-- /.nav-tabs-custom -->
           <!-- /.box -->
         </section>
         <!-- right col -->
@@ -249,12 +223,47 @@
     new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['Usuarios', 'Baldes de Lixo', 'Baldes Vazio', 'Baldes Cheio', 'Purple', 'Orange'],
+        labels: ['Luanda', 'Uíge', 'Huambo', 'Benguela', 'Zaire', 'Namibe','Moxico','Cabinda','Malanje','Lunda-Norte','Lunda-Sul','Cunene','Huila','Kwanza-Norte','Kwanza-Sul','Bie','Bengo','Cuando-Cubango','Total'],
         datasets: [{
           label: '# Total',
-          data: [<?=is_array($users)?count($users):'0'?>, 19, 3, 5, 2, 3],
+          data: [<?=is_array($luandam)?count($luandam):'0'?>, <?=is_array($uige)?count($uige):'0'?>,<?=is_array($huambo)?count($huambo):'0'?>, <?=is_array($benguela)?count($benguela):'0'?>, <?=is_array($zaire)?count($zaire):'0'?>, <?=is_array($namibe)?count($namibe):'0'?>, <?=is_array($moxico)?count($moxico):'0'?>, <?=is_array($cabinda)?count($cabinda):'0'?>, <?=is_array($malanje)?count($malanje):'0'?>, <?=is_array($lunda_norte)?count($lunda_norte):'0'?>, <?=is_array($lunda_sul)?count($lunda_sul):'0'?>, <?=is_array($cunene)?count($cunene):'0'?>, <?=is_array($huila)?count($huila):'0'?>, <?=is_array($kwanza_norte)?count($kwanza_norte):'0'?>, <?=is_array($kwanza_sul)?count($kwanza_sul):'0'?>, <?=is_array($bie)?count($bie):'0'?>, <?=is_array($bengo)?count($bengo):'0'?>, <?=is_array($cuando_cubango)?count($cuando_cubango):'0'?>, <?=is_array($count_trash_full)?count($count_trash_full):'0'?>],
           borderWidth: 1,
-          backgroundColor: ['#00c0ef', '#f39c12', '#00a65a', '#CB4335', '#884EA0', '#D35400'],
+          backgroundColor: ['#C71339', '#CB0319', '#CB4119', '#CB4335', '#CB1335', '#aB4335', '#CB4339', '#CB4324', '#CB1335', '#CB4125', '#CB4325', '#C24335', '#Cf4335', '#CB4322', '#DD4335', '#CB4135', '#CB3315', '#DD4335', '#ec2424'],
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        },
+        legend: {
+          display: false
+        },
+        tooltips: {
+          callbacks: {
+            label: function(tooltipItem) {
+              return tooltipItem.yLabel;
+            }
+          }
+        }
+      }
+    });
+  </script>
+
+
+<script>
+    const ct = document.getElementById('myChart2');
+
+    new Chart(ct, {
+      type: 'bar',
+      data: {
+        labels: ['Belas', 'Cacuaco', 'Cazenga', 'Icolo e Bengo', 'Luanda', 'Quissama','Viana','Total'],
+        datasets: [{
+          label: '# Total',
+          data: [<?=is_array($belas)?count($belas):'0'?>, <?=is_array($cacuaco)?count($cacuaco):'0'?>,<?=is_array($cazenga)?count($cazenga):'0'?>, <?=is_array($icolo)?count($icolo):'0'?>, <?=is_array($luandam)?count($luandam):'0'?>, <?=is_array($quissama)?count($quissama):'0'?>, <?=is_array($viana)?count($viana):'0'?>, <?=is_array($luanda)?count($luanda):'0'?>],
+          borderWidth: 1,
+          backgroundColor: ['#C71339', '#CB0319', '#CB4119', '#CB4335', '#CB1335', '#aB4335', '#CB4339', '#ec2424'],
         }]
       },
       options: {

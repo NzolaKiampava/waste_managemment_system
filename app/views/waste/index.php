@@ -1,171 +1,422 @@
 <?php $this->view("header", $data);?>
+<?php
+    if(isset($user_data)){
+        $image = 'uploads/user.jpg';
+        if (file_exists($user_data->image)) //looking for if exist some file int the collumn image
+        {
+            $image = $user_data->image;
+        }
+    }
+?>
 
-      <section class="py-0 bg-light-gradient">
-        <div class="bg-holder" style="background-image:url(<?=ASSETS . THEME?>/assets/img/illustrations/hero-bg.png);background-position:top right;background-size:contain;">
-        </div>
-        <!--/.bg-holder-->
-
-        <div class="container">
-          <div class="row align-items-center">
-            <div class="col-lg-6 col-md-5 order-md-1 pt-8"><img class="img-fluid" src="<?=ASSETS . THEME?>/assets/img/gallery/webimg.webp" width="400" alt="" /></div>
-            <div class="col-md-7 col-lg-6 text-center text-md-start pt-5 pt-md-9">
-              <h1 class="display-2 fw-bold fs-4 fs-md-5 fs-xl-6">Construindo um <br />mundo saudável e verde.</h1>
-              <p class="mt-3 mb-4">Tornar cidade mais limpa e inteligente por meio de Internet das Coisas e Inteligência Artificial.</p><a class="btn btn-lg btn-info rounded-pill me-2" href="#" role="button">Start a New Store </a><span> or  </span><a class="btn btn-link ps-1 ps-md-4 ps-lg-1" href="#" role="button"> Customize &amp; Extend ›</a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-      <!-- ============================================-->
-      <!-- <section> begin ============================-->
-      <section class="py-6">
-
-        <div class="container">
-          <div class="row flex-center">
-            <div class="col-auto text-center my-4">
-              <h1 class="display-3 fw-bold">Monitoramento de Lixo<br /><span>com IOT</span></h1>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4 mb-5 mb-md-0"><img class="img-fluid shadow-sm" src="<?=ASSETS . THEME?>/assets/img/gallery/Smart-Waste-Recycling-System-1-1000x600.jpg" alt="" />
-              <div class="mt-3 text-center text-md-start">
-                <h4 class="display-6 fs-2 fs-lg-3 fw-bold">All You Need to Start</h4>
-                <p class="mb-0">Add WooCommerce plugin to any WordPress site and set up a new store in minutes.</p><a class="btn btn-link ps-0" href="#" role="button"> Ecommerce Wordpress ›</a>
-              </div>
-            </div>
-            <div class="col-md-4 mb-5 mb-md-0"><img class="img-fluid shadow-sm" src="<?=ASSETS . THEME?>/assets/img/gallery/garbage-sorting-waste-transportation-innovative-green-technology-eco-smart-system-for-recycling-clipart-vector_csp96689551.webp" width="310" alt="" />
-              <div class="mt-3 text-center text-md-start">
-                <h4 class="display-6 fs-2 fs-lg-3 fw-bold">Customize and Extend</h4>
-                <p class="mb-0">From subscriptions to gym classes to luxury cars, WooCommerce is fully customizable.</p><a class="btn btn-link ps-0" href="#" role="button"> Browse Extensions › </a>
-              </div>
-            </div>
-            <div class="col-md-4 mb-5 mb-md-0"><img class="img-fluid shadow-sm" src="<?=ASSETS . THEME?>/assets/img/gallery/garbage-truck-trash-recycling-factory-waste-sorting-transport-vehicle-innovative-technology-isometric-illustration-green-eco-234230240.jpg" alt="" />
-              <div class="mt-3 text-center text-md-start">
-                <h4 class="display-6 fs-2 fs-lg-3 fw-bold">Active Community</h4>
-                <p class="mb-0">WooCommerce is one of the fastest-growing eCommerce communities. </p><a class="btn btn-link ps-0" href="#" role="button"> Check our Forums ›</a>
-              </div>
-            </div>
-          </div>
-        </div><!-- end of .container-->
-
-      </section>
-      <!-- <section> close ============================-->
-      <!-- ============================================-->
-
-
-      <div class="shapeup">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 319">
-          <path fill="#7854F7" fill-opacity="1" d="M0,64L120,69.3C240,75,480,85,720,85.3C960,85,1200,75,1320,69.3L1440,64L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path>
-        </svg>
-      </div>
-      <section class="pt-4 pt-md-5 bg-info">
-        <div class="bg-holder" style="background-image:url(<?=ASSETS . THEME?>/assets/img/illustrations/about-bg.png);background-position:center center;background-size:contain;">
-        </div>
-        <!--/.bg-holder-->
-
-        <div class="container">
-          <div class="row mb-5 text-center">
-            <div class="col-12 col-md-4 mb-4"><img class="img-fluid rounded-3 shadow-lg image-up" src="<?=ASSETS . THEME?>/assets/img/gallery/about-2.png" alt="" /></div>
-            <div class="col-12 col-md-8 text-md-start" style="max-width: 460px;">
-              <h3 class="fw-medium text-light"> Develop <br />Without Limits</h3>
-              <p class="text-light">WooCommerce is developer friendly, too. Built with a REST API, WooCommerce is scalable and can integrate with virtually any service. Design a complex store from scratch, extend a store for a client, or simply add a single product to a WordPress site—your store, your way.</p><a class="btn btn-lg btn-success rounded-pill" href="#">Read the Documentation</a>
-            </div>
-          </div>
-          <div class="row flex-center">
-            <div class="col-12 col-md-4 order-0 order-md-1"><img class="img-fluid rounded-3 shadow-lg image-down" src="<?=ASSETS . THEME?>/assets/img/gallery/about-1.png" alt="" /></div>
-            <div class="col-12 col-md-8 text-center text-md-start order-1 order-md-0" style="max-width: 460px;">
-              <h3 class="fw-medium text-light">Know our<br />Global Community</h3>
-              <p class="text-light">WooCommerce is one of the fastest-growing eCommerce communities. We’re proud that the helpfulness of the community and a wealth of online resources are frequently cited as reasons our users love it. There are 80+ meetups worldwide!</p><a class="btn btn-lg btn-success rounded-pill" href="#">Read the Documentation</a>
-            </div>
-          </div>
-        </div>
-      </section>
-      <div class="shapedown">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 319">
-          <path fill="#7854F7" fill-opacity="1" d="M0,256L120,250.7C240,245,480,235,720,234.7C960,235,1200,245,1320,250.7L1440,256L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z"></path>
-        </svg>
-      </div>
-      <section class="py-7 bg-light-gradient">
-        <div class="bg-holder" style="background-image:url(<?=ASSETS . THEME?>/assets/img/gallery/testimonial-bg.png);background-position:center center;background-size:contain;">
-        </div>
-        <!--/.bg-holder-->
-
-        <div class="container">
-          <div class="row flex-center mb-5">
-            <div class="col-auto text-center">
-              <h1 class="display-3 fw-bold fs-4 fs-md-6">Trusted by Agencies<br /><span>&amp; Store Owners</span></h1>
-            </div>
-          </div>
-          <div class="row flex-center">
-            <div class="col-12 col-md-9 col-lg-8 col-xl-7 col-xxl-6">
-              <div class="carousel slide carousel-fade" id="carouselExampleControls" data-bs-ride="carousel">
-                <div class="carousel-inner overflow-visible">
-                  <div class="card py-sm-6 px-sm-5 testimonial-card-shadow shadow-sm" style="transform: translateY(52px) scale(.9)"></div>
-                  <div class="card py-sm-6 px-sm-5 testimonial-card-shadow shadow-sm" style="transform: translateY(32px) scale(.934)"></div>
-                  <div class="card py-sm-6 px-sm-5 testimonial-card-shadow shadow-sm"></div>
-                  <div class="carousel-item z-index-1 active">
-                    <div class="card py-4 px-3 py-sm-6 px-sm-5 px-xl-7">
-                      <div class="bg-holder mt-4" style="background-image:url(<?=ASSETS . THEME?>/assets/img/gallery/q.png);background-position:center top;background-size:150px;">
-                      </div>
-                      <!--/.bg-holder-->
-
-                      <div class="card-body z-index-1">
-                        <p class="card-text fs-2 text-center">No other eCommerce platform allows people to start for free and grow their store as their business grows. More importantly, WooCommerce doesn't charge you a portion of your profits as your business grows!</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="carousel-item z-index-1">
-                    <div class="card py-4 px-3 py-sm-6 px-sm-5 px-xl-7">
-                      <div class="bg-holder mt-4" style="background-image:url(<?=ASSETS . THEME?>/assets/img/gallery/q.png);background-position:center top;background-size:150px;height:168px;">
-                      </div>
-                      <!--/.bg-holder-->
-
-                      <div class="card-body z-index-1">
-                        <p class="card-text fs-2 text-center">WooCommerce doesn't charge you a portion of your profits as your business grows! No other eCommerce platform allows people to start for free and grow their store as their business grows. More importantly</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="carousel-item z-index-1">
-                    <div class="card py-4 px-3 py-sm-6 px-sm-5 px-xl-7">
-                      <div class="bg-holder mt-4" style="background-image:url(<?=ASSETS . THEME?>/assets/img/gallery/q.png);background-position:center top;background-size:150px;height:168px;">
-                      </div>
-                      <!--/.bg-holder-->
-
-                      <div class="card-body z-index-1">
-                        <p class="card-text fs-2 text-center">More importantly, WooCommerce doesn't charge you a portion of your profits as your business grows! No other eCommerce platform allows people to start for free and grow their store as their business grows</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row mt-7 pe-6">
-                  <div class="col-12 position-relative text-end"><a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span></a><a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next</span></a></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="bg-100 pb-0">
-        <div class="container">
-          <div class="row flex-center">
-            <div class="col-xl-5 text-center mb-5 z-index-1">
-              <h1 class="display-3 fw-bold fs-4 fs-md-6">Supported by real people</h1>
-              <p>Our team of Happiness Engineers works remotely from 58 countries providing customer support across multiple time zones.</p>
-            </div>
-          </div>
-        </div>
-        <div class="position-relative text-center">
-          <div class="bg-holder" style="background-image:url(undefined);background:url(<?=ASSETS . THEME?>/assets/img/gallery/people-bg-shape.png) no-repeat center bottom, url(<?=ASSETS . THEME?>/assets/img/gallery/people-bg-dot.png) no-repeat center bottom;">
-          </div>
-          <!--/.bg-holder-->
-          <img class="img-fluid position-relative z-index-1" src="<?=ASSETS . THEME?>/assets/img/gallery/people.png" alt="" />
-        </div>
-      </section>
-      <section class="py-0">
-        <div class="bg-holder z-index-2" style="background-image:url(<?=ASSETS . THEME?>/assets/img/illustrations/cta-bg.png);background-position:bottom right;background-size:61px 60px;margin-top:15px;margin-right:15px;margin-left:-58px;">
-        </div>
-        <!--/.bg-holder-->
-
+            <!-- header end-->
+            <!-- wrapper-->
+            <div id="wrapper">
+                <!-- content-->
+                <div class="content">
+                    <!--section  -->
+                    <section class="hero-section" data-scrollax-parent="true">
+                        <div class="bg-tabs-wrap">
+                            <div class="bg-parallax-wrap" data-scrollax="properties: { translateY: '200px' }">
+                                <div class="video-container">
+                                    <video autoplay playsinline loop muted class="bgvid">
+                                        <source src="<?=ASSETS.THEME?>video/2.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                                <!--  
+                                    Vimeo code
+                                    
+                                     <div  class="background-vimeo" data-vim="97871257"> </div> -->
+                                <!--  
+                                    Youtube code 
+                                    
+                                     <div  class="background-youtube-wrapper" data-vid="Hg5iNVSp2z8" data-mv="1"> </div> -->
+                                <div class="overlay op7"></div>
+                            </div>
+                        </div>
+                        <div class="container small-container">
+                            <div class="intro-item fl-wrap">
+                                <span class="section-separator"></span>
+                                <div class="bubbles">
+                                    <h1>Gerir + Localizar + Monitorar</h1>
+                                </div>
+                                <h3>Desenvolver um sistema de geolocalização para garantir que o gerenciamento dos resíduos seja feito de forma mais eficiente, otimizando rotas de coleta e facilitando a localização de pontos de descarte adequados.</h3>
+                            </div>
+                            <!-- main-search-input-tabs-->
+                            
+                            <div class="hero-categories fl-wrap">
+                                <h4 class="hero-categories_title">Simples e Pratico. Faz um Pedido :</h4>
+                                <ul class="no-list-style">
+                                    <li>
+                                        <a href="listing.html">
+                                            <i class="far fa-recycle"></i>
+                                            <span>Preservar</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="listing.html">
+                                            <i class="far fa-trash"></i>
+                                            <span>Gerir</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="listing.html">
+                                            <i class="far fa-wifi"></i>
+                                            <span>Monitorar</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="listing.html">
+                                            <i class="far fa-spinner"></i>
+                                            <span>Localizar</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="listing.html">
+                                            <i class="far fa-clock"></i>
+                                            <span>Colectar</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="header-sec-link">
+                            <a href="#sec1" class="custom-scroll-link">
+                                <i class="fal fa-angle-double-down"></i>
+                            </a>
+                        </div>
+                    </section>
+                    <!--section end-->
+                    <!--section  -->
+                    <section class="slw-sec" id="sec1">
+                        <div class="section-title">
+                            <h2>Monitoramento Baseado em IOT</h2>
+                            <div class="section-subtitle">IOT + AI</div>
+                            <span class="section-separator"></span>
+                            <p>Construindo um Mundo Verde e Saudável.</p>
+                        </div>
+                        <div class="listing-slider-wrap fl-wrap">
+                            <div class="listing-slider fl-wrap">
+                                <div class="swiper-container">
+                                    <div class="swiper-wrapper">
+                                        <!--  swiper-slide  -->
+                                        <div class="swiper-slide">
+                                            <div class="listing-slider-item fl-wrap">
+                                                <!-- listing-item  -->
+                                                <div class="listing-item listing_carditem">
+                                                    <article class="geodir-category-listing fl-wrap">
+                                                        <div class="geodir-category-img">
+                                                            
+                                                            <a  class="geodir-category-img-wrap fl-wrap">
+                                                                <img src="<?=ASSETS.THEME?>images/lixos/16.jpg" alt="">
+                                                            </a>
+                                                            
+                                                        </div>
+                                                    </article>
+                                                </div>
+                                                <!-- listing-item end -->
+                                            </div>
+                                        </div>
+                                        <!--  swiper-slide end  -->
+                                        <!--  swiper-slide  -->
+                                        <div class="swiper-slide">
+                                            <div class="listing-slider-item fl-wrap">
+                                                <!-- listing-item  -->
+                                                <div class="listing-item listing_carditem">
+                                                    <article class="geodir-category-listing fl-wrap">
+                                                        <div class="geodir-category-img">
+                                                            
+                                                            <a  class="geodir-category-img-wrap fl-wrap">
+                                                                <img src="<?=ASSETS.THEME?>images/lixos/14.jpeg" alt="">
+                                                            </a>
+                                                            
+                                                        </div>
+                                                    </article>
+                                                </div>
+                                                <!-- listing-item end -->
+                                            </div>
+                                        </div>
+                                        <!--  swiper-slide  -->
+                                        <div class="swiper-slide">
+                                            <div class="listing-slider-item fl-wrap">
+                                                <!-- listing-item  -->
+                                                <div class="listing-item listing_carditem">
+                                                    <article class="geodir-category-listing fl-wrap">
+                                                        <div class="geodir-category-img">
+                                                            
+                                                            <a  class="geodir-category-img-wrap fl-wrap">
+                                                                <img src="<?=ASSETS.THEME?>images/lixos/18.jpg" alt="">
+                                                            </a>
+                                                            
+                                                        </div>
+                                                    </article>
+                                                </div>
+                                                <!-- listing-item end -->
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="listing-slider-item fl-wrap">
+                                                <!-- listing-item  -->
+                                                <div class="listing-item listing_carditem">
+                                                    <article class="geodir-category-listing fl-wrap">
+                                                        <div class="geodir-category-img">
+                                                            
+                                                            <a  class="geodir-category-img-wrap fl-wrap">
+                                                                <img src="<?=ASSETS.THEME?>images/lixos/15.jpg" alt="">
+                                                            </a>
+                                                            
+                                                        </div>
+                                                    </article>
+                                                </div>
+                                                <!-- listing-item end -->
+                                            </div>
+                                        </div>
+                                    </div>  
+                                </div>
+                                <div class="listing-carousel-button listing-carousel-button-next2">
+                                    <i class="fas fa-caret-right"></i>
+                                </div>
+                                <div class="listing-carousel-button listing-carousel-button-prev2">
+                                    <i class="fas fa-caret-left"></i>
+                                </div>
+                            </div>
+                            <div class="tc-pagination_wrap">
+                                <div class="tc-pagination2"></div>
+                            </div>
+                        </div>
+                    </section>
+                    <!--section end-->
+                    <div class="sec-circle fl-wrap"></div>
+                    <!--section -->
+                    <section class="parallax-section small-par" data-scrollax-parent="true">
+                        <div class="bg par-elem " data-bg="<?=ASSETS.THEME?>images/lixos/18.jpg" data-scrollax="properties: { translateY: '30%' }"></div>
+                        <div class="overlay  op7"></div>
+                        <div class="container">
+                            <div class=" single-facts single-facts_2 fl-wrap">
+                                <!-- inline-facts -->
+                                <div class="inline-facts-wrap">
+                                    <div class="inline-facts">
+                                        <div class="milestone-counter">
+                                            <div class="stats animaper">
+                                                <div class="num" data-content="0" data-num="<?=is_array($users)?count($users):'0'?>"><?=is_array($users)?count($users):'0'?></div>
+                                            </div>
+                                        </div>
+                                        <h6>Usuários</h6>
+                                    </div>
+                                </div>
+                                <!-- inline-facts end -->
+                                <!-- inline-facts  -->
+                                <div class="inline-facts-wrap">
+                                    <div class="inline-facts">
+                                        <div class="milestone-counter">
+                                            <div class="stats animaper">
+                                                <div class="num" data-content="0" data-num="<?=is_array($messages)?count($messages):'0'?>"><?=is_array($messages)?count($messages):'0'?></div>
+                                            </div>
+                                        </div>
+                                        <h6>Mensagens</h6>
+                                    </div>
+                                </div>
+                                <!-- inline-facts end -->
+                                <!-- inline-facts  -->
+                                <div class="inline-facts-wrap">
+                                    <div class="inline-facts">
+                                        <div class="milestone-counter">
+                                            <div class="stats animaper">
+                                                <div class="num" data-content="0" data-num="<?=is_array($colector_group)?count($colector_group):'0'?>"><?=is_array($colector_group)?count($colector_group):'0'?></div>
+                                            </div>
+                                        </div>
+                                        <h6>Grupos de Colecta</h6>
+                                    </div>
+                                </div>
+                                <!-- inline-facts end -->
+                                <!-- inline-facts  -->
+                                <div class="inline-facts-wrap">
+                                    <div class="inline-facts">
+                                        <div class="milestone-counter">
+                                            <div class="stats animaper">
+                                                <div class="num" data-content="0" data-num="<?=is_array($contentores)?count($contentores):'0'?>"><?=is_array($contentores)?count($contentores):'0'?></div>
+                                            </div>
+                                        </div>
+                                        <h6>Contentores</h6>
+                                    </div>
+                                </div>
+                                <!-- inline-facts end -->
+                            </div>
+                        </div>
+                    </section>
+                    <!--section end-->
+                    <!--section  -->
+                    
+                    <!--section  -->
+                    <section data-scrollax-parent="true">
+                        <div class="container">
+                            <div class="section-title">
+                                <h2>Como Funciona</h2>
+                                <div class="section-subtitle">Solução &amp;Inteligente </div>
+                                <span class="section-separator"></span>
+                                <p>Caso tenha um montante de lixo, não êxite em nos mandar uma mensagem.</p>
+                            </div>
+                            <div class="process-wrap fl-wrap">
+                                <ul class="no-list-style">
+                                    <li>
+                                        <div class="process-item">
+                                            <span class="process-count">01 </span>
+                                            <div class="time-line-icon">
+                                                <i class="fal fa-map-marker-alt"></i>
+                                            </div>
+                                            <h4>Geolocalização</h4>
+                                            <p>Geolocalização de Residuos Solidos.</p>
+                                        </div>
+                                        <span class="pr-dec"></span>
+                                    </li>
+                                    <li>
+                                        <div class="process-item">
+                                            <span class="process-count">02</span>
+                                            <div class="time-line-icon">
+                                                <i class="fal fa-layer-plus"></i>
+                                            </div>
+                                            <h4>Monitoramento</h4>
+                                            <p>Monitoramento de Residuos de Solidos.</p>
+                                        </div>
+                                        <span class="pr-dec"></span>
+                                    </li>
+                                    <li>
+                                        <div class="process-item">
+                                            <span class="process-count">03</span>
+                                            <div class="time-line-icon">
+                                                <i class="fal fa-mail-bulk"></i>
+                                            </div>
+                                            <h4>Gestão</h4>
+                                            <p>Gerir solicitações de mensagens.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="process-end">
+                                    <i class="fal fa-check"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!--section end-->
+                    <!--section  -->
+                    <section class="gradient-bg hidden-section" data-scrollax-parent="true">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="colomn-text  pad-top-column-text fl-wrap">
+                                        <div class="colomn-text-title">
+                                            <h3>Sistema Totalmente Responsível</h3>
+                                            <p>SmartWaste, Sistema de Gestão, Geolocalização e Monitoramento de Resíduos Sólidos</p>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="collage-image">
+                                        <img src="<?=ASSETS.THEME?>images/api.png" class="main-collage-image" alt="">
+                                        <div class="images-collage-title color2-bg icdec">
+                                            SmartWaste
+                                        </div>
+                                        <div class="images-collage_icon green-bg" style="right:-20px; top:120px;">
+                                            <i class="fal fa-thumbs-up"></i>
+                                        </div>
+                                        <div class="collage-image-min cim_1">
+                                            <img src="<?=ASSETS.THEME?>images/api/1.jpg" alt="">
+                                        </div>
+                                        <div class="collage-image-min cim_2">
+                                            <img src="<?=ASSETS.THEME?>images/api/2.jpg" alt="">
+                                        </div>
+                                        <div class="collage-image-btn green-bg">Booking now</div>
+                                        <div class="collage-image-input">
+                                            Search <i class="fa fa-search"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="gradient-bg-figure" style="right:-30px;top:10px;"></div>
+                        <div class="gradient-bg-figure" style="left:-20px;bottom:30px;"></div>
+                        <div class="circle-wrap" style="left:270px;top:120px;" data-scrollax="properties: { translateY: '-200px' }">
+                            <div class="circle_bg-bal circle_bg-bal_small"></div>
+                        </div>
+                        <div class="circle-wrap" style="right:420px;bottom:-70px;" data-scrollax="properties: { translateY: '150px' }">
+                            <div class="circle_bg-bal circle_bg-bal_big"></div>
+                        </div>
+                        <div class="circle-wrap" style="left:420px;top:-70px;" data-scrollax="properties: { translateY: '100px' }">
+                            <div class="circle_bg-bal circle_bg-bal_big"></div>
+                        </div>
+                        <div class="circle-wrap" style="left:40%;bottom:-70px;">
+                            <div class="circle_bg-bal circle_bg-bal_middle"></div>
+                        </div>
+                        <div class="circle-wrap" style="right:40%;top:-10px;">
+                            <div class="circle_bg-bal circle_bg-bal_versmall" data-scrollax="properties: { translateY: '-350px' }"></div>
+                        </div>
+                        <div class="circle-wrap" style="right:55%;top:90px;">
+                            <div class="circle_bg-bal circle_bg-bal_versmall" data-scrollax="properties: { translateY: '-350px' }"></div>
+                        </div>
+                    </section>
+                    <!--section end-->
+                    <!--section  -->
+                    <section>
+                        <div class="container">
+                            <div class="section-title">
+                                <h2>Mensagens</h2>
+                                <div class="section-subtitle">Mensagens de Colecta</div>
+                                <span class="section-separator"></span>
+                                <p>Últimas mensagens enviadas pelos últimos usuários.</p>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="testimonilas-carousel-wrap fl-wrap">
+                            <div class="listing-carousel-button listing-carousel-button-next">
+                                <i class="fas fa-caret-right"></i>
+                            </div>
+                            <div class="listing-carousel-button listing-carousel-button-prev">
+                                <i class="fas fa-caret-left"></i>
+                            </div>
+                            <div class="testimonilas-carousel">
+                                <div class="swiper-container">
+                                    <div class="swiper-wrapper">
+                                        <!--testi-item-->
+                                        <?php if(is_array($messages)):?>
+                                            <?php foreach($messages as $message):?>
+                                                <?php
+                                                    $DB = Database::newInstance();
+                                                    $id = $message->user_id;
+                                                    $user_info = $DB->read("select * from users where id = '$id'");
+                                                ?>
+                                                <div class="swiper-slide">
+                                                    <div class="testi-item fl-wrap">
+                                                        <div class="testi-avatar">
+                                                            <img src="<?=ROOT?><?=$user_info[0]->image!=''?$user_info[0]->image:$image?>" alt="">
+                                                        </div>
+                                                        <div class="testimonilas-text fl-wrap">
+                                                            <p>"<?=$message->message?> "</p>
+                                                            <div class="testimonilas-avatar fl-wrap">
+                                                                <h3><?=$user_info[0]->name?></h3>
+                                                                <h4><?=$user_info[0]->rank?></h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <?php endforeach;?>
+                                        <?php endif;?>
+                                        <!--testi-item end-->
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tc-pagination"></div>
+                        </div>
+                        <div class="waveWrapper waveAnimation">
+                            <div class="waveWrapperInner bgMiddle">
+                                <div class="wave-bg-anim waveMiddle" style="background-image: url('<?=ASSETS.THEME?>images/wave-top.png')"></div>
+                            </div>
+                            <div class="waveWrapperInner bgBottom">
+                                <div class="wave-bg-anim waveBottom" style="background-image: url('<?=ASSETS.THEME?>images/wave-top.png')"></div>
+                            </div>
+                        </div>
+                    </section>
+                    <!--section end-->
+                    <!--section  -->
 <?php $this->view("footer", $data);?>
-        

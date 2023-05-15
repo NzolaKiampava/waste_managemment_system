@@ -7,7 +7,7 @@
   }
 </style>
 <?php
-   $image = 'uploads/user.png';
+   $image = 'uploads/user.jpg';
    if (file_exists($user_data->image)) //looking for if exist some file int the collumn image
    {
         $image = $user_data->image;
@@ -140,6 +140,7 @@
                     </div>
                     <!-- /.input group -->
                   </div>
+                  <?php if($user_data->rank == "Administrador"):?>
                   <div class="form-group">
                     <label for="inputName" class="col-sm-2 control-label">Perfil</label>
 
@@ -151,12 +152,14 @@
                       <select name="rank" class="form-control select2" style="width: 100%;">
                         <option value="<?=$user_data->rank?>" selected="selected"><?=$user_data->rank?></option>
                         <option value="Administrador">Administrador</option>
+                        <option value="Supervisor">Supervisor</option>
                         <option value="Normal">Normal</option>
                       </select>
                       </div>
                     </div>
                     <!-- /.input group -->
                   </div>
+                  <?php endif;?>
                   <small><i class="fa fa-spinner"></i> Mudar Password</small>
                   <hr>
                   <div class="form-group">
@@ -198,7 +201,7 @@
                   
                   <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                      <button type="submit" name="admin_profile_button" class="btn btn-danger">Submit</button>
+                      <button type="submit" name="admin_profile_button" class="btn btn-danger">Submeter</button>
                     </div>
                   </div>
                 </div>
