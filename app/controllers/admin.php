@@ -122,21 +122,21 @@ Class Admin extends Controller
 		}
 
 		//edit trash
-		if(isset($_POST['edit_trash']))
+		if(isset($_POST['edit_empresa']))
 		{
-			$trash->edit_empresa($_POST);
+			$empresa->edit_empresa($_POST);
 		}
 
 		//delete trash
-		if(isset($_POST['delete_trash']))
+		if(isset($_POST['delete_empresa']))
 		{
-			$trash->delete_empresa($_POST);
+			$empresa->delete_empresa($_POST);
 		}
 
 		//upload_photo
 		if(isset($_POST['upload_photo']))
 		{
-			$User->upload_photo($_POST);
+			$empresa->upload_photo($_POST);
 		}
 
 		$DB = Database::newInstance();

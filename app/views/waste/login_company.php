@@ -31,13 +31,12 @@
                 <div class="login-column_header">
                     <img src="<?=ASSETS.THEME?>assets/logo/logo.png" alt=""><h1><img src="<?=ASSETS.THEME?>assets/logo/logo.jpg" alt="">SmartWaste</h1>
                     <div class="clearfix"></div>
-                    <h4>Bem-vindo a tela de Login.</h4>
+                    <h4>Bem-vindo a tela de Login para Empresa.</h4>
                 </div>
                 <div class="main-register-holder tabs-act">
                     <div class="main-register fl-wrap">
                         <ul class="tabs-menu fl-wrap no-list-style">
                             <li class="current"><a href="#tab-1"><i class="fal fa-sign-in-alt"></i> Login</a></li>
-                            <li><a href="#tab-2"><i class="fal fa-user-plus"></i> Register</a></li>
                         </ul>
                         <!--tabs -->                       
                         <div class="tabs-container">
@@ -47,61 +46,21 @@
                                     <div class="custom-form">
                                         <form method="post"  name="registerform">
                                             <span style="font-size: 18px; color: red;"><?php check_error() ?></span><br>
-                                            <label>Username <span>*</span> </label>
-                                            <input name="name" type="text"   onClick="this.select()" value="<?= isset($_POST['name']) ? $_POST['name'] : '';?>">
+                                            <label>NIF <span>*</span> </label>
+                                            <input name="nif" maxLength="9" minLength="9" type="text"   onClick="this.select()" value="<?= isset($_POST['nif']) ? $_POST['nif'] : '';?>">
                                             <label >Password <span>*</span> </label>
                                             <input name="password" id="password" type="password"   onClick="this.select()" value="<?= isset($_POST['password']) ? $_POST['password'] : '';?>" >
-                                            <button type="submit" name="login"  class="btn float-btn color2-bg"> Log In <i class="fas fa-caret-right"></i></button>
+                                            <button type="submit" name="login_company"  class="btn float-btn color2-bg"> Log In <i class="fas fa-caret-right"></i></button>
                                             <div class="clearfix"></div>
                                             <div class="filter-tags">
                                                 <input id="check-a3" onclick="show_password()" type="checkbox">
                                                 <label for="check-a3">Ver Password</label>
                                             </div>
-                                            
-                                        
-                                        <div class="lost_password">
-                                            <a href="#" class="show-lpt">Esqueceu a Password?</a>
-                                            <div class="lost-password-tootip">
-                                                <p>Entra com o seu email a enviaremos-te uma password</p>
-                                                <input name="email" type="text"   onClick="this.select()" value="">
-                                                <button type="submit" name="recover_password"  class="btn float-btn color2-bg"> Send<i class="fas fa-caret-right"></i></button>
-                                                <div class="close-lpt"><i class="far fa-times"></i></div>
-                                            </div>
-                                        </div>
-                                        
-                                    </form>
+                                        </form>
                                     </div>
                                 </div>
                                 <!--tab end -->
                                 <!--tab -->
-                                <div class="tab">
-                                    <div id="tab-2" class="tab-content">
-                                        <div class="custom-form">
-                                            <form method="post"   name="registerform" class="main-register-form" id="main-register-form2">
-                                                <span style="font-size: 18px; color: red;"><?php check_error() ?></span><br>
-                                                <label >Full Name <span>*</span> </label>
-                                                <input name="name" type="text"   onClick="this.select()" value="<?= isset($_POST['name']) ? $_POST['name'] : '';?>">
-                                                <label>Email Address <span>*</span></label>
-                                                <input name="email" type="email"  onClick="this.select()" value="<?= isset($_POST['email']) ? $_POST['email'] : '';?>">
-                                                <label >Password <span>*</span></label>
-                                                <input name="password" type="password"   onClick="this.select()" value="<?= isset($_POST['password']) ? $_POST['password'] : '';?>" >
-                                                <label >Verficar Password <span>*</span></label>
-                                                <input name="password2" type="password"   onClick="this.select()" value="<?= isset($_POST['password2']) ? $_POST['password2'] : '';?>" >
-                                                <div class="filter-tags ft-list">
-                                                    <input id="check-a2" type="checkbox" required>
-                                                    <label for="check-a2">Concordo com as <a href="#">Politicas de Privacidade</a></label>
-                                                </div>
-                                                <div class="clearfix"></div>
-                                                <div class="filter-tags ft-list">
-                                                    <input id="check-a" type="checkbox" required>
-                                                    <label for="check-a">Concordo com os <a href="#">Termos e Condições</a></label>
-                                                </div>
-                                                <div class="clearfix"></div>
-                                                <button type="submit" name="signup"    class="btn float-btn color2-bg"> Register  <i class="fas fa-caret-right"></i></button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
                                 <!--tab end -->
                             </div>
                             <!--tabs end -->

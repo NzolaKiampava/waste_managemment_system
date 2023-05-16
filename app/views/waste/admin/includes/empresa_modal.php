@@ -85,7 +85,7 @@
           </div>
           <div class="modal-body">
             <form method="POST" action="">
-              <input type="hidden" class="userid" name="id">
+              <input type="hidden" class="empresaid" name="id">
               <p>Empresa</p>
               <input type="text" name="empresa" id="edit_empresa" placeholder="Nome da Empresa" autocomplete="off" class="form-control placeholder-no-fix" required>
               <p>Email</p>
@@ -152,50 +152,20 @@
             </div>
             <div class="modal-body">
               <form class="form-horizontal" method="POST" action="">
-                <input type="hidden" class="userid" name="id">
+                <input type="hidden" class="empresaid" name="id">
                 <div class="text-center">
-                    <p>DELETAR GRUPO</p>
-                    <h2 class="bold trash_name"></h2>
+                    <p>DELETAR EMPRESA</p>
+                    <h2 class="bold empresa_name"></h2>
                 </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Cancelar</button>
-              <button type="submit" class="btn btn-danger btn-flat" name="delete_trash"><i class="fa fa-trash"></i> Deletar</button>
+              <button type="submit" class="btn btn-danger btn-flat" name="delete_empresa"><i class="fa fa-trash"></i> Deletar</button>
               </form>
             </div>
         </div>
     </div>
 </div>
-
-<!-- Update Photo -->
-<div class="modal fade" id="edit_photo">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title"><b><span class="empresa"></span></b></h4>
-            </div>
-            <div class="modal-body">
-              <form class="form-horizontal" method="POST" enctype="multipart/form-data">
-                <input type="hidden" class="empresa_id" name="id">
-                <div class="form-group">
-                    <label for="photo" class="col-sm-3 control-label">Logo</label>
-
-                    <div class="col-sm-9">
-                      <input type="file" id="photo" name="photo" required>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Cancelar</button>
-              <button type="submit" class="btn btn-success btn-flat" name="upload_photo"><i class="fa fa-check-square-o"></i> Atualizar</button>
-              </form>
-            </div>
-        </div>
-    </div>
-</div> 
-
 
 
 <!-- Update Photo -->
@@ -209,7 +179,7 @@
             </div>
             <div class="modal-body">
               <form class="form-horizontal" method="POST" enctype="multipart/form-data">
-                <input type="hidden" class="empresa_id" name="id">
+                <input type="hidden" class="empresaid" name="id">
                 <div class="form-group">
                     <label for="photo" class="col-sm-3 control-label">FOTO</label>
 

@@ -1,6 +1,6 @@
 <?php 
 
-class Empresa
+class Empresa extends User
 {
     private $error = "";
 
@@ -16,6 +16,17 @@ class Empresa
         $data['nif'] = trim($POST['nif']);
         $data['telefone'] = trim($POST['telefone']);
         $data['status'] = trim($POST['status']);
+
+		
+		$data['password'] = $this->get_random_string_max(9);
+		$recipient = $data['email'];
+		$subject = 'Cadastro da Empresa';
+		$message = 'SmartWaste! A empresa '.$data['empresa'].' foi cadastrado com sucesso, A empresa está com estado '.$data['status']. '. A senha de acesso é '.$data['password'].' .        
+		Clica no link abaixo para entrar na conta empresa e criar usuários para acesso!
+
+		http://localhost/waste_ms2/public/login_company';
+
+		$data['password'] = hash('sha1', $data['password']);
 
 		//check if group name already exits
 		
@@ -33,19 +44,20 @@ class Empresa
 		// take the user who is create new group
 		$session_user = $_SESSION['user_url'];
 		$create_check = $db->read("SELECT * FROM users WHERE url_address = '$session_user' limit 1");
-
+                 
 		if($create_check){
 			$data['created_by'] = $create_check[0]->id;
 			
 			//save
 			$data['created_at'] = date("Y-m-d H:i:s");
 			show($data);
-			$query = "INSERT INTO empresas(empresa,email,province,municipy,nif,telefone,status,created_by,created_at) values(:empresa,:email,:province,:municipy,:nif,:telefone,:status,:created_by,:created_at)";
+			$query = "INSERT INTO empresas(empresa,email,province,municipy,nif,telefone,status,password,created_by,created_at) values(:empresa,:email,:province,:municipy,:nif,:telefone,:status,:password,:created_by,:created_at)";
 			$result = $db->write($query,$data);
 
 			show($result);
 			if($result)
 			{
+				$this->send_mail($recipient,$subject,$message);
 				$_SESSION['success'] = "Empresa criado com Sucesso!";
 				header("Location: " . ROOT . "admin/empresa");
 				die;
@@ -92,13 +104,52 @@ class Empresa
 		$_SESSION['error'] = $this->error;
 	}
 
+	public function login_company($POST)
+	{
+
+		$data = array();
+		$db = Database::getInstance();
+
+		$data['nif']     = trim($POST['nif']);		
+		$data['password']  = trim($POST['password']);		
+
+		if(strlen($data['password']) < 4)
+		{
+			$this->error .= "Password deve conter pelomenos 4 caracteres <br>";
+		}		
+
+		if($this->error == ""){
+			//comfirm
+
+			$data['password'] = hash('sha1', $data['password']);
+			$sql = "SELECT * FROM empresas WHERE nif = :nif and password = :password limit 1";
+
+			$result = $db->read($sql,$data);
+
+			if(is_array($result))
+			{
+				show("okayyyyyy");
+				die;
+				$id = $result[0]->id;
+				$_SESSION['success'] =  "Bem Vindo(a) ".$result[0]->name."!";
+				header("Location: " . ROOT . "home");
+				die;
+			}
+
+			$this->error .= "NIF da empresa ou Password errado <br>";
+		}
+
+		$_SESSION['error'] = $this->error;
+
+	}
+
     public function upload_photo($POST)
 	{
 		$data = array();
 		$db = Database::getInstance();
 
 		$id = trim($POST['id']);
-		$filename = $_FILES['photo']['name'];
+		$filename = $_FILES['logo']['name'];
 		$destination = "";
 		$folder = "uploads/";
 
@@ -107,10 +158,10 @@ class Empresa
 			mkdir($folder, 0777, true);  //crete a directory to this $folder
 		}
 
-		$destination = $folder . "wastems-".rand(1,999)."-".$_FILES['photo']['name'];
+		$destination = $folder . "wastems-".rand(1,999)."-".$_FILES['logo']['name'];
 
 		if(!empty($filename)){
-			move_uploaded_file($_FILES['photo']['tmp_name'], $destination);	
+			move_uploaded_file($_FILES['logo']['tmp_name'], $destination);	
 		}
 
 		$result = $db->write("UPDATE empresas set logo=:image where id=:id",['image'=>$destination, 'id'=>$id]);

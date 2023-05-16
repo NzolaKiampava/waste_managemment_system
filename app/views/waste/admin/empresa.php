@@ -162,6 +162,7 @@
         $('#addselectedp').val(response[0].province).html(response[0].province);
         $('#addselectedm').val(response[0].municipy).html(response[0].municipy);
         $('#statusselected').val(response[0].status).html(response[0].status);
+        $('.empresa_name').html(response[0].empresa);
       }
     });
   }
