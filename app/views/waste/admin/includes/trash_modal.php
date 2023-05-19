@@ -57,6 +57,14 @@
                 <?php endif;?>
               </select><br>
 
+              <p>Entrar com Latitude</p>
+              <input type="text" name="lat" placeholder="-8.839988" autocomplete="off" class="form-control placeholder-no-fix" required>
+              <br>
+
+              <p>Entrar com Longitude</p>
+              <input type="text" name="lng" placeholder="13.289437" autocomplete="off" class="form-control placeholder-no-fix" required>
+              <br>
+
               <p>Estado</p>
               <select name="status" class="form-control placeholder-no-fix" autocomplete="off" required>
                 <option value="empty">Vazio</option>
@@ -128,6 +136,12 @@
                     <?php endforeach;?>
                   <?php endif;?>
               </select>
+
+              <p>Latitude</p>
+              <input type="text" name="lat" id="edit_lat" placeholder="-8.839988" autocomplete="off" class="form-control placeholder-no-fix" required>
+              
+              <p>Longitude</p>
+              <input type="text" name="lng" id="edit_lng" placeholder="13.289437" autocomplete="off" class="form-control placeholder-no-fix" required>
 
               <p>Estado</p>
               <select name="status" class="form-control placeholder-no-fix" autocomplete="off" required>

@@ -160,7 +160,7 @@
         <script src="<?=ASSETS.THEME?>js/jquery.min.js"></script>
         <script src="<?=ASSETS.THEME?>js/plugins.js"></script>
         <script src="<?=ASSETS.THEME?>js/scripts.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwJSRi0zFjDemECmFl9JtRj1FY7TiTRRo&libraries=places&callback=initAutocomplete"></script>
+        
         <script src="<?=ASSETS.THEME?>js/map-single.js"></script>
         <script src="js/charts.js"></script>
         <script src="js/dashboard.js"></script>

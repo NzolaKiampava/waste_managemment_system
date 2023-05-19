@@ -1,4 +1,17 @@
 <?php $this->view("header", $data);?>
+<style type="text/css">
+		.container {
+			height: 450px;
+		}
+		#map {
+			width: 100%;
+			height: 100%;
+			border: 1px solid blue;
+		}
+		#data, #allData {
+			display: none;
+		}
+	</style>
                 <!-- header-search_container  end --> 
                 
             <!-- header end-->
@@ -11,8 +24,15 @@
                         <div class="hero-map">
                             <!-- Map -->
                             <div class="map-container  fw-map big_map">
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31540.378369295187!2d13.222963539743793!3d-8.82852804279908!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1a51f18003d4bac3%3A0x2568aa7432e71445!2sInstituto%20de%20Telecomunica%C3%A7%C3%B5es!5e0!3m2!1spt-PT!2sao!4v1681923629782!5m2!1spt-PT!2sao" width="100%" height="560" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                                
+                                <?php 
+                                    $DB = Database::newInstance();
+                                    $allData = $DB->read("select * from trash_buckets as trash inner join garbage_address as address on trash.address_id = address.id");
+                                    $allData = json_encode($allData, true);
+                                    echo '<div id="allData">' . $allData . '</div>';
+                                ?>
+                                <div id="map"></div>
+                            </div>
+                            
                             <!-- Map end -->
                         </div>
                     </div>
@@ -350,3 +370,8 @@
                     <!--section end-->
                     <!--section  -->
 <?php $this->view("footer", $data);?>
+
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8VCBIqcdWXeEMJsHOgBiozwHpDvZHEDg&callback=loadMap">
+</script>
+<script src="<?=ASSETS.THEME?>js/maps-code.js"></script>

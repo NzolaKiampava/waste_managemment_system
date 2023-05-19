@@ -52,8 +52,6 @@ Class Admin extends Controller
 		$data['viana'] = $DB->read("SELECT * FROM trash_buckets where province = 'Luanda' and municipy = 'Viana' AND status = 'full'");
 		$data['luandam'] = $DB->read("SELECT * FROM trash_buckets where province = 'Luanda' and municipy = 'Luanda' AND status = 'full'");
 
-
-
 		$data['page_title'] = "Admin";
 		$this->view("admin/index", $data);
 	}
@@ -149,7 +147,7 @@ Class Admin extends Controller
 		$data['messages'] = $DB->read("select * from messages order by id desc");
 		$data['trashes'] = $DB->read("select * from trash_buckets order by id desc");
 		$data['empresas'] = $DB->read("select * from empresas");
-		$data['page_title'] = "Trash";
+		$data['page_title'] = "Empresa";
 		$this->view("admin/empresa", $data);
 	}
 
@@ -751,5 +749,70 @@ Class Admin extends Controller
 
 			echo json_encode($row);
 		}
+	}
+
+
+	public function update_table()
+	{
+		$User = $this->load_model('User');
+		$user_data = $User->check_login(true, ["Administrador","Supervisor"]);
+
+		$trash = $this->load_model('Trash');
+		if(is_object($user_data)){
+			$data['user_data'] = $user_data;
+		}
+
+		//get provinces
+		$provinces = $this->load_model('Provinces');
+		$data['provinces'] = $provinces->get_provinces();
+
+		
+		$DB = Database::newInstance();
+
+		$trashes = $DB->read("select * from trash_buckets order by id desc");
+		$tableRows = '';
+		if (is_array($trashes)) {
+			foreach ($trashes as $trash) {
+				$id = $trash->created_by;
+				$search = $DB->read("select * from users where id = '$id'");
+				$search_add = $DB->read("select * from garbage_address where id = '$trash->address_id'");
+
+				// Generate table row HTML based on the fetched data
+				$tableRows .= '<tr>';
+				$tableRows .= '<td><img src="' . ASSETS . THEME;
+				if ($trash->status == 'full') {
+					$tableRows .= '/assets/logo/garbage-red.png';
+				} elseif ($trash->status == 'empty') {
+					$tableRows .= '/assets/logo/garbage.jpg';
+				} else {
+					$tableRows .= '/assets/logo/garbage-yellow.jpg';
+				}
+				$tableRows .= '" class="img-circle" height="30px" width="30px"></td>';
+				$tableRows .= '<td>' . $trash->id . '</td>';
+				$tableRows .= '<td>' . $trash->name . '</td>';
+				$tableRows .= '<td>' . $trash->province . '</td>';
+				$tableRows .= '<td>' . $trash->municipy . '</td>';
+				$tableRows .= '<td>' . $search_add[0]->address . '</td>';
+				$tableRows .= '<td><span class="';
+				if ($trash->status == "empty") {
+					$tableRows .= 'label bg-green">Vazio';
+				} elseif ($trash->status == "middle") {
+					$tableRows .= 'label bg-yellow">Meio';
+				} else {
+					$tableRows .= 'label bg-red">Cheio';
+				}
+				$tableRows .= '</span></td>';
+				$tableRows .= '<td>' . $search[0]->name . '</td>';
+				$tableRows .= '<td>' . date('M d, Y', strtotime($trash->created_at)) . '</td>';
+				$tableRows .= '<td>';
+				$tableRows .= '<button class="btn btn-success btn-sm edit btn-flat" data-id="' . $trash->id . '"><i class="fa fa-edit"></i> Edit</button>';
+				$tableRows .= '<button class="btn btn-danger btn-sm delete btn-flat" data-id="' . $trash->id . '"><i class="fa fa-trash"></i> Delete</button>';
+				$tableRows .= '</td>';
+				$tableRows .= '</tr>';
+			}
+		}
+
+		// Return the generated table rows
+		echo $tableRows;
 	}
 }

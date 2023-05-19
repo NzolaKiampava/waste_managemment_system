@@ -11,6 +11,17 @@
                                     <div class="swiper-container">
                                         <div class="swiper-wrapper">
                                             <!--client-item-->
+                                            <?php
+                                                $DB = Database::newInstance();  
+                                                $search = $DB->read("select logo from empresas");
+                                            ?>
+                                            <?php foreach($search as $client):?>
+                                                <div class="swiper-slide">
+                                                    <a href="#" class="client-item">
+                                                        <img height="50" src="<?=ROOT.$client->logo?>" alt="">
+                                                    </a>
+                                                </div>
+                                            <?php endforeach;?>
                                             <div class="swiper-slide">
                                                 <a href="#" class="client-item">
                                                     <img src="<?=ASSETS.THEME?>images/clients/1.png" alt="">
@@ -25,25 +36,6 @@
                                             </div>
                                             <!--client-item end-->
                                             <!--client-item-->
-                                            <div class="swiper-slide">
-                                                <a href="#" class="client-item">
-                                                    <img src="<?=ASSETS.THEME?>images/clients/3.png" alt="">
-                                                </a>
-                                            </div>
-                                            <!--client-item end-->
-                                            <!--client-item-->
-                                            <div class="swiper-slide">
-                                                <a href="#" class="client-item">
-                                                    <img src="<?=ASSETS.THEME?>images/clients/1.png" alt="">
-                                                </a>
-                                            </div>
-                                            <!--client-item end-->
-                                            <!--client-item-->
-                                            <div class="swiper-slide">
-                                                <a href="#" class="client-item">
-                                                    <img src="<?=ASSETS.THEME?>images/clients/2.png" alt="">
-                                                </a>
-                                            </div>
                                             <!--client-item end-->
                                             <!--client-item-->
                                             <div class="swiper-slide">

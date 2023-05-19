@@ -187,5 +187,4 @@ class Empresa extends User
 			die;
 		}
 	}
-
 }

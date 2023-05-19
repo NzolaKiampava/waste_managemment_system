@@ -38,7 +38,7 @@
               <button type="button" class="btn btn-success pull-left" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash"></i>&nbsp; Adicionar </button>
             </div>
             <div class="box-footer clearfix no-border">
-              <a href="http://localhost/ultrasonic_wastems/" target="_blank"><button type="button" class="btn btn-primary pull-right"><i class="fa fa-area-chart"></i>&nbsp; Ver Monitoramento </button></a>
+              <a href="http://localhost/ultrasonic_wastems/" target="_blank"><button type="button" class="btn btn-default pull-right"><i class="fa fa-area-chart"></i>&nbsp; Ver Monitoramento </button></a>
             </div>
             <div class="box-body">
                 <table id="example1" class="table table-bordered table-striped">
@@ -56,7 +56,7 @@
                     <th>Ações</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="table-body">
                         <?php if(is_array($trashes)):?> 
                             <?php foreach($trashes as $trash):?>
                                 <?php
@@ -99,7 +99,8 @@
                                     <button class='btn btn-success btn-sm edit btn-flat' data-id="<?=$trash->id?>"><i class='fa fa-edit'></i> Edit</button>
                                     <button class='btn btn-danger btn-sm delete btn-flat' data-id="<?=$trash->id?>"><i class='fa fa-trash'></i> Delete</button>
                                 </td>
-                            </tr>                            <?php endforeach;?>
+                            </tr>                            
+                            <?php endforeach;?>
                         <?php endif;?>
                     </tbody>
                 </table>
@@ -162,6 +163,8 @@
         console.log(response);
         $('.userid').val(response[0].id);
         $('#edit_name').val(response[0].name);
+        $('#edit_lat').val(response[0].lat);
+        $('#edit_lng').val(response[0].lng);
         $('#addselected').val(response[0].address_id).html(response[0].address_id);
         $('#addselectedp').val(response[0].province).html(response[0].province);
         $('#addselectedm').val(response[0].municipy).html(response[0].municipy);
@@ -186,8 +189,15 @@
 </script>
 
 <script>
-  //Refresh the page every 5 seconds
-setInterval(function() {
-    location.reload();
-}, 20000);
+    setInterval(function(){
+        // Use AJAX to fetch updated table data
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("table-body").innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", "<?=ROOT?>admin/update_table", true);
+        xhttp.send();
+    }, 5000); // Refresh after 5 seconds (you can change the time interval here)
 </script>

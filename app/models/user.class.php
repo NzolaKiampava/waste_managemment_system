@@ -6,7 +6,7 @@ require 'PHPMailer-master/src/Exception.php';
 require 'PHPMailer-master/src/PHPMailer.php';
 require 'PHPMailer-master/src/SMTP.php';
 
-Class User 
+Class User
 {
 
 	private $error = "";
