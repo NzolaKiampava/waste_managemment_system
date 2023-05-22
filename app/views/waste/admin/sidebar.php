@@ -53,12 +53,6 @@
             <i class="fa  fa-recycle"></i> <span>Grupos de Colecta</span>
           </a>
         </li>
-
-        <li class="<?= $page_title == "Empresa" ? "active treeview" : "#"?>">
-          <a href="<?=ROOT?>admin/empresa">
-            <i class="fa  fa-institution"></i> <span>Empresa</span>
-          </a>
-        </li>
         
         <li class="<?= $page_title == "Trash" ? "active treeview" : "#"?>">
           <a href="<?=ROOT?>admin/trash">
@@ -100,7 +94,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="<?=$page_title=="RelatorioGeral"?"active":""?>"><a href="<?=ROOT?>admin/relatoriogeral"><i class="fa fa-circle-o"></i> Relatorio Geral</a></li>
+          <li class="<?=$page_title=="RelatorioGeral"?"active":""?>"><a href="<?=ROOT?>admin/relatoriogeral"><i class="fa fa-circle-o"></i> Relatorio Geral</a></li>
+            <li class="<?=$page_title=="RelatorioEstatistico"?"active":""?>"><a href="<?=ROOT?>admin/relatorioestatistico"><i class="fa fa-circle-o"></i> Relatorio Estatistico</a></li>
           </ul>
         </li>
         <li class="treeview <?=($page_title=="GraficoContentores" || $page_title=="GraficoGeral")?"active":""?> menu-open">
@@ -118,6 +113,11 @@
         <li class="<?= $page_title == "Profile" ? "active treeview" : ""?>">
           <a href="<?=ROOT?>admin/profile">
             <i class="fa fa-gear"></i> <span>Perfil</span>
+          </a>
+        </li>
+        <li class="<?= $page_title == "Empresa" ? "active treeview" : "#"?>">
+          <a href="<?=ROOT?>admin/empresa">
+            <i class="fa  fa-institution"></i> <span>Empresa</span>
           </a>
         </li>
       </ul>
