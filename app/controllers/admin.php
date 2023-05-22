@@ -434,6 +434,50 @@ Class Admin extends Controller
 		$this->view("admin/relatoriogeral", $data);
 	}
 
+	public function relatorioestatistico()
+	{
+		$User = $this->load_model('User');
+		$user_data = $User->check_login(true, ["Administrador","Supervisor"]);
+		
+		if(is_object($user_data)){
+			$data['user_data'] = $user_data;
+		}
+		$DB = Database::newInstance();
+
+		$data['contentores'] = $DB->read('SELECT * FROM trash_buckets');
+
+		$data['count_trash'] = $DB->read('SELECT * FROM trash_buckets');
+		$data['count_trash_full'] = $DB->read("SELECT * FROM trash_buckets where status = 'full'");
+		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty'");
+		$data['users'] = $DB->read("select * from users order by id desc");
+		$data['messages'] = $DB->read("select * from messages order by id desc");
+		$data['groups'] = $DB->read("select * from colector_group order by id desc");
+		$data['page_title'] = "RelatorioEstatistico";
+		$this->view("admin/relatorioestatistico", $data);
+	}
+
+	public function imprimirelatorioestatistico()
+	{
+		$User = $this->load_model('User');
+		$user_data = $User->check_login(true, ["Administrador","Supervisor"]);
+		
+		if(is_object($user_data)){
+			$data['user_data'] = $user_data;
+		}
+		$DB = Database::newInstance();
+
+		$data['contentores'] = $DB->read('SELECT * FROM trash_buckets');
+
+		$data['count_trash'] = $DB->read('SELECT * FROM trash_buckets');
+		$data['count_trash_full'] = $DB->read("SELECT * FROM trash_buckets where status = 'full'");
+		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty'");
+		$data['users'] = $DB->read("select * from users order by id desc");
+		$data['messages'] = $DB->read("select * from messages order by id desc");
+		$data['groups'] = $DB->read("select * from colector_group order by id desc");
+		$data['page_title'] = "RelatorioEstatistico";
+		$this->view("admin/imprimirelatorioetatistico", $data);
+	}
+
 	public function imprimirelatorio()
 	{
 		$User = $this->load_model('User');
