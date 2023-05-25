@@ -36,28 +36,44 @@
         </div>
         <!-- /.col -->
       </div>
-      <!-- info row -->
-      <div class="row invoice-info">
-        <div class="col-sm-4 invoice-col">
-          Emitido Por
-          <address>
-            <strong><?=$user_data->name?></strong> (<?=$user_data->rank?>)<br>
-            57M8+469, Luanda Rangel KM7 CTT Parque do saber,<br>
-            Luanda, Angola<br>
-            Phone: (+244) 924 598 849<br>
-            Email: <?=$user_data->email?>
-          </address>
-        </div>
-        <!-- /.col -->
-        <div class="col-sm-3 invoice-col">
-        </div>
-        <!-- /.col -->
-        <div class="col-sm-4 invoice-col">
-          <b>Informações do emissor</b><br>
-          <br>
-          <b>URL ID:</b> <?=$user_data->url_address?><br>
-          <b>Conta criado em :</b> <?= date('d/m/Y', strtotime($user_data->date))?><br>
-          <b>Tipo de Conta:</b> <?=$user_data->rank?>
+
+      <!-- Table row -->
+      <div class="row">
+        <div class="col-xs-12 table-responsive">
+        <h3><b>Contentores Cheios</b></h3>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Pronvicia</th>
+                <th>Municipios</th>
+                <th>TOTAL de Contentores Cheios</th>
+              </tr>
+            </thead>
+            <tbody>
+            <?php 
+              $DB = Database::newInstance();
+              $existingValues = [];
+
+              if(is_array($history_buckets_full)):
+                  foreach($history_buckets_full as $hf):
+                      // Check if the current value already exists in the table
+                      if (!in_array([$hf->province, $hf->municipy], $existingValues)) {
+                          $existingValues[] = [$hf->province, $hf->municipy];
+
+                          $f = $DB->read("SELECT * FROM trash_buckets WHERE province = '$hf->province' AND municipy = '$hf->municipy'");  
+                          ?>
+                          <tr>
+                              <td><?=$hf->province?></td>
+                              <td><?=$hf->municipy?></td>
+                              <td><?=count($f)?></td>
+                          </tr>
+                          <?php
+                      }
+                  endforeach;
+              endif;
+            ?>
+            </tbody>
+          </table>
         </div>
         <!-- /.col -->
       </div>
@@ -66,77 +82,128 @@
       <!-- Table row -->
       <div class="row">
         <div class="col-xs-12 table-responsive">
+        <h3><b>Contentores Vazios</b></h3>
           <table class="table table-striped">
             <thead>
-            <tr>
-                <th>ID Contentor</th>
-                <th>Nome de Referência dos Contentores</th>
-                <th>Estado do Contentor</th>
-            </tr>
+              <tr>
+                <th>Pronvicia</th>
+                <th>Municipios</th>
+                <th>TOTAL de Contentores Vazios</th>
+              </tr>
             </thead>
             <tbody>
-                <?php if(is_array($count_trash)):?>
-                    <?php foreach($count_trash as $count_trash):?>
-                        <tr>
-                            <td><?=$count_trash->id?></td>
-                            <td><?=$count_trash->name?></td>
-                            <td>
-                            <span class="
-                                <?php if($count_trash->status=="empty"):?>
-                                label bg-green
-                                <?php else:?>
-                                label bg-red
-                                <?php endif;?>"><?=($count_trash->status == "empty")?"Vazio":"Cheio"?>
-                            </span>
-                            </td>
-                        </tr>
-                    <?php endforeach;?>
-                <?php endif;?>
+            <?php 
+              $DB = Database::newInstance();
+              $existingValues = [];
+
+              if(is_array($history_buckets_empty)):
+                  foreach($history_buckets_empty as $he):
+                      // Check if the current value already exists in the table
+                      if (!in_array([$he->province, $he->municipy], $existingValues)) {
+                          $existingValues[] = [$he->province, $he->municipy];
+
+                          $e = $DB->read("SELECT * FROM trash_buckets WHERE province = '$he->province' AND municipy = '$he->municipy'");  
+                          ?>
+                          <tr>
+                              <td><?=$he->province?></td>
+                              <td><?=$he->municipy?></td>
+                              <td><?=count($e)?></td>
+                          </tr>
+                          <?php
+                      }
+                  endforeach;
+              endif;
+            ?>
             </tbody>
           </table>
         </div>
         <!-- /.col -->
       </div>
+
+      <!-- /.row -->
+
+      <!-- Table row -->
+      <div class="row">
+        <div class="col-xs-12 table-responsive">
+        <h3><b>Tabela de Meses Cheios</b></h3>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Meses</th>
+                <th>Provincias</th>
+                <th>Municipios</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+            <?php 
+              $existingCombinations = [];
+
+              if(is_array($months_history)):
+                  foreach($months_history as $mh):
+                      $combination = $mh->status_date . '_' . $mh->province . '_' . $mh->municipy;
+                      // Check if the current combination already exists
+                      if (!in_array($combination, $existingCombinations)) {
+                          $existingCombinations[] = $combination;
+                          ?>
+                          <tr>
+                              <td><?=date('d, M/Y (h:i a)', strtotime($mh->status_date))?></td>
+                              <td><?=$mh->province?></td>
+                              <td><?=$mh->municipy?></td>
+                              <td>
+                                  <?php 
+                                      if($mh->status == 'full') $status = "Cheio";
+                                      else if($mh->status == 'empty') $status = "Vazio";
+                                      else $status = "Meio";
+                                  ?>
+                                  <?=$status?>
+                              </td>
+                          </tr>
+                          <?php
+                      }
+                  endforeach;
+              endif;
+            ?>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.col -->
+      </div>
+      
       <!-- /.row -->
 
       <div class="row">
         <!-- accepted payments column -->
         <div class="col-xs-6">
-          <p class="lead">Informações do Sistema:</p>
+          <p class="lead">Logos</p>
           <img width="50" src="<?=ASSETS.THEME?>assets/logo/logo.jpg" alt="Logo">
           <img width="50" src="<?=ASSETS.THEME?>assets/logo/logo.png" alt="Logo">
-
-          <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-          SmartWaste é um projecto que visa melhorar a nossa sociedade. Sistema de gerenciamentro de resíduos sólidos habilitado para IOT indica o nível de lixeiras em qualquer tempo. Otimiza a rota de coleta de resíduos e, finalmente, reduz consumo de combustível.
-          </p>
         </div>
         <!-- /.col -->
         <div class="col-xs-6">
-          <p class="lead">Estado de Hoje <?=$date?></p>
+          <p class="lead">Meses e Total | <i>contentores cheios</i></p>
 
           <div class="table-responsive">
             <table class="table">
-              <tr>
-                <th style="width:50%">Total de Usuários:</th>
-                <td><?=is_array($users)?count($users):'0'?></td>
-              </tr>
-              <tr>
-                <th style="width:50%">Grupo de Colecta:</th>
-                <td><?=is_array($groups)?count($groups):'0'?></td>
-              </tr>
-              <tr>
-                <th>Total de Contentores</th>
-                <td><?=is_array($contentores)?count($contentores):'0'?></td>
-              </tr>
-              <tr>
-                <th>Contentores Vazios:</th>
-                <td><?=is_array($count_trash_full)?count($count_trash_full):'0'?></td>
-              </tr>
-              <tr>
-                <th>Contentores Cheios:</th>
-                <td><?=is_array($count_trash_empty)?count($count_trash_empty):'0'?></td>
-              </tr>
-              
+              <?php 
+                $existingCombinations = [];
+
+                if(is_array($months_history)):
+                  foreach($months_history as $mh):
+                    $combination = date('M/Y', strtotime($mh->status_date)) . '_' . count($months_history);
+                      // Check if the current combination already exists
+                      if (!in_array($combination, $existingCombinations)) {
+                          $existingCombinations[] = $combination;
+                          ?>
+                          <tr>
+                            <th><?=date('M/Y', strtotime($mh->status_date))?></th>
+                            <td><?=count($months_history)?></td>
+                          </tr>
+                          <?php
+                      }
+                  endforeach;
+                endif;
+              ?>
             </table>
           </div>
         </div>
