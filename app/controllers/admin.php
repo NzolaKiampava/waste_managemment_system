@@ -452,6 +452,12 @@ Class Admin extends Controller
 		$data['users'] = $DB->read("select * from users order by id desc");
 		$data['messages'] = $DB->read("select * from messages order by id desc");
 		$data['groups'] = $DB->read("select * from colector_group order by id desc");
+		$data['history_buckets_full'] = $DB->read("select * from trash_buckets as tb inner join history_trashbucket ht on tb.id = ht.trashbucket_id where ht.status = 'full'");
+		$data['history_buckets_empty'] = $DB->read("select * from trash_buckets as tb inner join history_trashbucket ht on tb.id = ht.trashbucket_id where ht.status = 'empty'");
+		
+		$month = date('m');
+		$data['months_history'] = $DB->read("SELECT * FROM trash_buckets AS tb INNER JOIN history_trashbucket AS ht ON tb.id = ht.trashbucket_id WHERE MONTH(ht.status_date) <= '$month' and ht.status = 'full'");
+
 		$data['page_title'] = "RelatorioEstatistico";
 		$this->view("admin/relatorioestatistico", $data);
 	}
@@ -474,6 +480,12 @@ Class Admin extends Controller
 		$data['users'] = $DB->read("select * from users order by id desc");
 		$data['messages'] = $DB->read("select * from messages order by id desc");
 		$data['groups'] = $DB->read("select * from colector_group order by id desc");
+		$data['history_buckets_full'] = $DB->read("select * from trash_buckets as tb inner join history_trashbucket ht on tb.id = ht.trashbucket_id where ht.status = 'full'");
+		$data['history_buckets_empty'] = $DB->read("select * from trash_buckets as tb inner join history_trashbucket ht on tb.id = ht.trashbucket_id where ht.status = 'empty'");
+		
+		$month = date('m');
+		$data['months_history'] = $DB->read("SELECT * FROM trash_buckets AS tb INNER JOIN history_trashbucket AS ht ON tb.id = ht.trashbucket_id WHERE MONTH(ht.status_date) <= '$month' and ht.status = 'full'");
+
 		$data['page_title'] = "RelatorioEstatistico";
 		$this->view("admin/imprimirelatorioetatistico", $data);
 	}
@@ -496,6 +508,7 @@ Class Admin extends Controller
 		$data['users'] = $DB->read("select * from users order by id desc");
 		$data['messages'] = $DB->read("select * from messages order by id desc");
 		$data['groups'] = $DB->read("select * from colector_group order by id desc");
+
 		$data['page_title'] = "RelatorioGeral";
 		$this->view("admin/imprimirelatorio", $data);
 	}
