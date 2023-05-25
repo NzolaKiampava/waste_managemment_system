@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 25-Maio-2023 às 12:58
+-- Tempo de geração: 25-Maio-2023 às 20:39
 -- Versão do servidor: 10.4.27-MariaDB
--- versão do PHP: 8.1.12
+-- versão do PHP: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -135,6 +135,24 @@ CREATE TABLE `history_trashbucket` (
   `status` varchar(30) NOT NULL,
   `status_date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Extraindo dados da tabela `history_trashbucket`
+--
+
+INSERT INTO `history_trashbucket` (`id`, `trashbucket_id`, `status`, `status_date`) VALUES
+(1, 17, 'full', '2023-05-25 18:09:53'),
+(2, 12, 'empty', '2023-05-25 19:25:43'),
+(3, 10, 'empty', '2023-05-25 19:25:55'),
+(4, 9, 'full', '2023-05-25 19:26:03'),
+(5, 9, 'full', '2023-05-25 19:26:14'),
+(6, 8, 'full', '2023-05-25 19:26:56'),
+(7, 7, 'empty', '2023-05-25 19:27:02'),
+(8, 5, 'full', '2023-05-25 19:27:13'),
+(9, 4, 'middle', '2023-05-25 19:27:20'),
+(10, 3, 'empty', '2023-05-25 19:27:27'),
+(11, 1, 'empty', '2023-05-25 19:27:33'),
+(12, 17, 'empty', '2023-05-25 19:47:02');
 
 -- --------------------------------------------------------
 
@@ -449,7 +467,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `url_address`, `name`, `email`, `password`, `rank`, `group_id`, `id_empresa`, `date`, `image`, `created_by`, `login_at`, `logout_at`, `online`) VALUES
-(1, 'f6tht64n63p5e10mag5kfoa9889t8p', 'Kiampava', 'nzolakiampava@gmail.com', 'f7c3bc1d808e04732adf679965ccc34ca7ae3441', 'Administrador', 0, 0, '2022-11-17 01:45:30', 'uploads/wastems-447-user3-128x128.jpg', 0, '2023-05-19 18:10:29', '2023-04-21 10:14:19', 1),
+(1, 'f6tht64n63p5e10mag5kfoa9889t8p', 'Kiampava', 'nzolakiampava@gmail.com', 'f7c3bc1d808e04732adf679965ccc34ca7ae3441', 'Administrador', 0, 0, '2022-11-17 01:45:30', 'uploads/wastems-447-user3-128x128.jpg', 0, '2023-05-25 15:15:47', '2023-04-21 10:14:19', 1),
 (3, 'rc77s40mhmbuqg', 'Kiampava', 'kiampava@gmail.com', '4554f6fc1a2e2f6bdc63b0162bf0ca0650368dd4', 'Normal', 0, 0, '2022-11-17 23:18:20', 'uploads/wastems-721-user5-128x128.jpg', 0, '2023-04-15 14:45:16', '2023-04-15 14:45:22', 0),
 (4, '4cmf0pq3o9b0rtrhl7ss3k28eaah', 'Kira', 'kira@gmail.com', '4554f6fc1a2e2f6bdc63b0162bf0ca0650368dd4', 'Normal', 0, 0, '2022-11-25 01:57:11', '', 0, '2022-11-26 20:01:46', '2022-11-26 20:04:06', 0),
 (5, 'hupd4h0b2q1cc4hcrhlru', 'The Coder', 'thecoder@gmail.com', '4554f6fc1a2e2f6bdc63b0162bf0ca0650368dd4', 'Normal', 0, 0, '2022-11-25 02:01:02', 'uploads/wastems-735-logo.jpg', 0, '2022-11-26 20:01:46', '2022-11-26 20:04:06', 0),
@@ -563,7 +581,7 @@ ALTER TABLE `garbage_cars`
 -- AUTO_INCREMENT de tabela `history_trashbucket`
 --
 ALTER TABLE `history_trashbucket`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de tabela `messages`
