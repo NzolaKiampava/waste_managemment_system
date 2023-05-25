@@ -75,6 +75,10 @@ class Trash
 			$this->error .= "Please enter a valid trash <br>";
 		}
 
+		$up['trashbucket_id'] = $data['id'];
+		$up['status'] = $data['status'];
+		$up['status_date'] = date("Y-m-d H:i:s");
+
 		if($this->error == ""){
 			//save
 			$query = "UPDATE trash_buckets SET name = :name, province = :province, municipy = :municipy, address_id = :address_id, lat = :lat, lng = :lng, status = :status where id = :id";
@@ -82,6 +86,8 @@ class Trash
 			$result = $db->write($query,$data);
 			if($result)
 			{
+				$db->write("INSERT INTO history_trashbucket (trashbucket_id, status, status_date) values(:trashbucket_id, :status, :status_date)",$up);
+
 				$_SESSION['success'] = "Salvo com Sucesso!";
 				header("Location: " . ROOT . "admin/trash");
 				die;
