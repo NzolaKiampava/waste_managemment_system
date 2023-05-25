@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 19-Maio-2023 às 18:20
+-- Tempo de geração: 25-Maio-2023 às 12:58
 -- Versão do servidor: 10.4.27-MariaDB
--- versão do PHP: 8.2.0
+-- versão do PHP: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -122,6 +122,19 @@ CREATE TABLE `garbage_cars` (
 INSERT INTO `garbage_cars` (`id`, `name`, `registration`, `group_id`, `address_id_1`, `address_id_2`, `address_id_3`, `created_by`, `created_at`) VALUES
 (1, 'BMW', '23vfss', 4, 3, 8, 9, 1, '2022-12-05 14:13:38'),
 (2, 'Florida', 'MAL45FF', 1, 9, 9, 8, 1, '2022-12-05 14:25:11');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `history_trashbucket`
+--
+
+CREATE TABLE `history_trashbucket` (
+  `id` int(11) NOT NULL,
+  `trashbucket_id` int(11) NOT NULL,
+  `status` varchar(30) NOT NULL,
+  `status_date` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -397,7 +410,7 @@ CREATE TABLE `trash_buckets` (
 --
 
 INSERT INTO `trash_buckets` (`id`, `name`, `province`, `municipy`, `address_id`, `lat`, `lng`, `created_by`, `created_at`, `status`, `cm`) VALUES
-(1, 'ITEL', 'Luanda', 'Cazenga', 8, '-8.839988', '13.289437', 1, '2022-12-01 13:29:01', 'full', 3),
+(1, 'ITEL', 'Luanda', 'Cazenga', 8, '-8.839988', '13.289437', 1, '2022-12-01 13:29:01', 'empty', 24),
 (4, 'COMICS', 'Uige', 'Bembe', 3, '-8.869988', '13.209434', 1, '2023-01-05 13:30:53', 'middle', 20),
 (3, 'Tech', 'Uige', 'Bembe', 3, '-8.879988', '13.269439', 1, '2022-12-01 14:24:05', 'empty', 20),
 (5, 'School', 'Uige', 'Bembe', 3, '-8.838988', '13.280435', 1, '2023-01-05 14:08:39', 'full', 20),
@@ -406,7 +419,7 @@ INSERT INTO `trash_buckets` (`id`, `name`, `province`, `municipy`, `address_id`,
 (9, 'IMETRO', 'Cabinda', 'Cabinda', 8, '-8.831988', '13.289233', 1, '2023-03-14 13:30:48', 'full', 20),
 (10, 'UAN', 'Cuando-Cubango', 'Cuangar', 3, '-8.830088', '13.281167', 1, '2023-03-14 13:32:11', 'empty', 20),
 (12, 'UFA', 'Luanda', 'Icolo e Bengo', 3, '-8.832928', '13.288425', 1, '2023-03-14 13:33:01', 'empty', 20),
-(17, 'dfghjk', 'Luanda', 'Cazenga', 8, '-8.830288', '13.229430', 17, '2023-04-24 12:05:27', 'empty', 20);
+(17, 'TESTE', 'Luanda', 'Cazenga', 8, '-8.830288', '13.229430', 17, '2023-04-24 12:05:27', 'empty', 20);
 
 -- --------------------------------------------------------
 
@@ -447,7 +460,7 @@ INSERT INTO `users` (`id`, `url_address`, `name`, `email`, `password`, `rank`, `
 (13, 'qi21bi86g013bkk1t', 'Prof Valeriano', 'valeriano@gmail.com', '4554f6fc1a2e2f6bdc63b0162bf0ca0650368dd4', 'Normal', 0, 0, '2022-11-27 00:03:12', 'uploads/wastems-110-user6-128x128.jpg', 0, '2022-11-27 00:07:34', '2022-11-27 00:03:12', 0),
 (14, 'uocdu4t90', 'Delcia Borges', 'nengueborges@gmail.com', '4554f6fc1a2e2f6bdc63b0162bf0ca0650368dd4', 'Normal', 0, 0, '2022-11-30 00:07:38', '', 1, '2022-11-29 21:07:39', '0000-00-00 00:00:00', 0),
 (15, 'm38q3i1dffg8', 'Mister Flutter', 'misterflutter@gmail.com', '4554f6fc1a2e2f6bdc63b0162bf0ca0650368dd4', 'Supervisor', NULL, 0, '2023-02-23 11:14:46', NULL, 1, '2023-04-20 12:39:36', '2023-04-20 16:32:45', 0),
-(17, '5d1emf86bl08icf9lbcumrsd', 'Delcio Borges', 'delcioferreira57@gmail.com', '7c222fb2927d828af22f592134e8932480637c0d', 'Administrador', NULL, 0, '2023-03-28 13:46:16', NULL, 1, '2023-05-16 12:03:30', '2023-05-16 11:28:13', 1),
+(17, '5d1emf86bl08icf9lbcumrsd', 'Delcio Borges', 'delcioferreira57@gmail.com', '7c222fb2927d828af22f592134e8932480637c0d', 'Administrador', NULL, 0, '2023-03-28 13:46:16', NULL, 1, '2023-05-25 11:46:03', '2023-05-16 11:28:13', 1),
 (20, '01if205a89dsb04hp6kfmsfu7p', 'Paulo Tumbas', 'paulo@gmail.com', '4554f6fc1a2e2f6bdc63b0162bf0ca0650368dd4', 'Normal', NULL, 0, '2023-04-17 09:57:25', 'uploads/wastems-290-57d826c13344eddfec7d31fbe9ba7c38.png', 0, '2023-04-17 09:57:51', '2023-04-17 09:57:25', 1),
 (21, '9ns7a2sdn89f9a1g361mfphc3doo60', 'John Doe', 'johndoe@gmail.com', '4554f6fc1a2e2f6bdc63b0162bf0ca0650368dd4', 'Normal', NULL, 0, '2023-04-19 11:52:11', NULL, 0, '2023-04-19 11:52:23', '2023-04-19 12:14:50', 0),
 (22, 'obi20a6n469', 'Pap', 'pap@gmail.com', '7c222fb2927d828af22f592134e8932480637c0d', 'Normal', NULL, 0, '2023-04-24 10:14:45', NULL, 17, '2023-04-24 10:16:13', '2023-04-24 10:19:42', 0),
@@ -479,6 +492,12 @@ ALTER TABLE `garbage_address`
 -- Índices para tabela `garbage_cars`
 --
 ALTER TABLE `garbage_cars`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `history_trashbucket`
+--
+ALTER TABLE `history_trashbucket`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -539,6 +558,12 @@ ALTER TABLE `garbage_address`
 --
 ALTER TABLE `garbage_cars`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de tabela `history_trashbucket`
+--
+ALTER TABLE `history_trashbucket`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `messages`
