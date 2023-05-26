@@ -1,6 +1,6 @@
 <?php 
 
-class Empresa extends User
+Class Empresa extends User
 {
     private $error = "";
 
@@ -41,8 +41,10 @@ class Empresa extends User
 		//check for url_address
 		$arr = false;
 
+		$data['url_address'] = $this->get_random_string_max(30);
+
 		// take the user who is create new group
-		$session_user = $_SESSION['user_url'];
+		$session_user = $_SESSION['empresa_url'];
 		$create_check = $db->read("SELECT * FROM users WHERE url_address = '$session_user' limit 1");
                  
 		if($create_check){
@@ -51,7 +53,7 @@ class Empresa extends User
 			//save
 			$data['created_at'] = date("Y-m-d H:i:s");
 			show($data);
-			$query = "INSERT INTO empresas(empresa,email,province,municipy,nif,telefone,status,password,created_by,created_at) values(:empresa,:email,:province,:municipy,:nif,:telefone,:status,:password,:created_by,:created_at)";
+			$query = "INSERT INTO empresas(url_address,empresa,email,province,municipy,nif,telefone,status,password,created_by,created_at) values(:url_address,:empresa,:email,:province,:municipy,:nif,:telefone,:status,:password,:created_by,:created_at)";
 			$result = $db->write($query,$data);
 
 			show($result);
@@ -104,44 +106,7 @@ class Empresa extends User
 		$_SESSION['error'] = $this->error;
 	}
 
-	public function login_company($POST)
-	{
-
-		$data = array();
-		$db = Database::getInstance();
-
-		$data['nif']     = trim($POST['nif']);		
-		$data['password']  = trim($POST['password']);		
-
-		if(strlen($data['password']) < 4)
-		{
-			$this->error .= "Password deve conter pelomenos 4 caracteres <br>";
-		}		
-
-		if($this->error == ""){
-			//comfirm
-
-			$data['password'] = hash('sha1', $data['password']);
-			$sql = "SELECT * FROM empresas WHERE nif = :nif and password = :password limit 1";
-
-			$result = $db->read($sql,$data);
-
-			if(is_array($result))
-			{
-				show("okayyyyyy");
-				die;
-				$id = $result[0]->id;
-				$_SESSION['success'] =  "Bem Vindo(a) ".$result[0]->name."!";
-				header("Location: " . ROOT . "home");
-				die;
-			}
-
-			$this->error .= "NIF da empresa ou Password errado <br>";
-		}
-
-		$_SESSION['error'] = $this->error;
-
-	}
+	
 
     public function upload_photo($POST)
 	{
@@ -187,4 +152,8 @@ class Empresa extends User
 			die;
 		}
 	}
+
+
+
+	
 }

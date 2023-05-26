@@ -7,10 +7,8 @@ Class Login_company extends Controller
 		$data['page_title'] = "Login_company";
 		if(isset($_POST['login_company']))
 		{
-            show($_POST);
-            die;
-			$empresa = $this->load_model("empresa");
-			$empresa->login_company($_POST);
+			$infoempresa = $this->load_model("infoempresa");
+			$infoempresa->login_company($_POST);
 		}
 		
 		$this->view("login_company", $data);
