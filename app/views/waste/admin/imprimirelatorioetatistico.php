@@ -29,7 +29,8 @@
 <div class="wrapper">
   <!-- Main content -->
   <?php
-    $date = date('d/m/Y', time())
+    $date = date('d/m/Y', time());
+    $month = date('m');
 ?>
     <!-- Main content -->
     <section class="invoice">
@@ -48,7 +49,7 @@
       <!-- Table row -->
       <div class="row">
         <div class="col-xs-12 table-responsive">
-        <h3><b>Contentores Cheios</b></h3>
+        <h3><b>Histórico de Contentores Cheios</b></h3>
           <table class="table table-striped">
             <thead>
               <tr>
@@ -68,7 +69,7 @@
                       if (!in_array([$hf->province, $hf->municipy], $existingValues)) {
                           $existingValues[] = [$hf->province, $hf->municipy];
 
-                          $f = $DB->read("SELECT * FROM trash_buckets WHERE province = '$hf->province' AND municipy = '$hf->municipy'");  
+                          $f = $DB->read("SELECT * FROM history_trashbucket inner join trash_buckets where trash_buckets.province = '$hf->province' and trash_buckets.municipy = '$hf->municipy' and history_trashbucket.status = 'full' and MONTH(history_trashbucket.status_date) <= '$month'");  
                           ?>
                           <tr>
                               <td><?=$hf->province?></td>
@@ -90,7 +91,7 @@
       <!-- Table row -->
       <div class="row">
         <div class="col-xs-12 table-responsive">
-        <h3><b>Contentores Vazios</b></h3>
+        <h3><b>Histórico de Contentores Vazios</b></h3>
           <table class="table table-striped">
             <thead>
               <tr>
@@ -110,7 +111,7 @@
                       if (!in_array([$he->province, $he->municipy], $existingValues)) {
                           $existingValues[] = [$he->province, $he->municipy];
 
-                          $e = $DB->read("SELECT * FROM trash_buckets WHERE province = '$he->province' AND municipy = '$he->municipy'");  
+                          $e = $DB->read("SELECT * FROM history_trashbucket inner join trash_buckets where trash_buckets.province = '$he->province' and trash_buckets.municipy = '$he->municipy' and history_trashbucket.status = 'empty' and MONTH(history_trashbucket.status_date) <= '$month'");  
                           ?>
                           <tr>
                               <td><?=$he->province?></td>
