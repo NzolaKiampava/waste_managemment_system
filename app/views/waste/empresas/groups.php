@@ -1,5 +1,5 @@
-<?php $this->view("admin/header", $data);?>
-    <?php $this->view("admin/sidebar", $data);?>
+<?php $this->view("empresas/header", $data);?>
+    <?php $this->view("empresas/sidebar", $data);?>
 
     <!-- =============================================== -->
 
@@ -12,7 +12,7 @@
             <small>Todos os grupos</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="<?=ROOT?>admin"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="<?=ROOT?>empresas"><i class="fa fa-dashboard"></i> Home</a></li>
             <li class="active">Grupos de colecta</li>
         </ol>
         </section>
@@ -45,7 +45,6 @@
                     <th>#</th>
                     <th>ID</th>
                     <th>Nome do Grupo</th>
-                    <th>Criado Por</th>
                     <th>Data de Criação</th>
                     <th>Ações</th>
                     </tr>
@@ -53,16 +52,10 @@
                     <tbody>
                         <?php if(is_array($groups)):?> 
                             <?php foreach($groups as $group):?>
-                                <?php
-                                    $DB = Database::newInstance();  
-                                    $id = $group->created_by;
-                                    $search = $DB->read("select * from users where id = '$id'");
-                                ?>
                             <tr>
                                 <td><img src="<?=ASSETS . THEME?>/assets/logo/logo.jpg" class="img-circle" height='30px' width='30px'></td>
                                 <td><?=$group->id?></td>
                                 <td><?=$group->group_name?></td>
-                                <td><?=$search[0]->name?></td>
                                 <td><?=date('M d, Y', strtotime($group->created_at))?></td>
                                 <td>
                                     <button class='btn btn-success btn-sm edit btn-flat' data-id="<?=$group->id?>"><i class='fa fa-edit'></i> Edit</button>
@@ -82,7 +75,7 @@
     </div>
     <!-- /.content-wrapper -->
     <?php include 'includes/groups_modal.php'; ?>
-<?php $this->view("admin/footer", $data);?>
+<?php $this->view("empresas/footer", $data);?>
 
 <script>
   $(function(){
@@ -112,7 +105,7 @@
   function getRow(id){
     $.ajax({
       type: 'POST',
-      url: '<?=ROOT?>admin/groups_row',
+      url: '<?=ROOT?>empresas/groups_row',
       data: {id:id},
       dataType: 'json',
       success: function(response){
