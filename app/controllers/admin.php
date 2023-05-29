@@ -834,6 +834,12 @@ Class Admin extends Controller
 				$search = $DB->read("select * from users where id = '$id'");
 				$search_add = $DB->read("select * from garbage_address where id = '$trash->address_id'");
 
+				if($trash->created_by == 0){
+					$string = "Criado por Empresa";
+				} else {
+					$string = $search[0]->name;
+				}
+
 				// Generate table row HTML based on the fetched data
 				$tableRows .= '<tr>';
 				$tableRows .= '<td><img src="' . ASSETS . THEME;
@@ -859,7 +865,7 @@ Class Admin extends Controller
 					$tableRows .= 'label bg-red">Cheio';
 				}
 				$tableRows .= '</span></td>';
-				$tableRows .= '<td>' . $search[0]->name . '</td>';
+				$tableRows .= '<td>' . $string . '</td>';
 				$tableRows .= '<td>' . date('M d, Y', strtotime($trash->created_at)) . '</td>';
 				$tableRows .= '<td>';
 				$tableRows .= '<button class="btn btn-success btn-sm edit btn-flat" data-id="' . $trash->id . '"><i class="fa fa-edit"></i> Edit</button>';
