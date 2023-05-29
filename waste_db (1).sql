@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 19-Maio-2023 às 18:20
+-- Tempo de geração: 29-Maio-2023 às 12:47
 -- Versão do servidor: 10.4.27-MariaDB
--- versão do PHP: 8.2.0
+-- versão do PHP: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `colector_group` (
   `id` int(11) NOT NULL,
+  `id_empresa` int(11) NOT NULL,
   `group_name` varchar(300) NOT NULL,
   `created_by` int(11) NOT NULL,
   `created_at` datetime NOT NULL
@@ -38,11 +39,12 @@ CREATE TABLE `colector_group` (
 -- Extraindo dados da tabela `colector_group`
 --
 
-INSERT INTO `colector_group` (`id`, `group_name`, `created_by`, `created_at`) VALUES
-(1, 'ABC corp', 1, '2022-11-30 00:28:15'),
-(3, 'FAAF', 1, '2022-11-30 13:25:25'),
-(4, 'Godaddy', 1, '2022-11-30 13:29:45'),
-(6, 'LIMPA ANGOLA', 17, '2023-04-24 12:13:02');
+INSERT INTO `colector_group` (`id`, `id_empresa`, `group_name`, `created_by`, `created_at`) VALUES
+(1, 0, 'ABC corp', 1, '2022-11-30 00:28:15'),
+(3, 0, 'FAAF', 1, '2022-11-30 13:25:25'),
+(4, 0, 'Godaddy', 1, '2022-11-30 13:29:45'),
+(6, 0, 'LIMPA ANGOLA', 17, '2023-04-24 12:13:02'),
+(7, 4, 'Elisal Group', 0, '2023-05-29 12:45:12');
 
 -- --------------------------------------------------------
 
@@ -52,6 +54,7 @@ INSERT INTO `colector_group` (`id`, `group_name`, `created_by`, `created_at`) VA
 
 CREATE TABLE `empresas` (
   `id` int(11) NOT NULL,
+  `url_address` varchar(300) NOT NULL,
   `empresa` varchar(50) NOT NULL,
   `email` varchar(45) NOT NULL,
   `nif` varchar(130) NOT NULL,
@@ -69,10 +72,10 @@ CREATE TABLE `empresas` (
 -- Extraindo dados da tabela `empresas`
 --
 
-INSERT INTO `empresas` (`id`, `empresa`, `email`, `nif`, `telefone`, `province`, `municipy`, `status`, `logo`, `password`, `created_by`, `created_at`) VALUES
-(4, 'ELISAL', 'nzolakiampava@gmail.com', '899999999', 924598849, 'Luanda', 'Belas', 'aprovado', 'uploads/wastems-388-minfin063684.png', 'c50ccb409aa9230e97c2188c71b9ae2b98e835ba', 17, '2023-05-16 11:17:25'),
-(5, 'GUARA', 'delcioferreira57@gmail.com', '999999999', 924947415, 'Luanda', 'Cazenga', 'aprovado', 'uploads/wastems-675-wastems-863-guara-logo-hq.png', '1931c224be879e2773b3fddf699bc786bee5108e', 17, '2023-05-16 12:04:10'),
-(6, 'Ecoangola', 'ecoangola@gmail.com', '999999999', 924598849, 'Luanda', 'Cazenga', 'aprovado', 'uploads/wastems-193-EcoAngola-LogoAsset-39-e1564433562227.png', 'f429e1e620fa435c28c2bcd451cfcc53ed94a6a1', 1, '2023-05-17 13:19:57');
+INSERT INTO `empresas` (`id`, `url_address`, `empresa`, `email`, `nif`, `telefone`, `province`, `municipy`, `status`, `logo`, `password`, `created_by`, `created_at`) VALUES
+(4, 'f6tht64n63p5e10mag5kfoa9889t8p', 'ELISAL', 'nzolakiampava@gmail.com', '899999999', 924598849, 'Luanda', 'Belas', 'aprovado', 'uploads/wastems-388-minfin063684.png', 'f7c3bc1d808e04732adf679965ccc34ca7ae3441', 17, '2023-05-16 11:17:25'),
+(5, 'rc77s40mhmbuqg', 'GUARA', 'delcioferreira57@gmail.com', '999999999', 924947415, 'Luanda', 'Cazenga', 'aprovado', 'uploads/wastems-675-wastems-863-guara-logo-hq.png', '1931c224be879e2773b3fddf699bc786bee5108e', 17, '2023-05-16 12:04:10'),
+(6, '4cmf0pq3o9b0rtrhl7ss3k28eaah', 'Ecoangola', 'ecoangola@gmail.com', '999999999', 924598849, 'Luanda', 'Cazenga', 'aprovado', 'uploads/wastems-193-EcoAngola-LogoAsset-39-e1564433562227.png', 'f429e1e620fa435c28c2bcd451cfcc53ed94a6a1', 1, '2023-05-17 13:19:57');
 
 -- --------------------------------------------------------
 
@@ -105,6 +108,7 @@ INSERT INTO `garbage_address` (`id`, `address`, `created_by`, `created_at`) VALU
 
 CREATE TABLE `garbage_cars` (
   `id` int(11) NOT NULL,
+  `id_empresa` int(11) NOT NULL,
   `name` varchar(30) NOT NULL,
   `registration` varchar(30) NOT NULL,
   `group_id` int(11) NOT NULL,
@@ -119,9 +123,9 @@ CREATE TABLE `garbage_cars` (
 -- Extraindo dados da tabela `garbage_cars`
 --
 
-INSERT INTO `garbage_cars` (`id`, `name`, `registration`, `group_id`, `address_id_1`, `address_id_2`, `address_id_3`, `created_by`, `created_at`) VALUES
-(1, 'BMW', '23vfss', 4, 3, 8, 9, 1, '2022-12-05 14:13:38'),
-(2, 'Florida', 'MAL45FF', 1, 9, 9, 8, 1, '2022-12-05 14:25:11');
+INSERT INTO `garbage_cars` (`id`, `id_empresa`, `name`, `registration`, `group_id`, `address_id_1`, `address_id_2`, `address_id_3`, `created_by`, `created_at`) VALUES
+(1, 0, 'BMW', '23vfss', 4, 3, 8, 9, 1, '2022-12-05 14:13:38'),
+(2, 0, 'Florida', 'MAL45FF', 1, 9, 9, 8, 1, '2022-12-05 14:25:11');
 
 -- --------------------------------------------------------
 
@@ -137,6 +141,7 @@ CREATE TABLE `messages` (
   `address` varchar(150) DEFAULT NULL,
   `message` text DEFAULT NULL,
   `image` varchar(500) DEFAULT NULL,
+  `id_empresa` int(11) NOT NULL,
   `date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -144,21 +149,21 @@ CREATE TABLE `messages` (
 -- Extraindo dados da tabela `messages`
 --
 
-INSERT INTO `messages` (`id`, `user_id`, `province`, `municipy`, `address`, `message`, `image`, `date`) VALUES
-(116, 20, 'Huila', 'Quipungo', 'Nova urbanização', 'zzzzzzzzzzzzzzzz', 'uploads/wastems-767-wastems-699-residuos.jpg', '2023-04-17 13:32:52'),
-(115, 1, 'Bie', 'Chitembo', 'Nova urbanização', 'nova vida', 'uploads/wastems-767-wastems-288-lixo.jpeg', '2023-04-15 17:53:01'),
-(117, 20, 'Kwanza-Sul', 'Mussende', 'Nova urbanização', 'hgjhgjgj', 'uploads/wastems-363-wastems-767-wastems-699-residuos.jpg', '2023-04-17 13:45:32'),
-(119, 17, 'Luanda', 'Cazenga', 'Nova urbanização,cacuaco,luanda,Angola', 'Há muito lixo aqui', 'uploads/wastems-169-18.jpg', '2023-04-24 15:12:08'),
-(120, 23, 'Luanda', 'Cacuaco', 'Nova urbanização,cacuaco,luanda,Angola', '', 'uploads/wastems-65-18.jpg', '2023-04-24 15:18:37'),
-(121, 17, 'Luanda', 'Cacuaco', 'Nova urbanização,cacuaco,luanda,Angola', '', 'uploads/wastems-909-18.jpg', '2023-05-12 12:00:05'),
-(122, 17, 'Luanda', 'Viana', 'Viana,Luanda,Angola', 'veem maze buscar lixo', 'uploads/wastems-137-Garbage-Bin-Prototype.png', '2023-05-12 12:01:37'),
-(123, 17, 'Luanda', 'Cazenga', 'Distrito de Rangel, CTT', 'nova vida', 'uploads/wastems-44-images.jpg', '2023-05-12 12:03:02'),
-(124, 17, 'Huila', 'Chipindo', 'Nova urbanização', 'mensagem de teste', 'uploads/wastems-810-18.jpg', '2023-05-12 12:26:00'),
-(125, 17, 'Huila', 'Chipindo', 'Nova urbanização', 'mensagem de teste', 'uploads/wastems-560-18.jpg', '2023-05-12 12:27:09'),
-(126, 17, 'Huila', 'Chipindo', 'Nova urbanização', 'mensagem de teste', 'uploads/wastems-162-18.jpg', '2023-05-12 12:28:22'),
-(127, 17, 'Benguela', 'Catumbela', 'chongoroi', 'testando sms e email', 'uploads/wastems-426-Getting-Started-with-ESP32-1.jpg', '2023-05-12 12:35:21'),
-(128, 17, 'Benguela', 'Catumbela', 'chongoroi', 'testando sms e email', 'uploads/wastems-380-Getting-Started-with-ESP32-1.jpg', '2023-05-12 12:41:46'),
-(129, 17, 'Benguela', 'Catumbela', 'chongoroi', 'testando sms e email', 'uploads/wastems-245-Getting-Started-with-ESP32-1.jpg', '2023-05-12 12:42:18');
+INSERT INTO `messages` (`id`, `user_id`, `province`, `municipy`, `address`, `message`, `image`, `id_empresa`, `date`) VALUES
+(116, 20, 'Huila', 'Quipungo', 'Nova urbanização', 'zzzzzzzzzzzzzzzz', 'uploads/wastems-767-wastems-699-residuos.jpg', 0, '2023-04-17 13:32:52'),
+(115, 1, 'Bie', 'Chitembo', 'Nova urbanização', 'nova vida', 'uploads/wastems-767-wastems-288-lixo.jpeg', 0, '2023-04-15 17:53:01'),
+(117, 20, 'Kwanza-Sul', 'Mussende', 'Nova urbanização', 'hgjhgjgj', 'uploads/wastems-363-wastems-767-wastems-699-residuos.jpg', 0, '2023-04-17 13:45:32'),
+(119, 17, 'Luanda', 'Cazenga', 'Nova urbanização,cacuaco,luanda,Angola', 'Há muito lixo aqui', 'uploads/wastems-169-18.jpg', 0, '2023-04-24 15:12:08'),
+(120, 23, 'Luanda', 'Cacuaco', 'Nova urbanização,cacuaco,luanda,Angola', '', 'uploads/wastems-65-18.jpg', 0, '2023-04-24 15:18:37'),
+(121, 17, 'Luanda', 'Cacuaco', 'Nova urbanização,cacuaco,luanda,Angola', '', 'uploads/wastems-909-18.jpg', 0, '2023-05-12 12:00:05'),
+(122, 17, 'Luanda', 'Viana', 'Viana,Luanda,Angola', 'veem maze buscar lixo', 'uploads/wastems-137-Garbage-Bin-Prototype.png', 0, '2023-05-12 12:01:37'),
+(123, 17, 'Luanda', 'Cazenga', 'Distrito de Rangel, CTT', 'nova vida', 'uploads/wastems-44-images.jpg', 0, '2023-05-12 12:03:02'),
+(124, 17, 'Huila', 'Chipindo', 'Nova urbanização', 'mensagem de teste', 'uploads/wastems-810-18.jpg', 0, '2023-05-12 12:26:00'),
+(125, 17, 'Huila', 'Chipindo', 'Nova urbanização', 'mensagem de teste', 'uploads/wastems-560-18.jpg', 0, '2023-05-12 12:27:09'),
+(126, 17, 'Huila', 'Chipindo', 'Nova urbanização', 'mensagem de teste', 'uploads/wastems-162-18.jpg', 0, '2023-05-12 12:28:22'),
+(127, 17, 'Benguela', 'Catumbela', 'chongoroi', 'testando sms e email', 'uploads/wastems-426-Getting-Started-with-ESP32-1.jpg', 0, '2023-05-12 12:35:21'),
+(128, 17, 'Benguela', 'Catumbela', 'chongoroi', 'testando sms e email', 'uploads/wastems-380-Getting-Started-with-ESP32-1.jpg', 0, '2023-05-12 12:41:46'),
+(129, 17, 'Benguela', 'Catumbela', 'chongoroi', 'testando sms e email', 'uploads/wastems-245-Getting-Started-with-ESP32-1.jpg', 0, '2023-05-12 12:42:18');
 
 -- --------------------------------------------------------
 
@@ -380,6 +385,7 @@ INSERT INTO `provinces` (`id`, `province`, `disabled`) VALUES
 
 CREATE TABLE `trash_buckets` (
   `id` int(11) NOT NULL,
+  `id_empresa` int(11) NOT NULL,
   `name` varchar(30) NOT NULL,
   `province` varchar(50) NOT NULL DEFAULT 'Luanda',
   `municipy` varchar(50) NOT NULL DEFAULT 'Cazenga',
@@ -396,17 +402,17 @@ CREATE TABLE `trash_buckets` (
 -- Extraindo dados da tabela `trash_buckets`
 --
 
-INSERT INTO `trash_buckets` (`id`, `name`, `province`, `municipy`, `address_id`, `lat`, `lng`, `created_by`, `created_at`, `status`, `cm`) VALUES
-(1, 'ITEL', 'Luanda', 'Cazenga', 8, '-8.839988', '13.289437', 1, '2022-12-01 13:29:01', 'full', 3),
-(4, 'COMICS', 'Uige', 'Bembe', 3, '-8.869988', '13.209434', 1, '2023-01-05 13:30:53', 'middle', 20),
-(3, 'Tech', 'Uige', 'Bembe', 3, '-8.879988', '13.269439', 1, '2022-12-01 14:24:05', 'empty', 20),
-(5, 'School', 'Uige', 'Bembe', 3, '-8.838988', '13.280435', 1, '2023-01-05 14:08:39', 'full', 20),
-(7, 'IMEL', 'Benguela', 'Balombo', 3, '-8.819288', '13.219477', 1, '2023-03-14 13:29:10', 'empty', 20),
-(8, 'ISTEM', 'Bie', 'Camacupa', 3, '-8.836988', '13.280431', 1, '2023-03-14 13:29:31', 'full', 20),
-(9, 'IMETRO', 'Cabinda', 'Cabinda', 8, '-8.831988', '13.289233', 1, '2023-03-14 13:30:48', 'full', 20),
-(10, 'UAN', 'Cuando-Cubango', 'Cuangar', 3, '-8.830088', '13.281167', 1, '2023-03-14 13:32:11', 'empty', 20),
-(12, 'UFA', 'Luanda', 'Icolo e Bengo', 3, '-8.832928', '13.288425', 1, '2023-03-14 13:33:01', 'empty', 20),
-(17, 'dfghjk', 'Luanda', 'Cazenga', 8, '-8.830288', '13.229430', 17, '2023-04-24 12:05:27', 'empty', 20);
+INSERT INTO `trash_buckets` (`id`, `id_empresa`, `name`, `province`, `municipy`, `address_id`, `lat`, `lng`, `created_by`, `created_at`, `status`, `cm`) VALUES
+(1, 0, 'ITEL', 'Luanda', 'Cazenga', 8, '-8.839988', '13.289437', 1, '2022-12-01 13:29:01', 'full', 3),
+(4, 0, 'COMICS', 'Uige', 'Bembe', 3, '-8.869988', '13.209434', 1, '2023-01-05 13:30:53', 'middle', 20),
+(3, 0, 'Tech', 'Uige', 'Bembe', 3, '-8.879988', '13.269439', 1, '2022-12-01 14:24:05', 'empty', 20),
+(5, 0, 'School', 'Uige', 'Bembe', 3, '-8.838988', '13.280435', 1, '2023-01-05 14:08:39', 'full', 20),
+(7, 0, 'IMEL', 'Benguela', 'Balombo', 3, '-8.819288', '13.219477', 1, '2023-03-14 13:29:10', 'empty', 20),
+(8, 0, 'ISTEM', 'Bie', 'Camacupa', 3, '-8.836988', '13.280431', 1, '2023-03-14 13:29:31', 'full', 20),
+(9, 0, 'IMETRO', 'Cabinda', 'Cabinda', 8, '-8.831988', '13.289233', 1, '2023-03-14 13:30:48', 'full', 20),
+(10, 0, 'UAN', 'Cuando-Cubango', 'Cuangar', 3, '-8.830088', '13.281167', 1, '2023-03-14 13:32:11', 'empty', 20),
+(12, 0, 'UFA', 'Luanda', 'Icolo e Bengo', 3, '-8.832928', '13.288425', 1, '2023-03-14 13:33:01', 'empty', 20),
+(17, 0, 'dfghjk', 'Luanda', 'Cazenga', 8, '-8.830288', '13.229430', 17, '2023-04-24 12:05:27', 'empty', 20);
 
 -- --------------------------------------------------------
 
@@ -436,7 +442,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `url_address`, `name`, `email`, `password`, `rank`, `group_id`, `id_empresa`, `date`, `image`, `created_by`, `login_at`, `logout_at`, `online`) VALUES
-(1, 'f6tht64n63p5e10mag5kfoa9889t8p', 'Kiampava', 'nzolakiampava@gmail.com', 'f7c3bc1d808e04732adf679965ccc34ca7ae3441', 'Administrador', 0, 0, '2022-11-17 01:45:30', 'uploads/wastems-447-user3-128x128.jpg', 0, '2023-05-19 18:10:29', '2023-04-21 10:14:19', 1),
+(1, 'f6tht64n63p5e10mag5kfoa9889t8p', 'Kiampava', 'nzolakiampava@gmail.com', 'f7c3bc1d808e04732adf679965ccc34ca7ae3441', 'Administrador', 0, 0, '2022-11-17 01:45:30', 'uploads/wastems-447-user3-128x128.jpg', 0, '2023-05-29 09:44:14', '2023-04-21 10:14:19', 1),
 (3, 'rc77s40mhmbuqg', 'Kiampava', 'kiampava@gmail.com', '4554f6fc1a2e2f6bdc63b0162bf0ca0650368dd4', 'Normal', 0, 0, '2022-11-17 23:18:20', 'uploads/wastems-721-user5-128x128.jpg', 0, '2023-04-15 14:45:16', '2023-04-15 14:45:22', 0),
 (4, '4cmf0pq3o9b0rtrhl7ss3k28eaah', 'Kira', 'kira@gmail.com', '4554f6fc1a2e2f6bdc63b0162bf0ca0650368dd4', 'Normal', 0, 0, '2022-11-25 01:57:11', '', 0, '2022-11-26 20:01:46', '2022-11-26 20:04:06', 0),
 (5, 'hupd4h0b2q1cc4hcrhlru', 'The Coder', 'thecoder@gmail.com', '4554f6fc1a2e2f6bdc63b0162bf0ca0650368dd4', 'Normal', 0, 0, '2022-11-25 02:01:02', 'uploads/wastems-735-logo.jpg', 0, '2022-11-26 20:01:46', '2022-11-26 20:04:06', 0),
@@ -447,11 +453,13 @@ INSERT INTO `users` (`id`, `url_address`, `name`, `email`, `password`, `rank`, `
 (13, 'qi21bi86g013bkk1t', 'Prof Valeriano', 'valeriano@gmail.com', '4554f6fc1a2e2f6bdc63b0162bf0ca0650368dd4', 'Normal', 0, 0, '2022-11-27 00:03:12', 'uploads/wastems-110-user6-128x128.jpg', 0, '2022-11-27 00:07:34', '2022-11-27 00:03:12', 0),
 (14, 'uocdu4t90', 'Delcia Borges', 'nengueborges@gmail.com', '4554f6fc1a2e2f6bdc63b0162bf0ca0650368dd4', 'Normal', 0, 0, '2022-11-30 00:07:38', '', 1, '2022-11-29 21:07:39', '0000-00-00 00:00:00', 0),
 (15, 'm38q3i1dffg8', 'Mister Flutter', 'misterflutter@gmail.com', '4554f6fc1a2e2f6bdc63b0162bf0ca0650368dd4', 'Supervisor', NULL, 0, '2023-02-23 11:14:46', NULL, 1, '2023-04-20 12:39:36', '2023-04-20 16:32:45', 0),
-(17, '5d1emf86bl08icf9lbcumrsd', 'Delcio Borges', 'delcioferreira57@gmail.com', '7c222fb2927d828af22f592134e8932480637c0d', 'Administrador', NULL, 0, '2023-03-28 13:46:16', NULL, 1, '2023-05-16 12:03:30', '2023-05-16 11:28:13', 1),
+(17, '5d1emf86bl08icf9lbcumrsd', 'Delcio Borges', 'delcioferreira57@gmail.com', '7c222fb2927d828af22f592134e8932480637c0d', 'Administrador', NULL, 0, '2023-03-28 13:46:16', NULL, 1, '2023-05-16 12:03:30', '2023-05-29 09:44:07', 0),
 (20, '01if205a89dsb04hp6kfmsfu7p', 'Paulo Tumbas', 'paulo@gmail.com', '4554f6fc1a2e2f6bdc63b0162bf0ca0650368dd4', 'Normal', NULL, 0, '2023-04-17 09:57:25', 'uploads/wastems-290-57d826c13344eddfec7d31fbe9ba7c38.png', 0, '2023-04-17 09:57:51', '2023-04-17 09:57:25', 1),
 (21, '9ns7a2sdn89f9a1g361mfphc3doo60', 'John Doe', 'johndoe@gmail.com', '4554f6fc1a2e2f6bdc63b0162bf0ca0650368dd4', 'Normal', NULL, 0, '2023-04-19 11:52:11', NULL, 0, '2023-04-19 11:52:23', '2023-04-19 12:14:50', 0),
 (22, 'obi20a6n469', 'Pap', 'pap@gmail.com', '7c222fb2927d828af22f592134e8932480637c0d', 'Normal', NULL, 0, '2023-04-24 10:14:45', NULL, 17, '2023-04-24 10:16:13', '2023-04-24 10:19:42', 0),
-(23, 'tkikqghktcd1pg57o9', 'Pedro', 'pedrosantos@gmail.com', 'f7c3bc1d808e04732adf679965ccc34ca7ae3441', 'Normal', NULL, 0, '2023-04-24 15:15:58', 'uploads/wastems-900-8489d6c9-ccbc-454d-ab09-e74a4b6bac9f.jpg', 0, '2023-04-24 15:16:39', '2023-04-24 15:15:58', 1);
+(23, 'tkikqghktcd1pg57o9', 'Pedro', 'pedrosantos@gmail.com', 'f7c3bc1d808e04732adf679965ccc34ca7ae3441', 'Normal', NULL, 0, '2023-04-24 15:15:58', 'uploads/wastems-900-8489d6c9-ccbc-454d-ab09-e74a4b6bac9f.jpg', 0, '2023-04-24 15:16:39', '2023-04-24 15:15:58', 1),
+(27, '2qrrhrkt', 'FuncionarioElisal2', 'elisaldois@gmail.com', '7c222fb2927d828af22f592134e8932480637c0d', 'Colector', NULL, 4, '2023-05-29 12:13:35', NULL, 0, '2023-05-29 11:13:35', NULL, NULL),
+(28, '0c47fg70ir6qlj', 'delciodaeliseu', 'delciodaeliseu@gmail.com', '7c222fb2927d828af22f592134e8932480637c0d', 'Colector', NULL, 4, '2023-05-29 12:16:52', NULL, 0, '2023-05-29 11:16:52', NULL, NULL);
 
 --
 -- Índices para tabelas despejadas
@@ -520,7 +528,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de tabela `colector_group`
 --
 ALTER TABLE `colector_group`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `empresas`
@@ -568,7 +576,7 @@ ALTER TABLE `trash_buckets`
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
