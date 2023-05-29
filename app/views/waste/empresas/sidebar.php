@@ -35,27 +35,27 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">NAVEGAÇÃO PRINCIPAL</li>
-        <li class="<?= $page_title == "Admin" ? "active treeview" : "#"?>">
-          <a href="<?=ROOT?>admin">
+        <li class="<?= $page_title == "Empresas" ? "active treeview" : "#"?>">
+          <a href="<?=ROOT?>empresas">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
         <li class="<?= $page_title == "Usuarios" ? "active treeview" : "#"?>">
-          <a href="<?=ROOT?>admin/users">
-            <i class="fa fa-group"></i> <span>Usuários</span>
+          <a href="<?=ROOT?>empresas/users">
+            <i class="fa fa-group"></i> <span>Funcionarios</span>
             <span class="pull-right-container">
               <span class="label label-primary pull-right"><?=is_array($users)?count($users):'0'?></span>
             </span>
           </a>
         </li>
         <li class="<?= $page_title == "Groups" ? "active treeview" : "#"?>">
-          <a href="<?=ROOT?>admin/groups">
+          <a href="<?=ROOT?>empresas/groups">
             <i class="fa  fa-recycle"></i> <span>Grupos de Colecta</span>
           </a>
         </li>
         
         <li class="<?= $page_title == "Trash" ? "active treeview" : "#"?>">
-          <a href="<?=ROOT?>admin/trash">
+          <a href="<?=ROOT?>empresas/trash">
             <i class="fa  fa-trash"></i> <span>Contentores </span>
             <span class="pull-right-container">
               <small class="label pull-right bg-yellow" title="Total"><?=is_array($count_trash)?count($count_trash):'0'?></small>
@@ -65,23 +65,23 @@
           </a>
         </li>
         <li class="<?= $page_title == "Truck" ? "active treeview" : "#"?>">
-          <a href="<?=ROOT?>admin/trucks">
+          <a href="<?=ROOT?>empresas/trucks">
             <i class="fa  fa-truck"></i> <span>Carros de Colecta</span>
           </a>
         </li>
         <li class="<?= $page_title == "Address" ? "active treeview" : "#"?>">
-          <a href="<?=ROOT?>admin/address">
+          <a href="<?=ROOT?>empresas/address">
             <i class="fa  fa-map-marker"></i> <span>Endereços</span>
           </a>
         </li>
         <li class="<?= $page_title == "Messages" ? "active treeview" : "#"?>">
-          <a href="<?=ROOT?>admin/messages">
+          <a href="<?=ROOT?>empresas/messages">
             <i class="fa fa-envelope"></i> <span>Mensagens</span>
           </a>
         </li>
         
         <li class="<?= $page_title == "Geolocalizacao" ? "active treeview" : "#"?>">
-          <a href="<?=ROOT?>admin/geolocalizacao">
+          <a href="<?=ROOT?>empresas/geolocalizacao">
             <i class="fa fa-map"></i> <span>Geolocalizacao</span>
           </a>
         </li>
@@ -94,8 +94,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-          <li class="<?=$page_title=="RelatorioGeral"?"active":""?>"><a href="<?=ROOT?>admin/relatoriogeral"><i class="fa fa-circle-o"></i> Relatorio Geral</a></li>
-            <li class="<?=$page_title=="RelatorioEstatistico"?"active":""?>"><a href="<?=ROOT?>admin/relatorioestatistico"><i class="fa fa-circle-o"></i> Relatorio Estatistico</a></li>
+          <li class="<?=$page_title=="RelatorioGeral"?"active":""?>"><a href="<?=ROOT?>empresas/relatoriogeral"><i class="fa fa-circle-o"></i> Relatorio Geral</a></li>
+            <li class="<?=$page_title=="RelatorioEstatistico"?"active":""?>"><a href="<?=ROOT?>empresas/relatorioestatistico"><i class="fa fa-circle-o"></i> Relatorio Estatistico</a></li>
           </ul>
         </li>
         <li class="treeview <?=($page_title=="GraficoContentores" || $page_title=="GraficoGeral")?"active":""?> menu-open">
@@ -106,18 +106,13 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="<?=$page_title=="GraficoContentores"?"active":""?>"><a href="<?=ROOT?>admin/grafico_contentores"><i class="fa fa-circle-o"></i> Estatistica de contentores</a></li>
-            <li class="<?=$page_title=="GraficoGeral"?"active":""?>"><a href="<?=ROOT?>admin/grafico_geral"><i class="fa fa-circle-o"></i> Gráfico Geral</a></li>
+            <li class="<?=$page_title=="GraficoContentores"?"active":""?>"><a href="<?=ROOT?>empresas/grafico_contentores"><i class="fa fa-circle-o"></i> Estatistica de contentores</a></li>
+            <li class="<?=$page_title=="GraficoGeral"?"active":""?>"><a href="<?=ROOT?>empresas/grafico_geral"><i class="fa fa-circle-o"></i> Gráfico Geral</a></li>
           </ul>
         </li>
         <li class="<?= $page_title == "Profile" ? "active treeview" : ""?>">
-          <a href="<?=ROOT?>admin/profile">
+          <a href="<?=ROOT?>empresas/profile">
             <i class="fa fa-gear"></i> <span>Perfil</span>
-          </a>
-        </li>
-        <li class="<?= $page_title == "Empresa" ? "active treeview" : "#"?>">
-          <a href="<?=ROOT?>admin/empresa">
-            <i class="fa  fa-institution"></i> <span>Empresa</span>
           </a>
         </li>
       </ul>
