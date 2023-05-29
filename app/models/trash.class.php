@@ -4,7 +4,7 @@ class Trash
 {
     private $error = "";
 
-    public function add_trash($POST)
+    public function add_trash($POST, $id_empresa = [])
     {
         $data = array();
 		$db = Database::getInstance();
@@ -29,34 +29,51 @@ class Trash
 
 		//check for url_address
 		$arr = false;
+		
+		$data['created_at'] = date("Y-m-d H:i:s");
+		if(empty($id_empresa)){
+			// take the user who is create new group
+			$session_user = $_SESSION['user_url'];
+			$create_check = $db->read("SELECT * FROM users WHERE url_address = '$session_user' limit 1");
 
-		// take the user who is create new group
-		$session_user = $_SESSION['user_url'];
-		$create_check = $db->read("SELECT * FROM users WHERE url_address = '$session_user' limit 1");
+			if($create_check){
+				$data['created_by'] = $create_check[0]->id;
+				
+				//save
+				//show($data);
+				$query = "INSERT INTO trash_buckets(name,province,municipy,address_id,lat,lng,created_by,created_at,status) values(:name,:province,:municipy,:address_id,:lat,:lng,:created_by,:created_at,:status)";
+				$result = $db->write($query,$data);
 
-		if($create_check){
-			$data['created_by'] = $create_check[0]->id;
-			
+				//show($result);
+				if($result)
+				{
+					$_SESSION['success'] = "Balde criado com Sucesso!";
+					header("Location: " . ROOT . "admin/trash");
+					die;
+				}
+			}
+		} else {
 			//save
-			$data['created_at'] = date("Y-m-d H:i:s");
-			show($data);
-			$query = "INSERT INTO trash_buckets(name,province,municipy,address_id,lat,lng,created_by,created_at,status) values(:name,:province,:municipy,:address_id,:lat,:lng,:created_by,:created_at,:status)";
+			//show($data);
+			$data['id_empresa'] = $id_empresa;
+			$query = "INSERT INTO trash_buckets(name,province,municipy,address_id,lat,lng,id_empresa,created_at,status) values(:name,:province,:municipy,:address_id,:lat,:lng,:id_empresa,:created_at,:status)";
 			$result = $db->write($query,$data);
 
-			show($result);
+			//show($result);
 			if($result)
 			{
 				$_SESSION['success'] = "Balde criado com Sucesso!";
-				header("Location: " . ROOT . "admin/trash");
+				header("Location: " . ROOT . "empresas/trash");
 				die;
 			}
 		}
+		
 		
 		$_SESSION['error'] = "Não foi possivel criar balde, verifica se está tudo em ordem!";
 		return false;
     }
 
-	public function edit_trash($POST)
+	public function edit_trash($POST, $id_empresa = [])
 	{
 		$data = array();
 		$db = Database::getInstance();
@@ -81,6 +98,7 @@ class Trash
 
 		if($this->error == ""){
 			//save
+
 			$query = "UPDATE trash_buckets SET name = :name, province = :province, municipy = :municipy, address_id = :address_id, lat = :lat, lng = :lng, status = :status where id = :id";
 
 			$result = $db->write($query,$data);
@@ -89,15 +107,21 @@ class Trash
 				$db->write("INSERT INTO history_trashbucket (trashbucket_id, status, status_date) values(:trashbucket_id, :status, :status_date)",$up);
 
 				$_SESSION['success'] = "Salvo com Sucesso!";
-				header("Location: " . ROOT . "admin/trash");
-				die;
+				if(empty($id_empresa)){
+					header("Location: " . ROOT . "admin/trash");
+					die;
+				} else {
+					header("Location: " . ROOT . "empresas/trash");
+					die;
+				}
+				
 			}
 		}
 			
 		$_SESSION['error'] = $this->error;
 	}
 
-	public function delete_trash($POST)
+	public function delete_trash($POST, $id_empresa = [])
 	{
 		show($POST);
 		$DB = Database::newInstance();
@@ -107,8 +131,13 @@ class Trash
 		if($result)
 		{
 			$_SESSION['success'] = "Balde deletado com Sucesso!";
-			header("Location: " . ROOT . "admin/trash");
-			die;
+			if(empty($id_empresa)){
+				header("Location: " . ROOT . "admin/trash");
+				die;
+			} else {
+				header("Location: " . ROOT . "empresas/trash");
+				die;
+			}
 		}
 	}
 
