@@ -1,11 +1,14 @@
 <?php 
-  $User = $this->load_model('User');
-  $user_data = $User->check_login(true, ["Administrador","Supervisor"]);
+		$trash = $this->load_model('Trash');
+		$Empresa = $this->load_model('Infoempresa');
+		$empresa_data = $Empresa->check_login(true, ["Empresa"]);
 
-  if(is_object($user_data)){
-    $data['user_data'] = $user_data;
-  }
-  $DB = Database::newInstance();
+		if(is_object($empresa_data)){
+			$data['user_data'] = $empresa_data;
+			$id_empresa = $empresa_data->id;
+			$data['id_empresa'] = $id_empresa;
+		}
+		$DB = Database::newInstance();
   $check = $DB->read("SELECT * from garbage_address");
 ?>
 <!-- ADD -->
@@ -69,6 +72,7 @@
               <select name="status" class="form-control placeholder-no-fix" autocomplete="off" required>
                 <option value="empty">Vazio</option>
                 <option value="full">Cheio</option>
+                <option value="middle">Meio</option>
               </select>
             </div>
             <div class="modal-footer">
@@ -148,6 +152,7 @@
                 <option selected id="statusselected"></option>
                 <option value="empty">Vazio</option>
                 <option value="full">Cheio</option>
+                <option value="middle">Meio</option>
               </select>
             </div>
           <div class="modal-footer">
