@@ -9,38 +9,22 @@ Class Empresas extends Controller
 
 		if(is_object($empresa_data)){
 			$data['user_data'] = $empresa_data;
+			$id_empresa = $empresa_data->id;
+			$data['id_empresa'] = $id_empresa;
 		}
 		$DB = Database::newInstance();
-		$data['users'] = $DB->read("select * from users");
-		$data['groups'] = $DB->read("SELECT * FROM colector_group");
-		$data['limit_users'] = $DB->read("select * from users order by id desc limit 8");
+		$data['users'] = $DB->read("select * from users where id_empresa = '$id_empresa'");
+		$data['groups'] = $DB->read("SELECT * FROM colector_group where id_empresa = '$id_empresa'");
+		$data['limit_users'] = $DB->read("select * from users where id_empresa = '$id_empresa' order by id desc limit 8 ");
 
-		$data['count_trash'] = $DB->read('SELECT * FROM trash_buckets');
-		$data['count_trash_full'] = $DB->read("SELECT * FROM trash_buckets where status = 'full'");
-		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty'");
+		$data['count_trash'] = $DB->read("SELECT * FROM trash_buckets  where id_empresa = '$id_empresa'");
+		$data['count_trash_full'] = $DB->read("SELECT * FROM trash_buckets where status = 'full' and id_empresa = '$id_empresa'");
+		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty' and id_empresa = '$id_empresa'");
 
 		$data['count_address'] = $DB->read("SELECT * FROM garbage_address");	
-		$data['count_car'] = $DB->read("select * from garbage_cars");
-		$data['messages'] = $DB->read("select * from messages order by id desc");
-		
-		$data['luanda'] = $DB->read("SELECT * FROM trash_buckets where province = 'Luanda' AND status = 'full'");
-		$data['uige'] = $DB->read("SELECT * FROM trash_buckets where province = 'Uige' AND status = 'full'");
-		$data['huambo'] = $DB->read("SELECT * FROM trash_buckets where province = 'Huambo' AND status = 'full'");
-		$data['benguela'] = $DB->read("SELECT * FROM trash_buckets where province = 'Benguela' AND status = 'full'");
-		$data['zaire'] = $DB->read("SELECT * FROM trash_buckets where province = 'Zaire' AND status = 'full'");
-		$data['namibe'] = $DB->read("SELECT * FROM trash_buckets where province = 'Namibe' AND status = 'full'");
-		$data['moxico'] = $DB->read("SELECT * FROM trash_buckets where province = 'Moxico' AND status = 'full'");
-		$data['cabinda'] = $DB->read("SELECT * FROM trash_buckets where province = 'Cabinda' AND status = 'full'");
-		$data['malanje'] = $DB->read("SELECT * FROM trash_buckets where province = 'Malanje' AND status = 'full'");
-		$data['lunda_norte'] = $DB->read("SELECT * FROM trash_buckets where province = 'Lunda-Norte' AND status = 'full'");
-		$data['lunda_sul'] = $DB->read("SELECT * FROM trash_buckets where province = 'Lunda-Sul' AND status = 'full'");
-		$data['cunene'] = $DB->read("SELECT * FROM trash_buckets where province = 'Cunene' AND status = 'full'");
-		$data['huila'] = $DB->read("SELECT * FROM trash_buckets where province = 'Huila' AND status = 'full'");
-		$data['kwanza_norte'] = $DB->read("SELECT * FROM trash_buckets where province = 'Kwanza-Norte' AND status = 'full'");
-		$data['kwanza_sul'] = $DB->read("SELECT * FROM trash_buckets where province = 'Kwanza-Sul' AND status = 'full'");
-		$data['bie'] = $DB->read("SELECT * FROM trash_buckets where province = 'Bie' AND status = 'full'");
-		$data['bengo'] = $DB->read("SELECT * FROM trash_buckets where province = 'Bengo' AND status = 'full'");
-		$data['cuando_cubango'] = $DB->read("SELECT * FROM trash_buckets where province = 'Cuando-Cubango' AND status = 'full'");
+		$data['count_car'] = $DB->read("select * from garbage_cars where id_empresa = '$id_empresa'");
+		$data['messages'] = $DB->read("select * from messages  order by id desc");
+
 
 
 		//municipios de luanda
@@ -54,5 +38,136 @@ Class Empresas extends Controller
 
 		$data['page_title'] = "asasa";
 		$this->view("empresas/index", $data);
+	}
+
+	public function users(){
+		$User = $this->load_model('User');
+		$Empresa = $this->load_model('Infoempresa');
+		$empresa_data = $Empresa->check_login(true, ["Empresa"]);
+
+		if(is_object($empresa_data)){
+			$data['user_data'] = $empresa_data;
+			$id_empresa = $empresa_data->id;
+			$data['id_empresa'] = $id_empresa;
+		}
+		$DB = Database::newInstance();
+
+		$data['count_trash'] = $DB->read("SELECT * FROM trash_buckets where id_empresa = '$id_empresa'");
+		$data['count_trash_full'] = $DB->read("SELECT * FROM trash_buckets where status = 'full' and id_empresa = '$id_empresa'");
+		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty' and id_empresa = '$id_empresa'");
+
+		$data['users'] = $DB->read("select * from users where id_empresa = '$id_empresa' order by id desc");
+		$data['messages'] = $DB->read("select * from messages where id_empresa = '$id_empresa' order by id desc");
+
+		// add user
+		if(isset($_POST['add']))
+		{
+			//show($_POST);
+			$User->add_user($_POST, $id_empresa);
+		}
+
+		//edit user
+		if(isset($_POST['edit']))
+		{
+			//show($_POST);
+			$User->edit_user($_POST, $id_empresa);
+		}
+
+		//delete user
+		if(isset($_POST['delete']))
+		{
+			$User->delete_user($_POST, $id_empresa);
+		}
+
+		$data['page_title'] = "Usuarios";
+		$this->view("empresas/users", $data);
+
+	}
+
+	public function groups()
+	{
+		$Group = $this->load_model('Group');
+		$User = $this->load_model('User');
+		$Empresa = $this->load_model('Infoempresa');
+		$empresa_data = $Empresa->check_login(true, ["Empresa"]);
+
+		if(is_object($empresa_data)){
+			$data['user_data'] = $empresa_data;
+			$id_empresa = $empresa_data->id;
+			$data['id_empresa'] = $id_empresa;
+		}
+		$DB = Database::newInstance();
+		//add group
+		if(isset($_POST['add_group']))
+		{
+			$Group->add_group($_POST, $id_empresa);
+		}
+
+		//edit group
+		if(isset($_POST['edit_group']))
+		{
+			$Group->edit_group($_POST, $id_empresa);
+		}
+
+		//delete group
+		if(isset($_POST['delete_group']))
+		{
+			$Group->delete_group($_POST);
+		}
+
+		$data['count_trash'] = $DB->read("SELECT * FROM trash_buckets where id_empresa = '$id_empresa'");
+		$data['count_trash_full'] = $DB->read("SELECT * FROM trash_buckets where status = 'full' and id_empresa = '$id_empresa'");
+		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty' and id_empresa = '$id_empresa'");
+
+		$data['users'] = $DB->read("select * from users where id_empresa = '$id_empresa' order by id desc");
+		$data['messages'] = $DB->read("select * from messages where id_empresa = '$id_empresa' order by id desc");
+		$data['groups'] = $DB->read("select * from colector_group where id_empresa = '$id_empresa' order by id desc");
+		$data['page_title'] = "Groups";
+		$this->view("empresas/groups", $data);
+	}
+
+	public function users_row()
+	{
+		$User = $this->load_model('User');
+		$Empresa = $this->load_model('Infoempresa');
+		$empresa_data = $Empresa->check_login(true, ["Empresa"]);
+
+		if(is_object($empresa_data)){
+			$data['user_data'] = $empresa_data;
+			$id_empresa = $empresa_data->id;
+			$data['id_empresa'] = $id_empresa;
+		}
+		$DB = Database::newInstance();
+
+
+		if(isset($_POST['id'])){
+			$id = $_POST['id'];
+
+			$row = $DB->read("SELECT * FROM users WHERE id=:id",['id'=>$id]);
+
+			echo json_encode($row);
+		}
+	}
+
+	public function groups_row()
+	{
+		$User = $this->load_model('User');
+		$Empresa = $this->load_model('Infoempresa');
+		$empresa_data = $Empresa->check_login(true, ["Empresa"]);
+
+		if(is_object($empresa_data)){
+			$data['user_data'] = $empresa_data;
+			$id_empresa = $empresa_data->id;
+			$data['id_empresa'] = $id_empresa;
+		}
+		$DB = Database::newInstance();
+
+		if(isset($_POST['id'])){
+			$id = $_POST['id'];
+
+			$row = $DB->read("SELECT * FROM colector_group WHERE id=:id",['id'=>$id]);
+
+			echo json_encode($row);
+		}
 	}
 }
