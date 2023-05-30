@@ -220,10 +220,7 @@ Class Empresas extends Controller
 
 	public function address()
 	{
-		$truck = $this->load_model('Truck');
-
-		$Group = $this->load_model('Group');
-		$User = $this->load_model('User');
+		$address = $this->load_model('Address');
 		$Empresa = $this->load_model('Infoempresa');
 		$empresa_data = $Empresa->check_login(true, ["Empresa"]);
 
