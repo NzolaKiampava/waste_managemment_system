@@ -1,5 +1,5 @@
-<?php $this->view("admin/header", $data);?>
-    <?php $this->view("admin/sidebar", $data);?>
+<?php $this->view("empresas/header", $data);?>
+    <?php $this->view("empresas/sidebar", $data);?>
 
     <!-- =============================================== -->
 
@@ -12,7 +12,7 @@
             <small>it all starts here</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="<?=ROOT?>admin"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="<?=ROOT?>empresas"><i class="fa fa-dashboard"></i> Home</a></li>
             <li class="active">Caminhões</li>
         </ol>
         </section>
@@ -57,10 +57,8 @@
                       <?php foreach($trucks as $truck):?>
                         <?php
                             $DB = Database::newInstance();  
-                            $id = $truck->created_by;
-                            $search = $DB->read("select * from users where id = '$id'");
                             $group_id = $truck->group_id;
-                            $search_group = $DB->read("select * from colector_group where id = '$group_id'");
+                            $search_group = $DB->read("SELECT * from colector_group where id = '$group_id' AND id_empresa = '$id_empresa'");
                             $truck1 = $truck->address_id_1;
                             $truck2 = $truck->address_id_2;
                             $truck3 = $truck->address_id_3;
@@ -94,7 +92,7 @@
     </div>
     <!-- /.content-wrapper -->
     <?php include 'includes/truck_modal.php'; ?>
-<?php $this->view("admin/footer", $data);?>
+<?php $this->view("empresas/footer", $data);?>
 
 <script>
   $(function(){
@@ -124,7 +122,7 @@
   function getRow(id){
     $.ajax({
       type: 'POST',
-      url: '<?=ROOT?>admin/truck_row',
+      url: '<?=ROOT?>empresas/truck_row',
       data: {id:id},
       dataType: 'json',
       success: function(response){
