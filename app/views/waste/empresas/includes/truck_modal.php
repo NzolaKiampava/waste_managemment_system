@@ -1,12 +1,15 @@
 <?php 
-  $User = $this->load_model('User');
-  $user_data = $User->check_login(true, ["Administrador","Supervisor"]);
+		$trash = $this->load_model('Trash');
+		$Empresa = $this->load_model('Infoempresa');
+		$empresa_data = $Empresa->check_login(true, ["Empresa"]);
 
-  if(is_object($user_data)){
-    $data['user_data'] = $user_data;
-  }
-  $DB = Database::newInstance();
-  $truck = $DB->read("SELECT * from colector_group");
+		if(is_object($empresa_data)){
+			$data['user_data'] = $empresa_data;
+			$id_empresa = $empresa_data->id;
+			$data['id_empresa'] = $id_empresa;
+		}
+		$DB = Database::newInstance();
+  $truck = $DB->read("SELECT * from colector_group where id_empresa = '$id_empresa'");
   $roots = $DB->read("SELECT * from garbage_address");
 ?>
 <!-- ADD -->
