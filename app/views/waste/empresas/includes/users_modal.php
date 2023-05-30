@@ -6,7 +6,7 @@
       <div class="modal-content">
           <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title">Adicionar novo Usuário</h4>
+              <h4 class="modal-title">Adicionar novo Funcionarios</h4>
           </div>
           <div class="modal-body">
             <form method="post">
@@ -15,11 +15,10 @@
               <p>Entrar com email</p>
               <input type="email" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix" required>
 
-              <p>Selecionar perfil </p>
+              <p>Selecionar Cargo </p>
               <select name="rank" class="form-control placeholder-no-fix" autocomplete="off" required>
-              <option value="Administrador">Administrador</option>
-              <option value="Supervisor">Supervisor</option>
-              <option value="Normal" selected>Usuario Normal</option>
+              <option value="Colector">Colector</option>
+              <option value="Caminhonista">Caminhonista</option>
               </select>
 
             </div>
@@ -52,12 +51,11 @@
               <p>Nome</p>
               <input type="text" class="form-control placeholder-no-fix" autocomplete="off" id="edit_name" name="name" required>
 
-              <p>Selecionar Perfil </p>
-              <select class="form-control placeholder-no-fix" name="rank">
+              <p>Selecionar Cargo </p>
+              <select name="rank" class="form-control placeholder-no-fix" autocomplete="off" required>
                 <option selected id="rankselected"></option>
-                <option value="Administrador">Administrador</option>
-                <option value="Supervisor">Supervisor</option>
-                <option value="Normal">Normal</option>
+                <option value="Colector">Colector</option>
+                <option value="Caminhonista">Caminhonista</option>
               </select>
           </div>
           <div class="modal-footer">
@@ -94,62 +92,5 @@
         </div>
     </div>
 </div>
-
-<!-- Update Photo -->
-<div class="modal fade" id="edit_photo">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title"><b><span class="fullname"></span></b></h4>
-            </div>
-            <div class="modal-body">
-              <form class="form-horizontal" method="POST" enctype="multipart/form-data">
-                <input type="hidden" class="userid" name="id">
-                <div class="form-group">
-                    <label for="photo" class="col-sm-3 control-label">FOTO</label>
-
-                    <div class="col-sm-9">
-                      <input type="file" id="photo" name="photo" required>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Cancelar</button>
-              <button type="submit" class="btn btn-success btn-flat" name="upload_photo"><i class="fa fa-check-square-o"></i> Atualizar</button>
-              </form>
-            </div>
-        </div>
-    </div>
-</div> 
-
-
-<!-- Activate -->
-<div class="modal fade" id="activate">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title"><b>Activating...</b></h4>
-            </div>
-            <div class="modal-body">
-              <form class="form-horizontal" method="POST" action="users_activate.php">
-                <input type="hidden" class="userid" name="id">
-                <div class="text-center">
-                    <p>ACTIVATE USER</p>
-                    <h2 class="bold fullname"></h2>
-                </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
-              <button type="submit" class="btn btn-success btn-flat" name="activate"><i class="fa fa-check"></i> Activate</button>
-              </form>
-            </div>
-        </div>
-    </div>
-</div> 
-
 
      
