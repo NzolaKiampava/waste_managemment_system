@@ -1,5 +1,5 @@
-<?php $this->view("admin/header", $data);?>
-    <?php $this->view("admin/sidebar", $data);?>
+<?php $this->view("empresas/header", $data);?>
+    <?php $this->view("empresas/sidebar", $data);?>
 
     <!-- =============================================== -->
 
@@ -12,7 +12,7 @@
             <small>Contentores de lixos</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="<?=ROOT?>admin"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="<?=ROOT?>empresas"><i class="fa fa-dashboard"></i> Home</a></li>
             <li class="active">Baldee de Lixo</li>
         </ol>
         </section>
@@ -51,7 +51,6 @@
                     <th>Municipio</th>
                     <th>Endereço</th>
                     <th>Estado</th>
-                    <th>Criado por</th>
                     <th>Criado em</th>
                     <th>Ações</th>
                     </tr>
@@ -61,8 +60,6 @@
                             <?php foreach($trashes as $trash):?>
                                 <?php
                                     $DB = Database::newInstance();  
-                                    $id = $trash->created_by;
-                                    $search = $DB->read("select * from users where id = '$id'");
                                     $search_add = $DB->read("select * from garbage_address where id = '$trash->address_id'");
                                 ?>
                              <tr>
@@ -93,7 +90,6 @@
                                       <?php endif;?>
                                   </span>
                                 </td>
-                                <td><?=$search[0]->name?></td>
                                 <td><?=date('M d, Y', strtotime($trash->created_at))?></td>
                                 <td>
                                     <button class='btn btn-success btn-sm edit btn-flat' data-id="<?=$trash->id?>"><i class='fa fa-edit'></i> Edit</button>
@@ -113,7 +109,7 @@
     </div>
     <!-- /.content-wrapper -->
     <?php include 'includes/trash_modal.php'; ?>
-<?php $this->view("admin/footer", $data);?>
+<?php $this->view("empresas/footer", $data);?>
 
 <script>
   $(function(){
@@ -141,9 +137,9 @@
     /*$('#select_address').change(function(){
       var val = $($this).val();
       if(val == 0){
-        windows.location = '<?=ROOT?>admin/trash';
+        windows.location = '<?=ROOT?>empresas/trash';
       }else{
-        windows.location = '<?=ROOT?>admin/trash?address='+val;
+        windows.location = '<?=ROOT?>empresas/trash?address='+val;
       }
     });
 
@@ -156,7 +152,7 @@
   function getRow(id){
     $.ajax({
       type: 'POST',
-      url: '<?=ROOT?>admin/trash_row',
+      url: '<?=ROOT?>empresas/trash_row',
       data: {id:id},
       dataType: 'json',
       success: function(response){
@@ -177,7 +173,7 @@
   function getAddress(){
     $.ajax({
       type: 'POST',
-      url: '<?=ROOT?>admin/address_fetch',
+      url: '<?=ROOT?>empresas/address_fetch',
       dataType: 'json',
       success:function(response){
         console.log(response);
@@ -197,7 +193,7 @@
                 document.getElementById("table-body").innerHTML = this.responseText;
             }
         };
-        xhttp.open("GET", "<?=ROOT?>admin/update_table", true);
+        xhttp.open("GET", "<?=ROOT?>empresas/update_table", true);
         xhttp.send();
     }, 5000); // Refresh after 5 seconds (you can change the time interval here)
 </script>
