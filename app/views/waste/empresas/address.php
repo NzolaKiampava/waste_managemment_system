@@ -1,5 +1,5 @@
-<?php $this->view("admin/header", $data);?>
-    <?php $this->view("admin/sidebar", $data);?>
+<?php $this->view("empresas/header", $data);?>
+    <?php $this->view("empresas/sidebar", $data);?>
 
     <!-- =============================================== -->
 
@@ -12,7 +12,7 @@
             <small>Todos os endereços usados</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="<?=ROOT?>admin"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="<?=ROOT?>empresas"><i class="fa fa-dashboard"></i> Home</a></li>
             <li class="active">Endereços</li>
         </ol>
         </section>
@@ -45,7 +45,6 @@
                     <th>#</th>
                     <th>ID</th>
                     <th>Endereço</th>
-                    <th>Criado por</th>
                     <th>Criado em</th>
                     <th>Ações</th>
                     </tr>
@@ -53,16 +52,10 @@
                     <tbody>
                         <?php if(is_array($address)):?> 
                             <?php foreach($address as $address):?>
-                                <?php
-                                    $DB = Database::newInstance();  
-                                    $id = $address->created_by;
-                                    $search = $DB->read("select * from users where id = '$id'");
-                                ?>
                             <tr>
                                 <td><img src="<?=ASSETS . THEME?>/assets/logo/map.jpg" class="img-circle" height='30px' width='30px'></td>
                                 <td><?=$address->id?></td>
                                 <td><?=$address->address?></td>
-                                <td><?=$search[0]->name?></td>
                                 <td><?=date('M d, Y', strtotime($address->created_at))?></td>
                                 <td>
                                     <button class='btn btn-success btn-sm edit btn-flat' data-id="<?=$address->id?>"><i class='fa fa-edit'></i> Edit</button>
@@ -82,7 +75,7 @@
     </div>
     <!-- /.content-wrapper -->
     <?php include 'includes/address_modal.php'; ?>
-<?php $this->view("admin/footer", $data);?>
+<?php $this->view("empresas/footer", $data);?>
 
 <script>
   $(function(){
@@ -112,7 +105,7 @@
   function getRow(id){
     $.ajax({
       type: 'POST',
-      url: '<?=ROOT?>admin/address_row',
+      url: '<?=ROOT?>empresas/address_row',
       data: {id:id},
       dataType: 'json',
       success: function(response){
