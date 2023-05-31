@@ -41,7 +41,16 @@ class Message extends User
 
         $data['image'] = $destination;
 
-        $query = "INSERT INTO messages (user_id,province,municipy,address,message,image,date) values (:user_id,:province,:municipy,:address,:message,:image,:date)";
+		$search_empresa = $db->read("SELECT * FROM empresas WHERE province = '$provincia' and municipy = '$municipio'");
+
+		if($search_empresa){
+			$id_empresa = $search_empresa[0]->id;
+			$data['id_empresa'] = $id_empresa;
+			$query = "INSERT INTO messages (user_id,id_empresa,province,municipy,address,message,image,date) values (:user_id,:id_empresa,:province,:municipy,:address,:message,:image,:date)";
+		}else {
+			$query = "INSERT INTO messages (user_id,province,municipy,address,message,image,date) values (:user_id,:province,:municipy,:address,:message,:image,:date)";
+		}
+       
         
 		$result = $db->write($query,$data);
 
@@ -53,11 +62,20 @@ class Message extends User
 			// A Twilio number you own with SMS capabilities
 			$twilio_number = "+12707704194";
 
-			$recipient = 'delcioferreira57@gmail.com';
-			$subject = 'Mensagem de Colecta';
-			$message = 'SmartWaste! Uma nova mensagem de colecta foi enviada ao sistema, na província de '.$provincia.', municipio de '.$municipio.', no endereço '.$endereco.', com a seguinte mensagem: '.$mensagem.'.           
-			
-			https://smartwaste.com';
+			if($search_empresa){
+				$empresa = $search_empresa[0]->empresa;
+				$recipient = $search_empresa[0]->email;;
+				$subject = 'Mensagem de Colecta';
+				$message = "<?=$empresa?>! Uma nova mensagem de colecta foi enviada ao sistema, na província de '.$provincia.', municipio de '.$municipio.', no endereço '.$endereco.', com a seguinte mensagem: '.$mensagem.'.           
+				
+				https://smartwaste.com";
+			}else{
+				$recipient = 'delcioferreira57@gmail.com';
+				$subject = 'Mensagem de Colecta';
+				$message = 'SmartWaste! Uma nova mensagem de colecta foi enviada ao sistema, na província de '.$provincia.', municipio de '.$municipio.', no endereço '.$endereco.', com a seguinte mensagem: '.$mensagem.'.           
+				
+				https://smartwaste.com';
+			}
 
 			$client = new Client($sid, $token);
 			$message = $client->messages->create(
