@@ -39,9 +39,10 @@ class Message extends User
 			move_uploaded_file($FILES['image']['tmp_name'], $destination);	
 		}
 
-        $data['image'] = $destination;
+		$data['image'] = $destination;
 
-		$search_empresa = $db->read("SELECT * FROM empresas WHERE province = '$provincia' and municipy = '$municipio'");
+
+        $search_empresa = $db->read("SELECT * FROM empresas WHERE province = '$provincia' and municipy = '$municipio'");
 
 		if($search_empresa){
 			$id_empresa = $search_empresa[0]->id;
@@ -49,15 +50,13 @@ class Message extends User
 			$query = "INSERT INTO messages (user_id,id_empresa,province,municipy,address,message,image,date) values (:user_id,:id_empresa,:province,:municipy,:address,:message,:image,:date)";
 		}else {
 			$query = "INSERT INTO messages (user_id,province,municipy,address,message,image,date) values (:user_id,:province,:municipy,:address,:message,:image,:date)";
-		}
-       
-        
+		}        
 		$result = $db->write($query,$data);
 
         if($result)
         {
 			$sid = 'ACa7d5c66e7a1916cd8799019cdea71add';
-			$token = '0fed6684e6d2fa33285fff6c0a7935de';
+			$token = 'b5468e86182bc8d03d391285248e56a5';
 
 			// A Twilio number you own with SMS capabilities
 			$twilio_number = "+12707704194";
@@ -66,9 +65,9 @@ class Message extends User
 				$empresa = $search_empresa[0]->empresa;
 				$recipient = $search_empresa[0]->email;;
 				$subject = 'Mensagem de Colecta';
-				$message = "<?=$empresa?>! Uma nova mensagem de colecta foi enviada ao sistema, na província de '.$provincia.', municipio de '.$municipio.', no endereço '.$endereco.', com a seguinte mensagem: '.$mensagem.'.           
+				$message = $empresa.'! Uma nova mensagem de colecta foi enviada ao sistema, na província de '.$provincia.', municipio de '.$municipio.', no endereço '.$endereco.', com a seguinte mensagem: '.$mensagem.'.           
 				
-				https://smartwaste.com";
+				https://smartwaste.com';
 			}else{
 				$recipient = 'delcioferreira57@gmail.com';
 				$subject = 'Mensagem de Colecta';
@@ -76,6 +75,8 @@ class Message extends User
 				
 				https://smartwaste.com';
 			}
+
+			$this->send_mail($recipient,$subject,$message);
 
 			$client = new Client($sid, $token);
 			$message = $client->messages->create(
@@ -87,15 +88,13 @@ class Message extends User
 				)
 			);
 
-			$this->send_mail($recipient,$subject,$message);
-
             header("Location: " . ROOT . "home");
             $_SESSION['success'] =  "Mensagem Envida com Sucesso!";
             die;
         }
     }
 
-    public function delete_message($POST)
+    public function delete_message($POST, $id_empresa = [])
     {
         //show($POST);
 		
