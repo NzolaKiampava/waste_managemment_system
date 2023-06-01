@@ -220,8 +220,12 @@ Class Empresas extends Controller
 
 	public function address()
 	{
-		$address = $this->load_model('Address');
+		$truck = $this->load_model('Truck');
+
+		$Group = $this->load_model('Group');
+		$User = $this->load_model('User');
 		$Empresa = $this->load_model('Infoempresa');
+		$address = $this->load_model('Address');
 		$empresa_data = $Empresa->check_login(true, ["Empresa"]);
 
 		if(is_object($empresa_data)){
@@ -233,19 +237,19 @@ Class Empresas extends Controller
 		//add address
 		if(isset($_POST['add_address']))
 		{
-			$address->add_address($_POST);
+			$address->add_address($_POST, $id_empresa);
 		}
 
 		//edit address
 		if(isset($_POST['edit_address']))
 		{
-			$address->edit_address($_POST);
+			$address->edit_address($_POST, $id_empresa);
 		}
 
 		//delete address
 		if(isset($_POST['delete_address']))
 		{
-			$address->delete_address($_POST);
+			$address->delete_address($_POST, $id_empresa);
 		}
 
 		$data['count_trash'] = $DB->read("SELECT * FROM trash_buckets where id_empresa = '$id_empresa'");
@@ -259,8 +263,254 @@ Class Empresas extends Controller
 		$this->view("empresas/address", $data);
 	}
 	
+	public function messages() 
+	{
+		
+		$Empresa = $this->load_model('Infoempresa');
+		$address = $this->load_model('Address');
+		$empresa_data = $Empresa->check_login(true, ["Empresa"]);
+
+		if(is_object($empresa_data)){
+			$data['user_data'] = $empresa_data;
+			$id_empresa = $empresa_data->id;
+			$data['id_empresa'] = $id_empresa;
+		}
+		$DB = Database::newInstance();
+
+		if(isset($_POST['delete_message']))
+		{
+			$Empresa->delete_message($_POST);
+		}
+		
+		$data['count_trash'] = $DB->read("SELECT * FROM trash_buckets where id_empresa = '$id_empresa'");
+		$data['count_trash_full'] = $DB->read("SELECT * FROM trash_buckets where status = 'full' and id_empresa = '$id_empresa'");
+		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty' and id_empresa = '$id_empresa'");
+		$data['users'] = $DB->read("select * from users where id_empresa = '$id_empresa' order by id desc");
+		$data['messages'] = $DB->read("select * from messages where id_empresa = '$id_empresa' order by id desc");
+		$data['page_title'] = "Messages";
+		$this->view("empresas/messages", $data);
+	}
+
+
+	public function relatoriogeral()
+	{
+		$Empresa = $this->load_model('Infoempresa');
+		$address = $this->load_model('Address');
+		$empresa_data = $Empresa->check_login(true, ["Empresa"]);
+
+		if(is_object($empresa_data)){
+			$data['user_data'] = $empresa_data;
+			$id_empresa = $empresa_data->id;
+			$data['id_empresa'] = $id_empresa;
+		}
+		$DB = Database::newInstance();
+
+		if(isset($_POST['print'])){
+			$this->imprimirelatorio();
+			die;
+		}
+
+		$data['contentores'] = $DB->read("SELECT * FROM trash_buckets where id_empresa = '$id_empresa'");
+
+		$data['count_trash'] = $DB->read("SELECT * FROM trash_buckets where id_empresa = '$id_empresa'");
+		$data['count_trash_full'] = $DB->read("SELECT * FROM trash_buckets where status = 'full' and id_empresa = '$id_empresa'");
+		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty' and id_empresa = '$id_empresa'");
+		$data['users'] = $DB->read("select * from users where id_empresa = '$id_empresa' order by id desc");
+		$data['messages'] = $DB->read("select * from messages where id_empresa = '$id_empresa' order by id desc");
+		$data['groups'] = $DB->read("select * from colector_group where id_empresa = '$id_empresa' order by id desc");
+		$data['page_title'] = "RelatorioGeral";
+		$this->view("empresas/relatoriogeral", $data);
+	}
+
+	public function relatorioestatistico()
+	{
+		$Empresa = $this->load_model('Infoempresa');
+		$address = $this->load_model('Address');
+		$empresa_data = $Empresa->check_login(true, ["Empresa"]);
+
+		if(is_object($empresa_data)){
+			$data['user_data'] = $empresa_data;
+			$id_empresa = $empresa_data->id;
+			$data['id_empresa'] = $id_empresa;
+		}
+		$DB = Database::newInstance();
+
+		if(isset($_POST['imprimir'])){
+			$this->imprimirelatorioestatistico($_POST);
+			die;
+		}
+
+		$data['contentores'] = $DB->read("SELECT * FROM trash_buckets where id_empresa = '$id_empresa'");
+
+		$data['count_trash'] = $DB->read("SELECT * FROM trash_buckets where id_empresa = '$id_empresa'");
+		$data['count_trash_full'] = $DB->read("SELECT * FROM trash_buckets where status = 'full' and id_empresa = '$id_empresa'");
+		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty' and id_empresa = '$id_empresa'");
+		$data['users'] = $DB->read("select * from users where id_empresa = '$id_empresa' order by id desc");
+		$data['messages'] = $DB->read("select * from messages where id_empresa = '$id_empresa' order by id desc");
+		$data['groups'] = $DB->read("select * from colector_group where id_empresa = '$id_empresa' order by id desc");
+		$data['history_buckets_full'] = $DB->read("select * from trash_buckets as tb inner join history_trashbucket ht on tb.id = ht.trashbucket_id where ht.status = 'full' AND tb.id_empresa = '$id_empresa'");
+		$data['history_buckets_empty'] = $DB->read("select * from trash_buckets as tb inner join history_trashbucket ht on tb.id = ht.trashbucket_id where ht.status = 'empty' AND tb.id_empresa = '$id_empresa'");
+		
+		$month = date('m');
+		$data['months_history'] = $DB->read("SELECT * FROM trash_buckets AS tb INNER JOIN history_trashbucket AS ht ON tb.id = ht.trashbucket_id WHERE MONTH(ht.status_date) <= '$month' and ht.status = 'full' AND tb.id_empresa = '$id_empresa'");
+
+		$data['page_title'] = "RelatorioEstatistico";
+		$this->view("empresas/relatorioestatistico", $data);
+	}
+
+	public function imprimirelatorioestatistico($POST)
+	{
+		$date1 = $POST['date1'];
+		$date2 = $POST['date2'];
+
+		$Empresa = $this->load_model('Infoempresa');
+		$address = $this->load_model('Address');
+		$empresa_data = $Empresa->check_login(true, ["Empresa"]);
+
+		if(is_object($empresa_data)){
+			$data['user_data'] = $empresa_data;
+			$id_empresa = $empresa_data->id;
+			$data['id_empresa'] = $id_empresa;
+		}
+		$DB = Database::newInstance();
+
+		$data['contentores'] = $DB->read("SELECT * FROM trash_buckets where id_empresa = '$id_empresa'");
+
+		$data['count_trash'] = $DB->read("SELECT * FROM trash_buckets where id_empresa = '$id_empresa'");
+		$data['count_trash_full'] = $DB->read("SELECT * FROM trash_buckets where status = 'full'");
+		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty'");
+		$data['users'] = $DB->read("select * from users where id_empresa = '$id_empresa' order by id desc");
+		$data['messages'] = $DB->read("select * from messages where id_empresa = '$id_empresa' order by id desc");
+		$data['groups'] = $DB->read("select * from colector_group where id_empresa = '$id_empresa' order by id desc");
+		$data['history_buckets_full'] = $DB->read("SELECT * from trash_buckets as tb inner join history_trashbucket ht on tb.id = ht.trashbucket_id where (ht.status_date >= '$date1' and ht.status_date <= '$date2') and tb.id_empresa = '$id_empresa' and  ht.status = 'full'");
+		$data['history_buckets_empty'] = $DB->read("SELECT * from trash_buckets as tb inner join history_trashbucket ht on tb.id = ht.trashbucket_id where (ht.status_date >= '$date1' and ht.status_date <= '$date2') and tb.id_empresa = '$id_empresa' and  ht.status = 'empty'");
+		
+		$month = date('m');
+		$data['months_history'] = $DB->read("SELECT * FROM trash_buckets AS tb INNER JOIN history_trashbucket AS ht ON tb.id = ht.trashbucket_id WHERE (ht.status_date >= '$date1' and ht.status_date <= '$date2') and tb.id_empresa = '$id_empresa' and ht.status = 'full'");
+
+		$data['page_title'] = "RelatorioEstatistico";
+		$this->view("empresas/imprimirelatorioestatistico", $data);
+
+	}
+
+	public function imprimirelatorio()
+	{
+		$Empresa = $this->load_model('Infoempresa');
+		$address = $this->load_model('Address');
+		$empresa_data = $Empresa->check_login(true, ["Empresa"]);
+
+		if(is_object($empresa_data)){
+			$data['user_data'] = $empresa_data;
+			$id_empresa = $empresa_data->id;
+			$data['id_empresa'] = $id_empresa;
+		}
+		$DB = Database::newInstance();
+
+		$data['contentores'] = $DB->read("SELECT * FROM trash_buckets where id_empresa = '$id_empresa'");
+
+		$data['count_trash'] = $DB->read("SELECT * FROM trash_buckets where id_empresa = '$id_empresa'");
+		$data['count_trash_full'] = $DB->read("SELECT * FROM trash_buckets where status = 'full' and id_empresa = '$id_empresa'");
+		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty' and id_empresa = '$id_empresa'");
+		$data['users'] = $DB->read("select * from users where id_empresa = '$id_empresa' order by id desc");
+		$data['messages'] = $DB->read("select * from messages where id_empresa = '$id_empresa' order by id desc");
+		$data['groups'] = $DB->read("select * from colector_group where id_empresa = '$id_empresa' order by id desc");
+		$data['page_title'] = "RelatorioGeral";
+		$this->view("empresas/imprimirelatorio", $data);
+	}
+
+	public function filtrar_relatorio()
+	{
+		$Empresa = $this->load_model('Infoempresa');
+		$address = $this->load_model('Address');
+		$empresa_data = $Empresa->check_login(true, ["Empresa"]);
+
+		if(is_object($empresa_data)){
+			$data['user_data'] = $empresa_data;
+			$id_empresa = $empresa_data->id;
+			$data['id_empresa'] = $id_empresa;
+		}
+		$DB = Database::newInstance();
+
+		$data['contentores'] = $DB->read("SELECT * FROM trash_buckets where id_empresa = '$id_empresa'");
+
+		$data['count_trash'] = $DB->read("SELECT * FROM trash_buckets where id_empresa = '$id_empresa'");
+		$data['count_trash_full'] = $DB->read("SELECT * FROM trash_buckets where status = 'full' and id_empresa = '$id_empresa'");
+		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty' and id_empresa = '$id_empresa'");
+		$data['users'] = $DB->read("select * from users where id_empresa = '$id_empresa' order by id desc");
+		$data['messages'] = $DB->read("select * from messages where id_empresa = '$id_empresa' order by id desc");
+		$data['groups'] = $DB->read("select * from colector_group where id_empresa = '$id_empresa' order by id desc");
+
+		$data['page_title'] = "FiltrarRelatorio";
+		$this->view("empresas/filtrar_relatorio", $data);
+	}
+
+
+	public function profile()
+	{
+		$Empresa = $this->load_model('Infoempresa');
+		$address = $this->load_model('Address');
+		$empresa_data = $Empresa->check_login(true, ["Empresa"]);
+
+		if(is_object($empresa_data)){
+			$data['user_data'] = $empresa_data;
+			$id_empresa = $empresa_data->id;
+			$data['id_empresa'] = $id_empresa;
+		}
+		$DB = Database::newInstance();
+		$data['users'] = $DB->read("select * from users where id_empresa = '$id_empresa'");
+
+		$data['count_trash'] = $DB->read("SELECT * FROM trash_buckets where id_empresa = '$id_empresa'");
+		$data['count_trash_full'] = $DB->read("SELECT * FROM trash_buckets where status = 'full' and id_empresa = '$id_empresa'");
+		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty' and id_empresa = '$id_empresa'");
+
+		//verify user created
+		$session_user = $_SESSION['empresa_url'];
+		$create_check = $DB->read("SELECT * FROM empresas WHERE url_address = '$session_user' limit 1");
+		$user_created = $create_check[0]->id;
+
+		//$data['user_created'] = $DB->read("select * from users where created_by = '$user_created'");
+		$data['messages'] = $DB->read("select * from messages where id_empresa = '$id_empresa' order by id desc");
+
+		$id = $data['user_data']->id;
+
+		if(isset($_POST['admin_profile_button']))
+		{
+			//show($_POST);
+			$Empresa->update_empresa_profile($_POST, $id);
+
+			if(isset($_SESSION['error']) && $_SESSION['error'] != ""){
+				//show($_SESSION['error']);
+				$data['errors'] = $_SESSION['error'];
+				$data['POST'] = $_POST;
+			}
+		}
+
+		$data['page_title'] = "Profile";
+		$this->view("empresas/profile", $data);
+	}
 
 	// JAVASCRIPT OBJECTS
+
+	
+	public function message_row()
+	{
+		$Empresa = $this->load_model('Infoempresa');
+		$empresa_data = $Empresa->check_login(true, ["Empresa"]);
+
+		if(is_object($empresa_data)){
+			$data['user_data'] = $empresa_data;
+			$id_empresa = $empresa_data->id;
+			$data['id_empresa'] = $id_empresa;
+		}
+		$DB = Database::newInstance();
+
+		if(isset($_POST['id'])){
+			$id = $_POST['id'];
+			$row = $DB->read("SELECT * FROM messages WHERE id=:id",['id'=>$id]);
+
+			echo json_encode($row);
+		}
+	}
 
 	public function truck_row()
 	{
