@@ -3,7 +3,7 @@
   $image = 'uploads/user.jpg';
   if (file_exists($user_data->logo)) //looking for if exist some file int the collumn image
   {
-      $image = $user_data->logo;
+    $image = $user_data->logo;
   }
 ?>
   <aside class="main-sidebar">
@@ -16,7 +16,7 @@
         </div>
         <div class="pull-left info">
           <p><?=$user_data->empresa?></p>
-          <a href="<?=ROOT?>admin/profile"><i class="fa fa-circle text-success"></i> <?=$user_data->rank?></a>
+          <a href="<?=ROOT?>empresas/profile"><i class="fa fa-circle text-success"></i> <?=$user_data->email?></a>
         </div>
       </div>
       <!-- search form -->
@@ -79,12 +79,6 @@
             <i class="fa fa-envelope"></i> <span>Mensagens</span>
           </a>
         </li>
-        
-        <li class="<?= $page_title == "Geolocalizacao" ? "active treeview" : "#"?>">
-          <a href="<?=ROOT?>empresas/geolocalizacao">
-            <i class="fa fa-map"></i> <span>Geolocalizacao</span>
-          </a>
-        </li>
 
         <li class="treeview <?=$page_title=="RelatorioGeral"?"active":""?> menu-open">
           <a href="#">
@@ -96,18 +90,7 @@
           <ul class="treeview-menu">
           <li class="<?=$page_title=="RelatorioGeral"?"active":""?>"><a href="<?=ROOT?>empresas/relatoriogeral"><i class="fa fa-circle-o"></i> Relatorio Geral</a></li>
             <li class="<?=$page_title=="RelatorioEstatistico"?"active":""?>"><a href="<?=ROOT?>empresas/relatorioestatistico"><i class="fa fa-circle-o"></i> Relatorio Estatistico</a></li>
-          </ul>
-        </li>
-        <li class="treeview <?=($page_title=="GraficoContentores" || $page_title=="GraficoGeral")?"active":""?> menu-open">
-          <a href="#">
-            <i class="fa fa-bar-chart"></i> <span>Gráficos</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class="<?=$page_title=="GraficoContentores"?"active":""?>"><a href="<?=ROOT?>empresas/grafico_contentores"><i class="fa fa-circle-o"></i> Estatistica de contentores</a></li>
-            <li class="<?=$page_title=="GraficoGeral"?"active":""?>"><a href="<?=ROOT?>empresas/grafico_geral"><i class="fa fa-circle-o"></i> Gráfico Geral</a></li>
+            <li class="<?=$page_title=="FiltrarRelatorio"?"active":""?>"><a href="<?=ROOT?>empresas/filtrar_relatorio"><i class="fa fa-circle-o"></i> Filtrar Relatório</a></li>
           </ul>
         </li>
         <li class="<?= $page_title == "Profile" ? "active treeview" : ""?>">
