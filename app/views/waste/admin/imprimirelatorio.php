@@ -136,11 +136,11 @@
                 <td><?=is_array($contentores)?count($contentores):'0'?></td>
               </tr>
               <tr>
-                <th>Contentores Vazios:</th>
+                <th>Contentores Cheios:</th>
                 <td><?=is_array($count_trash_full)?count($count_trash_full):'0'?></td>
               </tr>
               <tr>
-                <th>Contentores Cheios:</th>
+                <th>Contentores Vazios:</th>
                 <td><?=is_array($count_trash_empty)?count($count_trash_empty):'0'?></td>
               </tr>
             </table>
