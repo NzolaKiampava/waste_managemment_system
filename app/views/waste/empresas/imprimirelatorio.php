@@ -37,7 +37,7 @@
       <div class="row">
         <div class="col-xs-12">
           <h2 class="page-header">
-            <i class="fa fa-globe"></i> SmartWaste.
+            <img width="90" src="<?=ROOT.$user_data->logo?>" alt="Logo">
             <small class="pull-right">Data: <?=$date?></small>
           </h2>
         </div>
@@ -48,10 +48,8 @@
         <div class="col-sm-4 invoice-col">
           Emitido Por
           <address>
-            <strong><?=$user_data->name?></strong> (<?=$user_data->rank?>)<br>
-            57M8+469, Luanda Rangel KM7 CTT Parque do saber,<br>
-            Luanda, Angola<br>
-            Phone: (+244) 924 598 849<br>
+            <strong><?=$user_data->empresa?></strong> (Empresa)<br>
+            
             Email: <?=$user_data->email?>
           </address>
         </div>
@@ -59,13 +57,7 @@
         <div class="col-sm-3 invoice-col">
         </div>
         <!-- /.col -->
-        <div class="col-sm-4 invoice-col">
-          <b>Informações do emissor</b><br>
-          <br>
-          <b>URL ID:</b> <?=$user_data->url_address?><br>
-          <b>Conta criado em :</b> <?= date('d/m/Y', strtotime($user_data->date))?><br>
-          <b>Tipo de Conta:</b> <?=$user_data->rank?>
-        </div>
+       
         <!-- /.col -->
       </div>
       <!-- /.row -->
@@ -111,7 +103,7 @@
         <div class="col-xs-6">
           <p class="lead">Informações do Sistema:</p>
           <img width="50" src="<?=ASSETS.THEME?>assets/logo/logo.jpg" alt="Logo">
-          <img width="50" src="<?=ASSETS.THEME?>assets/logo/logo.png" alt="Logo">
+          <img width="50" src="<?=ROOT.$user_data->logo?>" alt="Logo">
 
           <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
             SmartWaste é um projecto que visa melhorar a nossa sociedade. Sistema de gerenciamentro de resíduos sólidos habilitado para IOT indica o nível de lixeiras em qualquer tempo. Otimiza a rota de coleta de resíduos e, finalmente, reduz consumo de combustível.
@@ -136,11 +128,11 @@
                 <td><?=is_array($contentores)?count($contentores):'0'?></td>
               </tr>
               <tr>
-                <th>Contentores Vazios:</th>
+                <th>Contentores Cheios:</th>
                 <td><?=is_array($count_trash_full)?count($count_trash_full):'0'?></td>
               </tr>
               <tr>
-                <th>Contentores Cheios:</th>
+                <th>Contentores Vazios:</th>
                 <td><?=is_array($count_trash_empty)?count($count_trash_empty):'0'?></td>
               </tr>
             </table>
