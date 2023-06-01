@@ -1,5 +1,5 @@
-<?php $this->view("admin/header", $data);?>
-    <?php $this->view("admin/sidebar", $data);?>
+<?php $this->view("empresas/header", $data);?>
+    <?php $this->view("empresas/sidebar", $data);?>
 
     <?php
       $month = date('m');
@@ -12,7 +12,7 @@
         Relatorio Estatistico
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?=ROOT?>admin"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="<?=ROOT?>empresas"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Relatorios</a></li>
         <li class="active">Relatorio Estatistico</li>
       </ol>
@@ -29,11 +29,20 @@
 ?>
     <!-- Main content -->
     <section class="invoice">
+      <div class="input-group date">
+        <div class="input-group-addon">
+          <i class="fa fa-calendar"></i>
+        </div>
+        <form method="POST">
+          <input type="date" class="form-control pull-right" name="date1" required><input type="date" class="form-control pull-right" name="date2">
+          <button type="submit" class="btn btn-default" name="imprimir" required><i class="fa fa-print"></i> IMPRIMIR</button>
+        </form>
+      </div>
       <!-- title row -->
       <div class="row">
         <div class="col-xs-12">
           <h2 class="page-header">
-            <i class="fa fa-globe"></i> SmartWaste.
+            <img width="90" src="<?=ROOT.$user_data->logo?>" alt="Logo">
             <small class="pull-right">Data: <?=$date?></small>
           </h2>
         </div>
@@ -62,7 +71,7 @@
                       // Check if the current value already exists in the table
                       if (!in_array([$hf->province, $hf->municipy], $existingValues)) {
                           $existingValues[] = [$hf->province, $hf->municipy];
-                          $f = $DB->read("SELECT * FROM history_trashbucket inner join trash_buckets where trash_buckets.province = '$hf->province' and trash_buckets.municipy = '$hf->municipy' and history_trashbucket.status = 'full' and MONTH(history_trashbucket.status_date) <= '$month'");  
+                          $f = $DB->read("SELECT * FROM history_trashbucket where trashbucket_id = '$hf->trashbucket_id' and status = 'full'");  
                           ?>
                           <tr>
                               <td><?=$hf->province?></td>
@@ -104,7 +113,7 @@
                       if (!in_array([$he->province, $he->municipy], $existingValues)) {
                           $existingValues[] = [$he->province, $he->municipy];
 
-                          $e = $DB->read("SELECT * FROM history_trashbucket inner join trash_buckets where trash_buckets.province = '$he->province' and trash_buckets.municipy = '$he->municipy' and history_trashbucket.status = 'empty' and MONTH(history_trashbucket.status_date) <= '$month'");  
+                          $e = $DB->read("SELECT * FROM history_trashbucket where trashbucket_id = '$he->trashbucket_id' and status = 'empty'");  
                           ?>
                           <tr>
                               <td><?=$he->province?></td>
@@ -179,7 +188,7 @@
         <div class="col-xs-6">
           <p class="lead">Logos</p>
           <img width="50" src="<?=ASSETS.THEME?>assets/logo/logo.jpg" alt="Logo">
-          <img width="50" src="<?=ASSETS.THEME?>assets/logo/logo.png" alt="Logo">
+          <img width="50" src="<?=ROOT.$user_data->logo?>" alt="Logo">
         </div>
         <!-- /.col -->
         <div class="col-xs-6">
@@ -214,16 +223,10 @@
       <!-- /.row -->
 
       <!-- this row will not appear when printing -->
-      <div class="row no-print">
-        <div class="col-xs-12">
-          <a href="<?=ROOT?>admin/imprimirelatorioestatistico" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
-          
-        </div>
-      </div>
     </section>
     <!-- /.content -->
     <div class="clearfix"></div>
   </div>
   <!-- /.content-wrapper -->
 
-  <?php $this->view("admin/footer", $data);?>
+  <?php $this->view("empresas/footer", $data);?>
