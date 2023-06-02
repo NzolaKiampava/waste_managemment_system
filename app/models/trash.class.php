@@ -89,7 +89,7 @@ class Trash
 
 		if(empty($data['name']) || !preg_match("/^[a-zA-Z ]+$/", $data['name']))
 		{
-			$this->error .= "Please enter a valid trash <br>";
+			$this->error .= "Porfavor entra com um nome valido <br>";
 		}
 
 		$up['trashbucket_id'] = $data['id'];
