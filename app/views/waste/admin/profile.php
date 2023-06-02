@@ -23,7 +23,7 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">User profile</li>
+        <li class="active">Perfil do usuário</li>
       </ol>
     </section>
 
@@ -101,7 +101,7 @@
         <div class="col-md-9">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#activity" data-toggle="tab">Settings</a></li>
+              <li class="active"><a href="#activity" data-toggle="tab">Configurações</a></li>
               <!--<li><a href="#timeline" data-toggle="tab">Timeline</a></li>-->
               <!--<li><a href="#settings" data-toggle="tab">Settings</a></li>-->
             </ul>
@@ -115,7 +115,7 @@
                 <div class="form-horizontal">
                   
                   <div class="form-group">
-                    <label for="inputName" class="col-sm-2 control-label">Name</label>
+                    <label for="inputName" class="col-sm-2 control-label">Nome</label>
 
                     <div class="input-group">
                       <div class="input-group-addon">
@@ -160,30 +160,30 @@
                     <!-- /.input group -->
                   </div>
                   <?php endif;?>
-                  <small><i class="fa fa-spinner"></i> Mudar Password</small>
+                  <small><i class="fa fa-spinner"></i> Mudar Palavra-passe</small>
                   <hr>
                   <div class="form-group">
-                    <label class="col-sm-2 control-label">Password Atual</label>
+                    <label class="col-sm-2 control-label">Palavra-passe Atual</label>
 
                     <div class="input-group">
                       <div class="input-group-addon">
                         <i class="fa fa-key"></i>
                       </div>
                       <div class="col-sm-10">
-                        <input type="password" name="current_password" id="current_password" class="form-control" value="<?=isset($POST['current_password']) ? $POST['current_password'] : '' ?>" placeholder="Colocar password atual">
+                        <input type="password" name="current_password" id="current_password" class="form-control" value="<?=isset($POST['current_password']) ? $POST['current_password'] : '' ?>" placeholder="Colocar passe atual">
                       </div>
                     </div>
                     <!-- /.input group -->
                   </div>
                   <div class="form-group">
-                    <label class="col-sm-2 control-label">Nova Password</label>
+                    <label class="col-sm-2 control-label">Nova Palavra-passe</label>
 
                     <div class="input-group">
                       <div class="input-group-addon">
                         <i class="fa fa-bug"></i>
                       </div>
                       <div class="col-sm-10">
-                        <input type="password" name="new_password" class="form-control" value="<?=isset($POST['new_password']) ? $POST['new_password'] : '' ?>" placeholder="Colocar nova password">
+                        <input type="password" name="new_password" class="form-control" value="<?=isset($POST['new_password']) ? $POST['new_password'] : '' ?>" placeholder="Colocar nova passe">
                       </div>
                     </div>
                     <!-- /.input group -->
@@ -193,7 +193,7 @@
                     <div class="col-sm-offset-2 col-sm-10">
                       <div class="checkbox">
                         <label>
-                          <input onclick="show_password()" type="checkbox"> Visualisar Password
+                          <input onclick="show_password()" type="checkbox"> Visualisar Palavra-passe
                         </label>
                       </div>
                     </div>
