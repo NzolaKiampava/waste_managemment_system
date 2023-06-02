@@ -34,12 +34,12 @@ Class User
 
 		if($data['password'] !== $password2)
 		{
-			$this->error .= "Password não coincidem <br>";
+			$this->error .= "Palavra-passe não coincidem <br>";
 		}
 
 		if(strlen($data['password']) < 4)
 		{
-			$this->error .= "Password deve conter pelomenos 4 caracteres <br>";
+			$this->error .= "Palavra-passe deve conter pelomenos 4 caracteres <br>";
 		}
 
 		//check if email already exits
@@ -142,7 +142,7 @@ Class User
 		    $password = hash('sha1', $recover_password);
 
 		    $recipient = $query[0]->email;
-		    $subject = "Recover Your Password🔐";
+		    $subject = "Recuperar Palavra-passe🔐";
 		    $message = "Olá ".$query[0]->name."😁, esta é a sua nova palavra-passe: ".$rec_password.". Já podes fazer Login!";
 
 		    $send_mail = $this->send_mail($recipient,$subject,$message);
@@ -198,7 +198,7 @@ Class User
 
 	}
 
-	public function add_user($POST)
+	public function add_user($POST, $id_empresa = [])
 	{
 		//show($POST);
 		
@@ -226,9 +226,11 @@ Class User
 		$arr = false;
 
 		// take the user who is create new users
-		$session_user = $_SESSION['user_url'];
-		$create_check = $db->read("SELECT * FROM users WHERE url_address = '$session_user' limit 1");
-		$data['created_by'] = $create_check[0]->id;
+		if (empty($id_empresa)){
+			$session_user = $_SESSION['user_url'];
+			$create_check = $db->read("SELECT * FROM users WHERE url_address = '$session_user' limit 1");
+			$data['created_by'] = $create_check[0]->id;
+		}
 
 		$sql = "SELECT * FROM users WHERE url_address = :url_address limit 1";
 		$arr['url_address'] = $data['url_address'];
@@ -242,15 +244,29 @@ Class User
 		$data['date'] = date("Y-m-d H:i:s");
 		$data['password'] = hash('sha1', $data['password']);
 
-		$query = "INSERT INTO users (url_address,name,email,password,date,rank,created_by) values (:url_address,:name,:email,:password,:date,:rank,:created_by)";
+		if(!empty($id_empresa)){
+			$data['id_empresa'] = $id_empresa;
+			$query = "INSERT INTO users (url_address,name,email,password,date,rank,id_empresa) values (:url_address,:name,:email,:password,:date,:rank,:id_empresa)";
 
-		$result = $db->write($query,$data);
+			$result = $db->write($query,$data);
 
-		if($result)
-		{
-			$_SESSION['success'] = "Usuario criado com Sucesso!";
-			header("Location: " . ROOT . "admin/users");
-			die;
+			if($result)
+			{
+				$_SESSION['success'] = "Funcionario criado com Sucesso!";
+				header("Location: " . ROOT . "empresas/users");
+				die;
+			}
+		}else{
+			$query = "INSERT INTO users (url_address,name,email,password,date,rank,created_by) values (:url_address,:name,:email,:password,:date,:rank,:created_by)";
+
+			$result = $db->write($query,$data);
+
+			if($result)
+			{
+				$_SESSION['success'] = "Usuario criado com Sucesso!";
+				header("Location: " . ROOT . "admin/users");
+				die;
+			}
 		}
 		
 		$_SESSION['error'] = "Não foi possivel criar Usuário, verifica se está tudo em ordem!";
@@ -273,12 +289,12 @@ Class User
 
 		if(empty($data['email']) || !preg_match("/^[a-zA-Z0-9\\_\\-\\.]+@[a-zA-Z]+.[a-zA-Z]+$/", $data['email']))
 		{
-			$this->error .= "Please enter a valid email <br>";
+			$this->error .= "Porfavor entra com um email valido <br>";
 		}
 
 		if(empty($data['name']) || !preg_match("/^[a-zA-Z ]+$/", $data['name']))
 		{
-			$this->error .= "Please enter a valid name <br>";
+			$this->error .= "Porfavor entra com um nome valido <br>";
 		}	
 
 
@@ -295,7 +311,7 @@ Class User
 				{
 					if(strlen($datap['password']) < 4)
 					{
-						$this->error .= "Password must be at least 4 characters long <br>";
+						$this->error .= "Palavra-passe de conter pelomenos 4 caracteres<br>";
 					}
 					if($this->error == ""){
 
@@ -316,7 +332,7 @@ Class User
 				}
 				else
 				{
-					$this->error = "The current password is wrong <br/>";
+					$this->error = "A Palavra-passe actual está errada! <br/>";
 				}
 			}
 			else{
@@ -361,12 +377,12 @@ Class User
 
 		if(empty($data['email']) || !preg_match("/^[a-zA-Z0-9\\_\\-\\.]+@[a-zA-Z]+.[a-zA-Z]+$/", $data['email']))
 		{
-			$this->error .= "Please enter a valid email <br>";
+			$this->error .= "Porfavor entra com um email valido <br>";
 		}
 
 		if(empty($data['name']) || !preg_match("/^[a-zA-Z ]+$/", $data['name']))
 		{
-			$this->error .= "Please enter a valid name <br>";
+			$this->error .= "Porfavor entra com um nome valido! <br>";
 		}	
 
 		if($this->error == ""){
@@ -416,7 +432,7 @@ Class User
 				{
 					if(strlen($datap['password']) < 4)
 					{
-						$this->error .= "Password must be at least 4 characters long <br>";
+						$this->error .= "Palavra-passe deve conter pelomenos 4 caracteres <br>";
 					}
 					if($this->error == ""){
 
@@ -437,7 +453,7 @@ Class User
 				}
 				else
 				{
-					$this->error = "The current password is wrong <br/>";
+					$this->error = "A palavra-passe actual está errada <br/>";
 				}
 			}
 			
@@ -446,7 +462,7 @@ Class User
 		$_SESSION['error'] = $this->error;
 	}
 
-	public function edit_user($POST)
+	public function edit_user($POST, $id_empresa = [])
 	{
 
 		$data = array();
@@ -460,12 +476,12 @@ Class User
 
 		if(empty($data['email']) || !preg_match("/^[a-zA-Z0-9\\_\\-\\.]+@[a-zA-Z]+.[a-zA-Z]+$/", $data['email']))
 		{
-			$this->error .= "Please enter a valid email <br>";
+			$this->error .= "Porfavor entra com email valido<br>";
 		}
 
-		if(empty($data['name']) || !preg_match("/^[a-zA-Z ]+$/", $data['name']))
+		if(empty($data['name']) || !preg_match("/^[a-zA-Z0-9\\_\\-\\.]+$/", $data['name']))
 		{
-			$this->error .= "Please enter a valid name <br>";
+			$this->error .= "Porfavor entra com um nome valido <br>";
 		}
 
 		if($this->error == ""){
@@ -475,9 +491,15 @@ Class User
 			$result = $db->write($query,$data);
 			if($result)
 			{
+				
 				$_SESSION['success'] = "Salvo com Sucesso!";
-				header("Location: " . ROOT . "admin/users");
-				die;
+				if(!empty($id_empresa)){
+					header("Location: " . ROOT . "empresas/users");
+					die;
+				}else {
+					header("Location: " . ROOT . "admin/users");
+					die;
+				}
 			}
 		}
 			
@@ -643,7 +665,7 @@ Class User
 		die;
 	}
 
-	public function delete_user($POST)
+	public function delete_user($POST, $id_empresa = [])
 	{
 		$DB = Database::newInstance();
 		$id = trim($POST['id']);
@@ -652,8 +674,13 @@ Class User
 		if($result)
 		{
 			$_SESSION['success'] = "Usuário deletado com Sucesso!";
-			header("Location: " . ROOT . "admin/users");
-			die;
+			if(!empty($id_empresa)){
+				header("Location: " . ROOT . "empresas/users");
+				die;
+			}else {
+				header("Location: " . ROOT . "admin/users");
+				die;
+			}
 		}
 	}
 
@@ -664,4 +691,5 @@ Class User
 		$query = "DELETE from users where id in ('". $ids ."')";
 		$DB->write($query);
 	}
+
 }
