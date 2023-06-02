@@ -116,6 +116,7 @@
           <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
             SmartWaste é um projecto que visa melhorar a nossa sociedade. Sistema de gerenciamentro de resíduos sólidos habilitado para IOT indica o nível de lixeiras em qualquer tempo. Otimiza a rota de coleta de resíduos e, finalmente, reduz consumo de combustível.
           </p>
+
         </div>
         <!-- /.col -->
         <div class="col-xs-6">
