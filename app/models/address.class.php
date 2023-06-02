@@ -4,7 +4,7 @@ Class Address
 {
     private $error = "";
 
-    public function add_address($POST)
+    public function add_address($POST, $id_empresa = [])
     {
         $data = array();
 		$db = Database::getInstance();
@@ -25,32 +25,47 @@ Class Address
 		$arr = false;
 
 		// take the user who is create new group
-		$session_user = $_SESSION['user_url'];
-		$create_check = $db->read("SELECT * FROM users WHERE url_address = '$session_user' limit 1");
 
-		if($create_check){
-			$data['created_by'] = $create_check[0]->id;
-			
-			//save
-			$data['created_at'] = date("Y-m-d H:i:s");
-			//show($data);
-			$query = "INSERT INTO garbage_address (address,created_by,created_at) values (:address,:created_by,:created_at)";
+		$data['created_at'] = date("Y-m-d H:i:s");
+		if(empty($id_empresa)){
+			$session_user = $_SESSION['user_url'];
+			$create_check = $db->read("SELECT * FROM users WHERE url_address = '$session_user' limit 1");
+
+			if($create_check){
+				$data['created_by'] = $create_check[0]->id;
+				
+				//save
+				//show($data);
+				$query = "INSERT INTO garbage_address (address,created_by,created_at) values (:address,:created_by,:created_at)";
+				$result = $db->write($query,$data);
+
+				//show($result);
+				if($result)
+				{
+					$_SESSION['success'] = "Endereço criado com Sucesso!";
+					header("Location: " . ROOT . "admin/address");
+					die;
+				}
+			}
+		}else {
+			$query = "INSERT INTO garbage_address (address,created_at) values (:address,:created_at)";
 			$result = $db->write($query,$data);
 
 			//show($result);
 			if($result)
 			{
 				$_SESSION['success'] = "Endereço criado com Sucesso!";
-				header("Location: " . ROOT . "admin/address");
+				header("Location: " . ROOT . "empresas/address");
 				die;
 			}
 		}
+		
 		
 		$_SESSION['error'] = "Não foi possivel criar Endereço, verifica se está tudo em ordem!";
 		return false;
     }
 
-	public function edit_address($POST)
+	public function edit_address($POST, $id_empresa = [])
 	{
 		$data = array();
 		$db = Database::getInstance();
@@ -65,13 +80,18 @@ Class Address
         if($result)
         {
             $_SESSION['success'] = "Salvo com Sucesso!";
-            header("Location: " . ROOT . "admin/address");
-            die;
+			if(empty($id_empresa)){
+				header("Location: " . ROOT . "admin/address");
+				die;
+			}else {
+				header("Location: " . ROOT . "empresas/address");
+				die;
+			}
         }	
 
 	}
 
-	public function delete_address($POST)
+	public function delete_address($POST, $id_empresa = [])
 	{
 		//show($POST);
 		$DB = Database::newInstance();
@@ -81,8 +101,13 @@ Class Address
 		if($result)
 		{
 			$_SESSION['success'] = "Grupo deletado com Sucesso!";
-			header("Location: " . ROOT . "admin/address");
-			die;
+			if(empty($id_empresa)){
+				header("Location: " . ROOT . "admin/address");
+				die;
+			}else {
+				header("Location: " . ROOT . "empresas/address");
+				die;
+			}
 		}
 	}
 } 
