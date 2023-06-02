@@ -466,7 +466,7 @@ Class Admin extends Controller
 		$data['history_buckets_empty'] = $DB->read("select * from trash_buckets as tb inner join history_trashbucket ht on tb.id = ht.trashbucket_id where ht.status = 'empty'");
 		
 		$month = date('m');
-		$data['months_history'] = $DB->read("SELECT * FROM trash_buckets AS tb INNER JOIN history_trashbucket AS ht ON tb.id = ht.trashbucket_id WHERE MONTH(ht.status_date) <= '$month' and ht.status = 'full'");
+		$data['months_history'] = $DB->read("SELECT * FROM trash_buckets AS tb INNER JOIN history_trashbucket AS ht ON tb.id = ht.trashbucket_id WHERE MONTH(ht.status_date) <= '$month' and ht.status = 'full' ORDER BY ht.status_date desc limit 5");
 
 		$data['page_title'] = "RelatorioEstatistico";
 		$this->view("admin/relatorioestatistico", $data);
@@ -495,7 +495,8 @@ Class Admin extends Controller
 		$data['groups'] = $DB->read("select * from colector_group order by id desc");
 		$data['history_buckets_full'] = $DB->read("SELECT * from trash_buckets as tb inner join history_trashbucket ht on tb.id = ht.trashbucket_id where (ht.status_date >= '$date1' and ht.status_date <= '$date2') and  ht.status = 'full'");
 		$data['history_buckets_empty'] = $DB->read("SELECT * from trash_buckets as tb inner join history_trashbucket ht on tb.id = ht.trashbucket_id where (ht.status_date >= '$date1' and ht.status_date <= '$date2') and  ht.status = 'empty'");
-		
+		$data['date1'] = $date1;
+		$data['date2'] = $date2;
 		$month = date('m');
 		$data['months_history'] = $DB->read("SELECT * FROM trash_buckets AS tb INNER JOIN history_trashbucket AS ht ON tb.id = ht.trashbucket_id WHERE (ht.status_date >= '$date1' and ht.status_date <= '$date2') and ht.status = 'full'");
 
@@ -537,6 +538,11 @@ Class Admin extends Controller
 		}
 		$DB = Database::newInstance();
 
+		if(isset($_POST['imprimirstatus'])){
+			$this->imprimirelatoriostatus($_POST);
+			die;
+		}
+
 		$data['contentores'] = $DB->read('SELECT * FROM trash_buckets');
 
 		$data['count_trash'] = $DB->read('SELECT * FROM trash_buckets');
@@ -548,6 +554,45 @@ Class Admin extends Controller
 
 		$data['page_title'] = "FiltrarRelatorio";
 		$this->view("admin/filtrar_relatorio", $data);
+	}
+
+	public function imprimirelatoriostatus($POST){
+		$date1 = $POST['date1'];
+		$date2 = $POST['date2'];
+		$status = $POST['status'];
+
+		$User = $this->load_model('User');
+		$user_data = $User->check_login(true, ["Administrador","Supervisor"]);
+		
+		if(is_object($user_data)){
+			$data['user_data'] = $user_data;
+		}
+		$DB = Database::newInstance();
+
+		$data['contentores'] = $DB->read('SELECT * FROM trash_buckets');
+
+		$data['count_trash'] = $DB->read('SELECT * FROM trash_buckets');
+		$data['count_trash_full'] = $DB->read("SELECT * FROM trash_buckets where status = 'full'");
+		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty'");
+		$data['users'] = $DB->read("select * from users order by id desc");
+		$data['messages'] = $DB->read("select * from messages order by id desc");
+		$data['groups'] = $DB->read("select * from colector_group order by id desc");
+		$data['history_buckets'] = $DB->read("SELECT * from trash_buckets as tb inner join history_trashbucket ht on tb.id = ht.trashbucket_id where (ht.status_date >= '$date1' and ht.status_date <= '$date2') and  ht.status = '$status'");
+		$data['date1'] = $date1;
+		$data['date2'] = $date2;
+		if($status == "empty"){
+			$data['status'] = "Vazio";
+		}else if($status == "full"){
+			$data['status'] = "Cheio";
+		}else{
+			$data['status'] = "Meio";
+		}
+		$data['status_c'] = $status;
+		$data['months_history'] = $DB->read("SELECT * FROM trash_buckets AS tb INNER JOIN history_trashbucket AS ht ON tb.id = ht.trashbucket_id WHERE (ht.status_date >= '$date1' and ht.status_date <= '$date2') and ht.status = '$status'");
+
+		$data['page_title'] = "FiltrarRelatorio";
+		$this->view("admin/imprimirelatoriostatus", $data);
+
 	}
 
 
