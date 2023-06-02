@@ -55,14 +55,21 @@
                             <?php foreach($address as $address):?>
                                 <?php
                                     $DB = Database::newInstance();  
-                                    $id = $address->created_by;
-                                    $search = $DB->read("select * from users where id = '$id'");
+                                    
+                                    if(!empty($address->created_by)){
+                                      $id = $address->created_by;
+                                      $search = $DB->read("select * from users where id = '$id'");
+                                      $string = $search[0]->name;
+                                    }else {
+                                      $string = "Criado por Empresa";
+                                    }
+                                    
                                 ?>
                             <tr>
                                 <td><img src="<?=ASSETS . THEME?>/assets/logo/map.jpg" class="img-circle" height='30px' width='30px'></td>
                                 <td><?=$address->id?></td>
                                 <td><?=$address->address?></td>
-                                <td><?=$search[0]->name?></td>
+                                <td><?=$string?></td>
                                 <td><?=date('M d, Y', strtotime($address->created_at))?></td>
                                 <td>
                                     <button class='btn btn-success btn-sm edit btn-flat' data-id="<?=$address->id?>"><i class='fa fa-edit'></i> Edit</button>
