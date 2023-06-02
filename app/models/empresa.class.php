@@ -140,7 +140,7 @@ Class Empresa extends User
 
 	public function delete_empresa($POST)
 	{
-		show($POST);
+		//show($POST);
 		$DB = Database::newInstance();
 		$id = trim($POST['id']);
 		$query = "delete from empresas where id = '$id' limit 1";
@@ -152,8 +152,5 @@ Class Empresa extends User
 			die;
 		}
 	}
-
-
-
 	
 }
