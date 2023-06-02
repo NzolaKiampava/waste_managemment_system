@@ -4,7 +4,7 @@ class Truck
 {
     private $error = "";
 
-    public function add_truck($POST)
+    public function add_truck($POST, $id_empresa = [])
     {
         $data = array();
 		$db = Database::getInstance();
@@ -31,22 +31,36 @@ class Truck
 		$arr = false;
 
 		// take the user who is create new group
-		$session_user = $_SESSION['user_url'];
-		$create_check = $db->read("SELECT * FROM users WHERE url_address = '$session_user' limit 1");
+		
+		$data['created_at'] = date("Y-m-d H:i:s");
+		if(empty($id_empresa)){
+			$session_user = $_SESSION['user_url'];
+			$create_check = $db->read("SELECT * FROM users WHERE url_address = '$session_user' limit 1");
 
-		if($create_check){
-			$data['created_by'] = $create_check[0]->id;
-			
-			//save
-			$data['created_at'] = date("Y-m-d H:i:s");
-			show($data);
-			$query = "INSERT INTO garbage_cars(name,registration,group_id,address_id_1,address_id_2,address_id_3,created_by,created_at) values(:name,:registration,:group_id,:address_id_1,:address_id_2,:address_id_3,:created_by,:created_at)";
+			if($create_check){
+				$data['created_by'] = $create_check[0]->id;
+				
+				//save
+				show($data);
+				$query = "INSERT INTO garbage_cars(name,registration,group_id,address_id_1,address_id_2,address_id_3,created_by,created_at) values(:name,:registration,:group_id,:address_id_1,:address_id_2,:address_id_3,:created_by,:created_at)";
+				$result = $db->write($query,$data);
+
+				if($result)
+				{
+					$_SESSION['success'] = "Caminhão criado com Sucesso!";
+					header("Location: " . ROOT . "admin/trucks");
+					die;
+				}
+			}
+		}else {
+			$data['id_empresa'] = $id_empresa;
+			$query = "INSERT INTO garbage_cars(id_empresa,name,registration,group_id,address_id_1,address_id_2,address_id_3,created_at) values(:id_empresa,:name,:registration,:group_id,:address_id_1,:address_id_2,:address_id_3,:created_at)";
 			$result = $db->write($query,$data);
 
 			if($result)
 			{
 				$_SESSION['success'] = "Caminhão criado com Sucesso!";
-				header("Location: " . ROOT . "admin/trucks");
+				header("Location: " . ROOT . "empresas/trucks");
 				die;
 			}
 		}
@@ -55,7 +69,7 @@ class Truck
 		return false;
     }
 
-	public function edit_truck($POST)
+	public function edit_truck($POST, $id_empresa = [])
 	{
 		$data = array();
 		$db = Database::getInstance();
@@ -70,7 +84,7 @@ class Truck
 
 		if(empty($data['name']) || !preg_match("/^[a-zA-Z ]+$/", $data['name']))
 		{
-			$this->error .= "Please enter a valid trash <br>";
+			$this->error .= "Porfavor entra com um nome valido <br>";
 		}
 
 		if($this->error == ""){
@@ -81,15 +95,20 @@ class Truck
 			if($result)
 			{
 				$_SESSION['success'] = "Salvo com Sucesso!";
-				header("Location: " . ROOT . "admin/trucks");
-				die;
+				if(empty($id_empresa)){
+					header("Location: " . ROOT . "admin/trucks");
+					die;	
+				}else {
+					header("Location: " . ROOT . "empresas/trucks");
+					die;	
+				}
 			}
 		}
 			
 		$_SESSION['error'] = $this->error;
 	}
 
-	public function delete_truck($POST)
+	public function delete_truck($POST, $id_empresa = [])
 	{
 		//show($POST);
 		$DB = Database::newInstance();
@@ -99,8 +118,13 @@ class Truck
 		if($result)
 		{
 			$_SESSION['success'] = "Caminhão deletado com Sucesso!";
-			header("Location: " . ROOT . "admin/trucks");
-			die;
+			if(empty($id_empresa)){
+				header("Location: " . ROOT . "admin/trucks");
+				die;	
+			}else {
+				header("Location: " . ROOT . "empresas/trucks");
+				die;	
+			}
 		}
 	}
 
