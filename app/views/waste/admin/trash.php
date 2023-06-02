@@ -93,7 +93,13 @@
                                       <?php endif;?>
                                   </span>
                                 </td>
-                                <td><?=$search[0]->name?></td>
+                                <td>
+                                  <?php if($trash->created_by == 0):?>
+                                    Criado por Empresa
+                                  <?php else:?>
+                                    <?=$search[0]->name?>
+                                  <?php endif;?>
+                                </td>
                                 <td><?=date('M d, Y', strtotime($trash->created_at))?></td>
                                 <td>
                                     <button class='btn btn-success btn-sm edit btn-flat' data-id="<?=$trash->id?>"><i class='fa fa-edit'></i> Edit</button>
