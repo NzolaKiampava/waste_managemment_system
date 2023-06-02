@@ -27,16 +27,25 @@
     <!-- Main content -->
     <section class="invoice">
       <!-- title row -->
-
+      <form method="POST">
+        <div class="input-group date">
+          <div class="input-group-addon">
+            <i class="fa fa-calendar"></i>
+          </div>
+          
+            <input type="date" class="form-control pull-right" name="date1" required><input type="date" class="form-control pull-right" name="date2">
+            
+        </div>
+        <label for="status">Status</label>
+        <select name="status" id="status">
+          <option value="empty">Vazio</option>
+          <option value="middle">Meio</option>
+          <option value="full">Cheio</option>
+        </select>&nbsp;&nbsp;
+        <button type="submit" class="btn btn-default" name="imprimirstatus" required><i class="fa fa-print"></i> IMPRIMIR</button>
+      </form>
       
       <!-- this row will not appear when printing -->
-      <div class="row no-print">
-        <div class="col-xs-12">
-          <form method="POST">
-            <button class="btn btn-default" name="print"><i class="fa fa-print"></i>Print</button>
-          </form>
-        </div>
-      </div>
     </section>
     <!-- /.content -->
     <div class="clearfix"></div>
