@@ -4,7 +4,7 @@ Class Group
 {
     private $error = "";
 
-    public function add_group($POST)
+    public function add_group($POST, $id_empresa = [])
     {
         $data = array();
 		$db = Database::getInstance();
@@ -25,32 +25,50 @@ Class Group
 		$arr = false;
 
 		// take the user who is create new group
-		$session_user = $_SESSION['user_url'];
-		$create_check = $db->read("SELECT * FROM users WHERE url_address = '$session_user' limit 1");
+		if (empty($id_empresa)){
+			$session_user = $_SESSION['user_url'];
+			$create_check = $db->read("SELECT * FROM users WHERE url_address = '$session_user' limit 1");
 
-		if($create_check){
-			$data['created_by'] = $create_check[0]->id;
-			
+			if($create_check){
+				$data['created_by'] = $create_check[0]->id;
+				
+				//save
+				$data['created_at'] = date("Y-m-d H:i:s");
+				//show($data);
+				$query = "INSERT INTO colector_group (group_name,created_by,created_at) values (:group,:created_by,:created_at)";
+				$result = $db->write($query,$data);
+	
+				show($result);
+				if($result)
+				{
+					$_SESSION['success'] = "Grupo criado com Sucesso!";
+					header("Location: " . ROOT . "admin/groups");
+					die;
+				}
+			}
+		}else {
 			//save
 			$data['created_at'] = date("Y-m-d H:i:s");
+			$data['id_empresa'] = $id_empresa;
 			//show($data);
-			$query = "INSERT INTO colector_group (group_name,created_by,created_at) values (:group,:created_by,:created_at)";
+			$query = "INSERT INTO colector_group (group_name,created_at,id_empresa) values (:group,:created_at,:id_empresa)";
 			$result = $db->write($query,$data);
 
-			show($result);
+			//show($result);
 			if($result)
 			{
 				$_SESSION['success'] = "Grupo criado com Sucesso!";
-				header("Location: " . ROOT . "admin/groups");
+				header("Location: " . ROOT . "empresas/groups");
 				die;
 			}
 		}
-		
+
+
 		$_SESSION['error'] = "Não foi possivel criar Grupo, verifica se está tudo em ordem!";
 		return false;
     }
 
-	public function edit_group($POST)
+	public function edit_group($POST, $id_empresa = [])
 	{
 		$data = array();
 		$db = Database::getInstance();
@@ -77,15 +95,21 @@ Class Group
 			$result = $db->write($query,$data);
 			if($result)
 			{
-				$_SESSION['success'] = "Salvo com Sucesso!";
-				header("Location: " . ROOT . "admin/groups");
-				die;
+				if (!empty($id_empresa)){
+					$_SESSION['success'] = "Salvo com Sucesso!";
+					header("Location: " . ROOT . "empresas/groups");
+					die;
+				}else {
+					$_SESSION['success'] = "Salvo com Sucesso!";
+					header("Location: " . ROOT . "admin/groups");
+					die;
+				}
 			}
 		}
 	
 	}
 
-	public function delete_group($POST)
+	public function delete_group($POST, $id_empresa = [])
 	{
 		show($POST);
 		$DB = Database::newInstance();
@@ -94,9 +118,15 @@ Class Group
 		$result = $DB->write($query);
 		if($result)
 		{
-			$_SESSION['success'] = "Grupo deletado com Sucesso!";
-			header("Location: " . ROOT . "admin/groups");
-			die;
+			if (!empty($id_empresa)){
+				$_SESSION['success'] = "Grupo deletado com Sucesso!";
+				header("Location: " . ROOT . "empresas/groups");
+				die;
+			}else {
+				$_SESSION['success'] = "Grupo deletado com Sucesso!";
+				header("Location: " . ROOT . "admin/groups");
+				die;
+			}
 		}
 	}
 } 
