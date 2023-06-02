@@ -43,11 +43,10 @@
                 <a href="<?=ROOT?>" class="logo-holder"><img src="<?=ASSETS.THEME?>assets/logo/logo.png" alt=""></a>
                 <!-- logo end-->
                 <!-- header-search_btn-->
-                <div class="header-search_btn show-search-button"><i class="fal fa-search"></i><span>Search</span></div>
                 <!-- header-search_btn end-->
                 <!-- header opt -->
                 <?php if((isset($data['user_data']) && $data['user_data']->rank == "Administrador") || isset($data['user_data']) && $data['user_data']->rank == "Supervisor"):?>
-                    <a href="<?=ROOT?>admin" class="add-list color-bg">ADMIN PAINEL <span><i class="fal fa-layer-plus"></i></span></a>
+                    <a href="<?=ROOT?>admin" class="add-list color-bg">PAINEL ADMIN<span><i class="fal fa-layer-plus"></i></span></a>
         
                 <?php endif;?>
                 <!-- header opt end-->
@@ -59,8 +58,8 @@
                     </div>
                     <ul>
                         <li><a href="<?=ROOT?>dashboard_user"> Dashboard</a></li>
-                        <li><a href="<?=ROOT?>dashboard_userprofile"> Edit profile</a></li>
-                        <li><a href="<?=ROOT?>logout">Log Out</a></li>
+                        <li><a href="<?=ROOT?>dashboard_userprofile"> Editar Perfil</a></li>
+                        <li><a href="<?=ROOT?>logout">Terminar Sessão</a></li>
                     </ul>
                 </div>
                 <div class="show-reg-form modal-open avatar-img" data-srcav="<?=ASSETS.THEME?>images/avatar/3.jpg">
@@ -81,7 +80,7 @@
                     <nav>
                         <ul class="no-list-style">
                             <li>
-                                <a href="<?=ROOT?>" class="<?= $page_title == "Home" ? 'act-link':''?>">Home </a>
+                                <a href="<?=ROOT?>" class="<?= $page_title == "Home" ? 'act-link':''?>">Pagina Principal </a>
                             </li>
                             <li>
                                 <a href="<?=ROOT?>map" class="<?= $page_title == "Map" ? 'act-link':''?>">Mapa </a>
