@@ -17,7 +17,7 @@
 
     <div class="pad margin no-print">
       <div class="callout callout-info" style="margin-bottom: 0!important;">
-        <h4><i class="fa fa-info"></i> Note:</h4>
+        <h4><i class="fa fa-info"></i> Nota:</h4>
         Esta página foi aprimorada para impressão. Clique no botão de impressão na parte inferior do relatório para testar.
       </div>
     </div>
@@ -129,11 +129,11 @@
                 <td><?=is_array($contentores)?count($contentores):'0'?></td>
               </tr>
               <tr>
-                <th>Contentores Vazios:</th>
+                <th>Contentores Cheios:</th>
                 <td><?=is_array($count_trash_full)?count($count_trash_full):'0'?></td>
               </tr>
               <tr>
-                <th>Contentores Cheios:</th>
+                <th>Contentores Vazios:</th>
                 <td><?=is_array($count_trash_empty)?count($count_trash_empty):'0'?></td>
               </tr>
               
@@ -147,8 +147,9 @@
       <!-- this row will not appear when printing -->
       <div class="row no-print">
         <div class="col-xs-12">
-          <a href="<?=ROOT?>admin/imprimirelatorio" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
-          
+          <form method="POST">
+            <button class="btn btn-default" name="print"><i class="fa fa-print"></i>Print</button>
+          </form>
         </div>
       </div>
     </section>
