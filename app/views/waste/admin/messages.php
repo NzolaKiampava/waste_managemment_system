@@ -113,7 +113,7 @@
       success: function(response){
         //console.log(response);
         $('.id').val(response[0].id);
-        $('.sender_name').html(response[0].sender_name);
+        $('.message').html(response[0].message);
       }
     });
   }
