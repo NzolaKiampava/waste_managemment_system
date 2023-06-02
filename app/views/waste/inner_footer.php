@@ -6,16 +6,16 @@
                             <div class="col-md-5">
                                 <div class="subscribe-header">
                                     <h3>
-                                        Subscribe For a <span>Newsletter</span>
+                                        inscreva-se para <span>Newsletter</span>
                                     </h3>
-                                    <p>Whant to be notified about new locations ?  Just sign up.</p>
+                                    <p>Prentendes enviar uma mensagem de Colecta ? Apenas se inscreva.</p>
                                 </div>
                             </div>
                             <div class="col-md-7">
                                 <div class="subscribe-widget">
                                     <div class="subcribe-form">
                                         <form id="subscribe">
-                                            <input class="enteremail fl-wrap" name="email" id="subscribe-email" placeholder="Enter Your Email" spellcheck="false" type="text">
+                                            <input class="enteremail fl-wrap" name="email" id="subscribe-email" placeholder="Entrar com Email" spellcheck="false" type="text">
                                             <button type="submit" id="subscribe-button" class="subscribe-button">
                                                 <i class="fal fa-envelope"></i>
                                             </button>
@@ -41,27 +41,27 @@
                                             <li>
                                                 <span>
                                                     <i class="fal fa-envelope"></i>
-                                                    Mail :
+                                                    EMAIL :
                                                 </span>
-                                                <a href="#" target="_blank">nzolakiampava@gmail.com</a>
+                                                <a href="#" target="_blank">smartwaste@gmail.com</a>
                                             </li>
                                             <li>
                                                 <span>
                                                     <i class="fal fa-map-marker"></i>
-                                                    Adress :
+                                                    ENDEREÇO :
                                                 </span>
                                                 <a href="#" target="_blank">AO 27TH Kilamba-kiaxi LDA</a>
                                             </li>
                                             <li>
                                                 <span>
                                                     <i class="fal fa-phone"></i>
-                                                    Phone :
+                                                    TELEFONE :
                                                 </span>
                                                 <a href="#">(+244) 924598849</a>
                                             </li>
                                         </ul>
                                         <div class="footer-social">
-                                            <span>Find  us on: </span>
+                                            <span>Encontra-nos em: </span>
                                             <ul class="no-list-style">
                                                 <li>
                                                     <a href="#" target="_blank">
