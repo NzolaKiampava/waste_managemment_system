@@ -1,7 +1,7 @@
 <!--sub-footer-->
 <div class="sub-footer  fl-wrap">
                     <div class="container">
-                        <div class="copyright">&#169;SmartWaste 2023 .  All rights reserved.</div>
+                        <div class="copyright">&#169;SmartWaste 2023 . Todos os direitos Reservados.</div>
                         <div class="lang-wrap">
                             <div class="show-lang">
                                 <span>
@@ -28,7 +28,7 @@
                         <div class="subfooter-nav">
                             <ul class="no-list-style">
                                 <li>
-                                    <a href="#">Terms of use</a>
+                                    <a href="#">Termos de uso</a>
                                 </li>
                                 <li>
                                     <a href="#">Privacy Policy</a>
@@ -68,7 +68,7 @@
                 <div class="main-register-holder tabs-act">
                     <div class="main-register fl-wrap  modal_main">
                         <div class="main-register_title">
-                            Welcome to 
+                            BEMVINDO ao 
                             <span>
                                 <strong>Smart</strong>
                                 Waste<strong>.</strong>
