@@ -14,7 +14,7 @@ Class Infoempresa
 
 		if(strlen($data['password']) < 4)
 		{
-			$this->error .= "Password deve conter pelomenos 4 caracteres <br>";
+			$this->error .= "Palavra-passe deve conter pelomenos 4 caracteres <br>";
 		}		
 
 		if($this->error == ""){
@@ -83,6 +83,105 @@ Class Infoempresa
 
 		return false;
 	}
+
+	public function update_empresa_profile($POST, $id)
+	{
+
+
+		$data = array();
+		$db = Database::getInstance();
+
+		$data['empresa']      = trim($POST['name']);		
+		$data['email']     = trim($POST['email']);		
+		$data['nif']     = trim($POST['nif']);	
+		$data['telefone']     = trim($POST['telefone']);		
+		$datap['password']  = trim($POST['new_password']);
+		$data['id']	       = (int)$id;
+		$current_password  = trim($POST['current_password']);
+
+
+		if(empty($data['email']) || !preg_match("/^[a-zA-Z0-9\\_\\-\\.]+@[a-zA-Z]+.[a-zA-Z]+$/", $data['email']))
+		{
+			$this->error .= "Porfavor entra com um email valido <br>";
+		}
+
+		if(empty($data['empresa']) || !preg_match("/^[a-zA-Z ]+$/", $data['empresa']))
+		{
+			$this->error .= "Porfavor entra com um nome valido <br>";
+		}	
+
+
+		//check the current password
+		$sql = "SELECT * FROM empresas WHERE id = :id limit 1";
+		$arr['id'] = (int)$id;
+		$check = $db->read($sql,$arr);
+		if(is_array($check)){
+			
+			$current_password = hash('sha1', $current_password);
+
+			if(!empty($datap['password']) && !empty($current_password)){
+				if($current_password == $check[0]->password)
+				{
+					if(strlen($datap['password']) < 4)
+					{
+						$this->error .= "Palavra-passe deve conter pelomenos 4 caracteres <br>";
+					}
+					if($this->error == ""){
+
+						//save
+						$data['password'] = hash('sha1', $datap['password']);
+
+						$query = "UPDATE empresas SET empresa = :empresa ,email = :email, nif = :nif, telefone = :telefone,password = :password where id = :id";
+
+						$result = $db->write($query,$data);
+
+						if($result)
+						{
+							$_SESSION['success'] = "Salvo com Sucesso!";
+							header("Location: " . ROOT . "empresas/profile");
+							die;
+						}
+					}
+				}
+				else
+				{
+					$this->error = "A palavra-passe actual está errada <br/>";
+				}
+			}
+			else{
+				if($this->error == ""){
+					//save
+					$query = "UPDATE empresas SET empresa = :empresa ,email = :email, nif = :nif, telefone = :telefone where id = :id";
+
+					$result = $db->write($query,$data);
+					if($result)
+					{
+						$_SESSION['success'] = "Salvo com Sucesso!";
+						header("Location: " . ROOT . "empresas/profile");
+						die;
+					}
+				}
+			}
+		}
+
+		$_SESSION['error'] = $this->error;
+	}
+
+	public function delete_message($POST)
+    {
+        //show($POST);
+		
+		$DB = Database::newInstance();
+		$id = trim($POST['id']);
+		$query = "delete from messages where id = '$id' limit 1";
+		$result = $DB->write($query);
+		if($result)
+		{
+			$_SESSION['success'] = "Mensagem deletada com Sucesso!";
+			header("Location: " . ROOT . "empresas/messages");
+			die;
+		}
+    }
 
 	public function logout()
 	{
