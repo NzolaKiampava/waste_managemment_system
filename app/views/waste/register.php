@@ -36,8 +36,8 @@
                 <div class="main-register-holder tabs-act">
                     <div class="main-register fl-wrap">
                         <ul class="tabs-menu fl-wrap no-list-style">
-                            <li class="current"><a href="#tab-1"><i class="fal fa-sign-in-alt"></i> Login</a></li>
-                            <li><a href="#tab-2"><i class="fal fa-user-plus"></i> Register</a></li>
+                            <li class="current"><a href="#tab-1"><i class="fal fa-sign-in-alt"></i> Entrar</a></li>
+                            <li><a href="#tab-2"><i class="fal fa-user-plus"></i> Registrar</a></li>
                         </ul>
                         <!--tabs -->                       
                         <div class="tabs-container">
@@ -47,22 +47,22 @@
                                     <div class="custom-form">
                                         <form method="post"  name="registerform">
                                             <span style="font-size: 18px; color: red;"><?php check_error() ?></span><br>
-                                            <label>Username <span>*</span> </label>
+                                            <label>Nome do Usuário <span>*</span> </label>
                                             <input name="name" type="text"   onClick="this.select()" value="<?= isset($_POST['name']) ? $_POST['name'] : '';?>">
-                                            <label >Password <span>*</span> </label>
+                                            <label >Palavra-passe <span>*</span> </label>
                                             <input name="password" id="password" type="password"   onClick="this.select()" value="<?= isset($_POST['password']) ? $_POST['password'] : '';?>" >
-                                            <button type="submit" name="login"  class="btn float-btn color2-bg"> Log In <i class="fas fa-caret-right"></i></button>
+                                            <button type="submit" name="login"  class="btn float-btn color2-bg"> Entrar <i class="fas fa-caret-right"></i></button>
                                             <div class="clearfix"></div>
                                             <div class="filter-tags">
                                                 <input id="check-a3" onclick="show_password()" type="checkbox">
-                                                <label for="check-a3">Ver Password</label>
+                                                <label for="check-a3">Ver Palavra-passe</label>
                                             </div>
-                                            
                                         
                                         <div class="lost_password">
-                                            <a href="#" class="show-lpt">Esqueceu a Password?</a>
+                                            <a href="#" class="show-lpt">Esqueceu a Palavra-passe?</a> <br><br>
+                                            <a href="<?=ROOT?>login_company">Logar como empresa</a>
                                             <div class="lost-password-tootip">
-                                                <p>Entra com o seu email a enviaremos-te uma password</p>
+                                                <p>Entra com o seu email a enviaremos-te uma palavra-passe</p>
                                                 <input name="email" type="text"   onClick="this.select()" value="">
                                                 <button type="submit" name="recover_password"  class="btn float-btn color2-bg"> Send<i class="fas fa-caret-right"></i></button>
                                                 <div class="close-lpt"><i class="far fa-times"></i></div>
@@ -79,13 +79,13 @@
                                         <div class="custom-form">
                                             <form method="post"   name="registerform" class="main-register-form" id="main-register-form2">
                                                 <span style="font-size: 18px; color: red;"><?php check_error() ?></span><br>
-                                                <label >Full Name <span>*</span> </label>
+                                                <label >Nome Completo <span>*</span> </label>
                                                 <input name="name" type="text"   onClick="this.select()" value="<?= isset($_POST['name']) ? $_POST['name'] : '';?>">
-                                                <label>Email Address <span>*</span></label>
+                                                <label>Endereço de Email <span>*</span></label>
                                                 <input name="email" type="email"  onClick="this.select()" value="<?= isset($_POST['email']) ? $_POST['email'] : '';?>">
-                                                <label >Password <span>*</span></label>
+                                                <label >Palavra-passe <span>*</span></label>
                                                 <input name="password" type="password"   onClick="this.select()" value="<?= isset($_POST['password']) ? $_POST['password'] : '';?>" >
-                                                <label >Verficar Password <span>*</span></label>
+                                                <label >Verficar Palavra-passe <span>*</span></label>
                                                 <input name="password2" type="password"   onClick="this.select()" value="<?= isset($_POST['password2']) ? $_POST['password2'] : '';?>" >
                                                 <div class="filter-tags ft-list">
                                                     <input id="check-a2" type="checkbox" required>
@@ -97,7 +97,7 @@
                                                     <label for="check-a">Concordo com os <a href="#">Termos e Condições</a></label>
                                                 </div>
                                                 <div class="clearfix"></div>
-                                                <button type="submit" name="signup"    class="btn float-btn color2-bg"> Register  <i class="fas fa-caret-right"></i></button>
+                                                <button type="submit" name="signup"    class="btn float-btn color2-bg"> Registrar  <i class="fas fa-caret-right"></i></button>
                                             </form>
                                         </div>
                                     </div>
