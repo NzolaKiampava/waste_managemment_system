@@ -69,7 +69,7 @@
                       if (!in_array([$hf->province, $hf->municipy], $existingValues)) {
                           $existingValues[] = [$hf->province, $hf->municipy];
 
-                          $f = $DB->read("SELECT * FROM history_trashbucket inner join trash_buckets where trash_buckets.province = '$hf->province' and trash_buckets.municipy = '$hf->municipy' and history_trashbucket.status = 'full' and MONTH(history_trashbucket.status_date) <= '$month'");  
+                          $f = $DB->read("SELECT * FROM history_trashbucket where trashbucket_id = '$hf->trashbucket_id' and status = 'full' and (status_date >= '$date1' and status_date <= '$date2')");  
                           ?>
                           <tr>
                               <td><?=$hf->province?></td>
@@ -111,7 +111,7 @@
                       if (!in_array([$he->province, $he->municipy], $existingValues)) {
                           $existingValues[] = [$he->province, $he->municipy];
 
-                          $e = $DB->read("SELECT * FROM history_trashbucket inner join trash_buckets where trash_buckets.province = '$he->province' and trash_buckets.municipy = '$he->municipy' and history_trashbucket.status = 'empty' and MONTH(history_trashbucket.status_date) <= '$month'");  
+                          $e = $DB->read("SELECT * FROM history_trashbucket where trashbucket_id = '$he->trashbucket_id' and status = 'empty' and (status_date >= '$date1' and status_date <= '$date2')");  
                           ?>
                           <tr>
                               <td><?=$he->province?></td>
