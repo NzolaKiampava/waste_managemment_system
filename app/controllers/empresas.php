@@ -384,7 +384,8 @@ Class Empresas extends Controller
 		$data['groups'] = $DB->read("select * from colector_group where id_empresa = '$id_empresa' order by id desc");
 		$data['history_buckets_full'] = $DB->read("SELECT * from trash_buckets as tb inner join history_trashbucket ht on tb.id = ht.trashbucket_id where (ht.status_date >= '$date1' and ht.status_date <= '$date2') and tb.id_empresa = '$id_empresa' and  ht.status = 'full'");
 		$data['history_buckets_empty'] = $DB->read("SELECT * from trash_buckets as tb inner join history_trashbucket ht on tb.id = ht.trashbucket_id where (ht.status_date >= '$date1' and ht.status_date <= '$date2') and tb.id_empresa = '$id_empresa' and  ht.status = 'empty'");
-		
+		$data['date1'] = $date1;
+		$data['date2'] = $date2;
 		$month = date('m');
 		$data['months_history'] = $DB->read("SELECT * FROM trash_buckets AS tb INNER JOIN history_trashbucket AS ht ON tb.id = ht.trashbucket_id WHERE (ht.status_date >= '$date1' and ht.status_date <= '$date2') and tb.id_empresa = '$id_empresa' and ht.status = 'full'");
 
@@ -429,6 +430,11 @@ Class Empresas extends Controller
 			$id_empresa = $empresa_data->id;
 			$data['id_empresa'] = $id_empresa;
 		}
+
+		if(isset($_POST['imprimirstatus'])){
+			$this->imprimirelatoriostatus($_POST);
+			die;
+		}
 		$DB = Database::newInstance();
 
 		$data['contentores'] = $DB->read("SELECT * FROM trash_buckets where id_empresa = '$id_empresa'");
@@ -442,6 +448,50 @@ Class Empresas extends Controller
 
 		$data['page_title'] = "FiltrarRelatorio";
 		$this->view("empresas/filtrar_relatorio", $data);
+	}
+
+	public function imprimirelatoriostatus($POST){
+		$date1 = $POST['date1'];
+		$date2 = $POST['date2'];
+		$status = $POST['status'];
+
+		$Empresa = $this->load_model('Infoempresa');
+		$address = $this->load_model('Address');
+		$empresa_data = $Empresa->check_login(true, ["Empresa"]);
+
+		if(is_object($empresa_data)){
+			$data['user_data'] = $empresa_data;
+			$id_empresa = $empresa_data->id;
+			$data['id_empresa'] = $id_empresa;
+		}
+		$DB = Database::newInstance();
+
+		$data['contentores'] = $DB->read("SELECT * FROM trash_buckets where id_empresa = '$id_empresa'");
+
+		$data['count_trash'] = $DB->read("SELECT * FROM trash_buckets where id_empresa = '$id_empresa'");
+		$data['count_trash_full'] = $DB->read("SELECT * FROM trash_buckets where status = 'full'");
+		$data['count_trash_empty'] = $DB->read("SELECT * FROM trash_buckets where status = 'empty'");
+		$data['users'] = $DB->read("select * from users where id_empresa = '$id_empresa' order by id desc");
+		$data['messages'] = $DB->read("select * from messages where id_empresa = '$id_empresa' order by id desc");
+		$data['groups'] = $DB->read("select * from colector_group where id_empresa = '$id_empresa' order by id desc");
+		$data['history_buckets'] = $DB->read("SELECT * from trash_buckets as tb inner join history_trashbucket ht on tb.id = ht.trashbucket_id where (ht.status_date >= '$date1' and ht.status_date <= '$date2') and tb.id_empresa = '$id_empresa' and  ht.status = '$status'");
+		$data['date1'] = $date1;
+		$data['date2'] = $date2;
+
+		if($status == "empty"){
+			$data['status'] = "Vazio";
+		}else if($status == "full"){
+			$data['status'] = "Cheio";
+		}else{
+			$data['status'] = "Meio";
+		}
+		$data['status_c'] = $status;
+		
+		$month = date('m');
+		$data['months_history'] = $DB->read("SELECT * FROM trash_buckets AS tb INNER JOIN history_trashbucket AS ht ON tb.id = ht.trashbucket_id WHERE (ht.status_date >= '$date1' and ht.status_date <= '$date2') and tb.id_empresa = '$id_empresa' and ht.status = '$status'");
+
+		$data['page_title'] = "FiltrarRelatorio";
+		$this->view("empresas/imprimirelatoriostatus", $data);
 	}
 
 
