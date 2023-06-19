@@ -372,6 +372,6 @@
 <?php $this->view("footer", $data);?>
 
 <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8VCBIqcdWXeEMJsHOgBiozwHpDvZHEDg&callback=loadMap">
+    src="https://maps.googleapis.com/maps/api/js?key={API_KEY}&callback=loadMap">
 </script>
 <script src="<?=ASSETS.THEME?>js/maps-code.js"></script>
