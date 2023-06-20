@@ -1,5 +1,5 @@
 # Waste Management System with IOT
-Sistema de gestão, geolocalização e monitoramento de resíduos sólidos (SmartWASTE)
+Sistema de gestão, geolocalização e monitoramento de resíduos sólidos | Waste Managemment System (SmartWASTE)
 
 
 Pojecto de Conclusão do curso técnico de informática.
